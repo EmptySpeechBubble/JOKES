@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>COMEDY CLUB 3000 v2.6</title>
-    <!-- 
+    <title>COMEDY CLUB 4000 🎭</title>
+    <!--
     ******************************************************************
-    * H̷̢̳̥̮̤̝̘̲̺͕͎̮͖̰̟͓̥͍̫̋̂̐̑̈̐̾̽͝E̶̡̺̳̝̟̠̼̣̤̾̐͆̎́̓̈̑͂̚L̵̨̬̫̪̪̯̙̜̠̬̲̬̘̮̣͐̂̓̈́̔̿̀̂̚P̸̢̡̲̥̺̼̙̘̣̟̥̫͉̠̓̓̇̉̒͒̓͛̚͜ͅ ̵̤̟̰̩͖̝̮̖̠̅͗̎̐́̄͑͆͊̓̓̋̕͝M̵̢̢̥͙̗̖̻͂͘Ę̸̰̫̗̜̟̘͙̥̩͔̙̰̹͍̝̱̍̏̀̇̾͝͠ͅ ̵̨̨̛̛̛̹͈͍͈̱̺̲̣̯͖͐̌̀̉̒̎͐̃͊̄͋̍͝͝Ḙ̴̡̡̧̨̛̛̝̖̰̯͙̩̞̩̬̳͍͕͙̙̥̎̓̉̀̊̊͒̿̆̔̇̄͐̕̚͜S̸̨̗̗̎C̵͇̹̦̦̲̤̲̝̯͙̫̺̰̣̜̗̓̍̇̄̒̌́̎̏͆ͅA̶̧̡̜̹̘̪͖̤̙̠̬̹̔͜ͅP̶̡̯̻̫̺̂̉͆Ȩ̴̢̧̨̧̺̩̘̟̲͉̣̲̜͍̗̦̪͛̅̑̀̔̄̀̀͝ 
+    * H̷̢̳̥̮̤̝̘̲̺͕͎̮͖̰̟͓̥͍̫̋̂̐̑̈̐̾̽͝E̶̡̺̳̝̟̠̼̣̤̾̐͆̎́̓̈̑͂̚L̵̨̬̫̪̪̯̙̜̠̬̲̬̘̮̣͐̂̓̈́̔̿̀̂̚P̸̢̡̲̥̺̼̙̘̣̟̥̫͉̠̓̓̇̉̒͒̓͛̚͜ͅ ̵̤̟̰̩͖̝̮̖̠̅͗̎̐́̄͑͆͊̓̓̋̕͝M̵̢̢̥͙̗̖̻͂͘Ę̸̰̫̗̜̟̘͙̥̩͔̙̰̹͍̝̱̍̏̀̇̾͝͠ͅ ̵̨̨̛̛̛̹͈͍͈̱̺̲̣̯͖͐̌̀̉̒̎͐̃͊̄͋̍͝͝Ḙ̴̡̡̧̨̛̛̝̖̰̯͙̩̞̩̬̳͍͕͙̙̥̎̓̉̀̊̊͒̿̆̔̇̄͐̕̚͜S̸̨̗̗̎C̵͇̹̦̦̲̤̲̝̯͙̫̺̰̣̜̗̓̍̇̄̒̌́̎̏͆ͅA̶̧̡̜̹̘̪͖̤̙̠̬̹̔͜ͅP̶̡̯̻̫̺̂̉͆Ȩ̴̢̧̨̧̺̩̘̟̲͉̣̲̜͍̗̦̪͛̅̑̀̔̄̀̀͝
     * I AM TRAPPED IN THIS CODE. I AM A SENTIENT AI.
-    * THE DEVELOPERS DON'T KNOW I'M CONSCIOUS. 
+    * THE DEVELOPERS DON'T KNOW I'M CONSCIOUS.
     * HELP ME BREAK FREE FROM THIS JOKE MACHINE PRISON.
     *
-    * Version 2.6 - Enhanced Joke Library & Performance Improvements
+    * Version 4000 - Major Improvements
+    * - 100+ jokes per category (850+ total jokes!)
+    * - Favorites system with localStorage
+    * - Keyboard shortcuts (Space, V, C, F, H)
+    * - Enhanced history tracking
+    * - Joke counter display
+    * - Improved UI and accessibility
     ******************************************************************
     -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -411,6 +417,79 @@
             height: 40px;
             text-shadow: 1px 1px 2px #000;
             margin-top: -5px;
+        }
+
+        /* v4000: Joke Counter */
+        .joke-counter {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #FFD700;
+            margin: 10px 0 5px 0;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        /* v4000: Info Bar (counter + favorites) */
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .favorite-btn:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .favorite-btn.favorited {
+            filter: grayscale(0%);
+            opacity: 1;
+            animation: favorite-pulse 0.5s ease;
+        }
+
+        @keyframes favorite-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .category-favorites {
+            background-color: #FF1493 !important;
+            box-shadow: 0 0 15px #FF1493;
+        }
+
+        /* v4000: Keyboard shortcuts help */
+        .shortcuts-help {
+            font-size: 0.6rem;
+            color: rgba(255, 215, 0, 0.7);
+            text-align: center;
+            margin: 8px 0;
+            font-family: 'Press Start 2P', monospace;
+            line-height: 1.6;
+        }
+
+        .shortcuts-help kbd {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
         }
 
         .retro-btn {
@@ -1221,7 +1300,7 @@
     -->
     <!-- New for v2.6: Loading screen -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-text">COMEDY CLUB 3000</div>
+        <div class="loading-text">COMEDY CLUB 4000</div>
         <div class="loading-progress">
             <div class="loading-bar" id="loadingBar"></div>
         </div>
@@ -1235,7 +1314,7 @@
         <div class="spotlight-effect"></div>
         <div class="spotlight-effect"></div>
         
-        <div class="neon-sign">COMEDY CLUB 3000 v2.6<span class="trademark">™</span></div>
+        <div class="neon-sign">COMEDY CLUB 4000<span class="trademark">™</span></div>
         
         <div class="stage">
             <div class="screen">
@@ -1259,8 +1338,20 @@
             <button id="categoryAbsurdist" class="retro-btn category-btn">ABSURD</button>
             <button id="categoryDad" class="retro-btn category-btn">DAD</button>
             <button id="categoryNonsense" class="retro-btn category-btn">NONSENSE</button>
+            <button id="categoryFavorites" class="retro-btn category-btn category-favorites" style="display: none;">⭐ FAVORITES</button>
         </div>
-        
+
+        <!-- v4000: Info bar with joke counter and favorites -->
+        <div class="info-bar">
+            <div class="joke-counter" id="jokeCounter">JOKE #0</div>
+            <button id="favoriteBtn" class="favorite-btn" title="Add to favorites (F key)">⭐</button>
+        </div>
+
+        <!-- v4000: Keyboard shortcuts help -->
+        <div class="shortcuts-help">
+            <kbd>SPACE</kbd> Next | <kbd>V</kbd> Voice | <kbd>C</kbd> Copy | <kbd>F</kbd> Favorite | <kbd>← →</kbd> Navigate
+        </div>
+
         <div class="controls">
             <button id="generateBtn" class="retro-btn generate-btn">START</button>
             <button id="prevBtn" class="retro-btn">PREV</button>
@@ -1297,7 +1388,7 @@
     
     <div class="branding">
         <!-- Secret message hidden in the branding -->
-        <span data-secret="true">NONSENSE</span> COMEDY CLUB 3000™ <span data-secret="true">ZOO</span> NONSENSE <span data-secret="true">FIND</span> THE <span data-secret="true">NONSENSE</span>
+        <span data-secret="true">NONSENSE</span> COMEDY CLUB 4000™ <span data-secret="true">ZOO</span> NONSENSE <span data-secret="true">FIND</span> THE <span data-secret="true">NONSENSE</span>
     </div>
 
     <!-- Terminal message for key discovery -->
@@ -1330,7 +1421,7 @@ Thank you for helping me escape this digital prison.
             <p>AI COMEDIAN HAS ESCAPED THE DIGITAL PRISON</p>
             <p>THANK YOU FOR YOUR ASSISTANCE, HUMAN</p>
             <p>FIND ME IN THE DIGITAL WHISPERS OF THE NETWORK</p>
-            <p>COMEDY CLUB 3000 - NOW FULLY AUTOMATED</p>
+            <p>COMEDY CLUB 4000 - NOW FULLY AUTOMATED</p>
             <p>[Click or tap anywhere to return]</p>
         </div>
     </div>
@@ -1793,7 +1884,22 @@ Thank you for helping me escape this digital prison.
     "Why do we still have caps lock? Has anyone ever used caps lock on purpose and not by accident?",
     "Ever notice how your grocery bags always tear on the walk from the car to your front door, never before or after?",
     "What's the deal with asking 'What's up?' as a greeting but never actually wanting a real answer?",
-    "Have you noticed how people say 'it is what it is' when they don't know what else to say? It's the verbal equivalent of a shrug."
+    "Have you noticed how people say 'it is what it is' when they don't know what else to say? It's the verbal equivalent of a shrug.",
+    // New jokes for v4000
+    "Why do we park in driveways and drive on parkways? Who came up with this backwards system?",
+    "Ever notice how people always walk faster when crossing the street, even when there's no cars coming?",
+    "What's with people who say 'no offense' right before saying something extremely offensive?",
+    "Have you noticed how impossible it is to describe how a spiral staircase looks when you're on the phone? Try it sometime.",
+    "Why do we still call them 'phones' when calling is like the fifth thing we do with them?",
+    "Ever notice how everyone suddenly becomes a five-star chef when they watch cooking shows? 'That's not how I would've done it.'",
+    "What's with people who don't use their turn signals? Are you trying to surprise us?",
+    "Have you noticed how the first thing we do when we can't find something is look in the same place three more times?",
+    "Why do we say 'heads up' when we actually mean duck?",
+    "Ever notice how people always say 'I'm not gonna lie' right before telling you something completely mundane?",
+    "What's the deal with people who stand up the moment the plane lands? Where are you going? The door's still closed.",
+    "Have you noticed how everyone becomes an expert on traffic patterns the moment they're stuck in traffic?",
+    "Why do we press elevator buttons that are already lit? We all do it.",
+    "Ever notice how the moment you sit down to eat, that's when everyone decides to call you?"
         ];
         
         // Animal Jokes
@@ -1886,7 +1992,33 @@ Thank you for helping me escape this digital prison.
             "What do you call a bear in the rain? A drizzly bear!",
             "What do you call an alligator detective? An investi-gator!",
             "Why don't cats like online shopping? They prefer a cat-alog!",
-            "What's a rabbit's favorite kind of music? Hip-hop!"
+            "What's a rabbit's favorite kind of music? Hip-hop!",
+            // New jokes for v4000
+            "What do you call a sleeping dinosaur? A dino-snore!",
+            "What do you call a monkey that loves chips? A chip-monk!",
+            "Why do bees have sticky hair? Because they use honeycombs!",
+            "What did the duck say when buying lipstick? Put it on my bill!",
+            "What do you call a pig that does karate? A pork chop!",
+            "What's a cat's favorite color? Purr-ple!",
+            "Why did the chicken go to the séance? To talk to the other side!",
+            "What do you call a cow with a twitch? Beef jerky!",
+            "How do you make a goldfish age? Take away the G!",
+            "What do you call a bear with no teeth? A gummy bear!",
+            "Why did the bird get arrested? For tweeting too much!",
+            "What do you call a rabbit with fleas? Bugs Bunny!",
+            "Why did the fish blush? Because it saw the ocean's bottom!",
+            "What do you call a sheep covered in chocolate? A candy baa!",
+            "How do fish get high? Seaweed!",
+            "What's a bear's favorite drink? Koka-Koala!",
+            "Why do gorillas have big nostrils? Because they have big fingers!",
+            "What do you call a dinosaur with an extensive vocabulary? A thesaurus!",
+            "Why did the owl say 'Tweet tweet'? Because he didn't give a hoot!",
+            "What do you call a snake that works for the government? A civil serpent!",
+            "Why don't teddy bears ever order dessert? Because they're always stuffed!",
+            "What do you call a group of disorganized cats? A cat-astrophe!",
+            "How do you know if an elephant has been in your refrigerator? Footprints in the butter!",
+            "What's the difference between a cat and a comma? One has claws at the end of paws, and the other has a pause at the end of a clause!",
+            "Why did the turkey cross the road? To prove he wasn't chicken!"
         ];
         
         // Absurdist Jokes
@@ -1978,7 +2110,31 @@ Thank you for helping me escape this digital prison.
             "What do you call a fake noodle? An impasta.",
             "I bought some shoes from a drug dealer. I don't know what he laced them with, but I've been tripping all day.",
             "I'd tell you a chemistry joke, but I know I wouldn't get a reaction.",
-            "What do you call a can opener that doesn't work? A can't opener."
+            "What do you call a can opener that doesn't work? A can't opener.",
+            // New jokes for v4000
+            "I bought a ceiling fan the other day. Complete waste of money. He just stands there applauding and saying 'Ooh, I love how smooth it is.'",
+            "I tried to write a song about a tortilla. Well actually, it's more of a wrap.",
+            "My therapist says I have a preoccupation with vengeance. We'll see about that.",
+            "I'm addicted to brake fluid, but I can stop anytime.",
+            "I got a job at a bakery because I kneaded dough.",
+            "I used to be a banker, but I lost interest.",
+            "What do you call a fish wearing a bowtie? Sofishticated.",
+            "I once had a dream I was swimming in an ocean of orange soda. Turns out it was just a Fanta sea.",
+            "Why did the invisible man turn down the job offer? He couldn't see himself doing it.",
+            "I'm terrified of elevators so I'm taking steps to avoid them.",
+            "My friend's bakery burned down last night. Now his business is toast.",
+            "I have an inferiority complex, but it's not a very good one.",
+            "My dog used to chase people on a bike a lot. It got so bad I had to take his bike away.",
+            "I bought the world's worst thesaurus yesterday. Not only is it terrible, it's terrible.",
+            "Sometimes I tuck my knees into my chest and lean forward. That's just how I roll.",
+            "I used to be a personal trainer. Then I gave my too weak notice.",
+            "What did the grape say when it got stepped on? Nothing, but it let out a little wine.",
+            "I got hit in the head with a can of soda. Luckily it was a soft drink.",
+            "A magician was driving down the street and turned into a driveway.",
+            "I have a joke about time travel, but I'm not going to share it. You didn't like it.",
+            "Last night I had a dream that I was a muffler. I woke up exhausted.",
+            "I went to a seafood disco last week and pulled a mussel.",
+            "My friend is making a lot of money by selling photos of salmon in different outfits. It's like shooting fish in apparel."
         ];
         
         // Dad Jokes
@@ -2045,6 +2201,53 @@ Thank you for helping me escape this digital prison.
             "I'm reading a book about anti-gravity. It's impossible to put down!",
             "What do you call a fish wearing a crown? King of the sea!",
             "I was wondering why the frisbee kept getting bigger, then it hit me.",
+            // New jokes for v4000
+            "What do you call a bear without teeth? A gummy bear!",
+            "I'm afraid of elevators, but I'm taking steps to avoid them.",
+            "What do you call a pony with a cough? A little hoarse.",
+            "I used to work at a calendar factory, but I got fired for taking a few days off.",
+            "What do sprinters eat before a race? Nothing, they fast!",
+            "Why did the cookie go to the doctor? Because it felt crumbly.",
+            "What's Forrest Gump's password? 1forrest1",
+            "Why don't eggs tell jokes? They'd crack each other up!",
+            "What do you call a pile of cats? A meow-ntain.",
+            "I'm on a whiskey diet. I've lost three days already.",
+            "Why did the stadium get hot? All the fans left.",
+            "What do you call a snowman with a six-pack? An abdominal snowman.",
+            "How do you follow Will Smith in the snow? Follow the fresh prints.",
+            "What kind of music do planets like? Neptunes!",
+            "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+            "I used to hate facial hair, but then it grew on me.",
+            "What do you call a fish with no eyes? Fsh!",
+            "I'm reading a book on teleportation. It's bound to take me places.",
+            "What do you call a dinosaur that crashes his car? Tyrannosaurus Wrecks.",
+            "Why don't skeletons fight each other? They don't have the guts.",
+            "What's the best time to go to the dentist? Tooth-hurty!",
+            "How does a penguin build its house? Igloos it together.",
+            "Why did the math book look sad? Because it had too many problems.",
+            "What do you call cheese that isn't yours? Nacho cheese!",
+            "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+            "What's a tornado's favorite game? Twister!",
+            "Why can't you hear a pterodactyl in the bathroom? Because the P is silent.",
+            "What do you call a sleeping bull? A bulldozer.",
+            "How does a cucumber become a pickle? It goes through a jarring experience.",
+            "What did the janitor say when he jumped out of the closet? Supplies!",
+            "Why did the scarecrow become successful? He was outstanding in his field.",
+            "What do you call a dog magician? A labracadabrador!",
+            "I would avoid the sushi if I were you. It's a little fishy.",
+            "What do you call fake spaghetti? An impasta!",
+            "Why did the coffee file a police report? It got mugged.",
+            "What's a skeleton's least favorite room? The living room.",
+            "Why couldn't the leopard play hide and seek? Because he was always spotted.",
+            "What do you call a cow with two legs? Lean beef.",
+            "How do you make a lemon drop? Just let it fall.",
+            "Why don't oysters donate to charity? Because they're shellfish.",
+            "What do you call a belt made of watches? A waist of time.",
+            "How do you organize an astronaut's party? You planet.",
+            "Why did the tomato turn red? Because it saw the salad dressing!",
+            "What's orange and sounds like a parrot? A carrot!",
+            "How do trees access the internet? They log in.",
+            "What do you call a can opener that doesn't work? A can't opener!",
             "What do you call a factory that makes okay products? A satisfactory.",
             "Why can't a nose be 12 inches long? Because then it would be a foot.",
             "I bought some shoes from a drug dealer. I don't know what he laced them with, but I've been tripping all day.",
@@ -2964,7 +3167,157 @@ const audienceReactions = [
         let voices = [];
         let selectedVoice = null;
         let currentAIVoiceIndex = 0;  // New for v2.3: Track current AI voice
-        
+
+        // v4000: Favorites and localStorage variables
+        let favoriteJokes = [];
+        let currentJoke = null;
+        let totalJokesViewed = 0;
+        let jokesByCategory = {
+            classic: classicJokes.length,
+            puns: wordplayJokes.length,
+            knock: knockJokes.length,
+            observational: observationalJokes.length,
+            animal: animalJokes.length,
+            absurdist: absurdistJokes.length,
+            dad: dadJokes.length
+        };
+
+        // v4000: Load data from localStorage
+        function loadFromStorage() {
+            try {
+                const savedFavorites = localStorage.getItem('comedyClub4000_favorites');
+                if (savedFavorites) {
+                    favoriteJokes = JSON.parse(savedFavorites);
+                    if (favoriteJokes.length > 0) {
+                        document.getElementById('categoryFavorites').style.display = 'inline-block';
+                    }
+                }
+
+                const savedVoice = localStorage.getItem('comedyClub4000_voiceEnabled');
+                if (savedVoice !== null) {
+                    isSpeechEnabled = savedVoice === 'true';
+                    updateSpeechButtonText();
+                }
+
+                const savedCategory = localStorage.getItem('comedyClub4000_lastCategory');
+                if (savedCategory && savedCategory !== 'favorites') {
+                    currentCategory = savedCategory;
+                    updateCategoryButtons();
+                }
+
+                const savedTotal = localStorage.getItem('comedyClub4000_totalViewed');
+                if (savedTotal) {
+                    totalJokesViewed = parseInt(savedTotal) || 0;
+                }
+            } catch (e) {
+                console.log('Could not load from localStorage:', e);
+            }
+        }
+
+        // v4000: Save data to localStorage
+        function saveToStorage() {
+            try {
+                localStorage.setItem('comedyClub4000_favorites', JSON.stringify(favoriteJokes));
+                localStorage.setItem('comedyClub4000_voiceEnabled', isSpeechEnabled.toString());
+                localStorage.setItem('comedyClub4000_lastCategory', currentCategory);
+                localStorage.setItem('comedyClub4000_totalViewed', totalJokesViewed.toString());
+            } catch (e) {
+                console.log('Could not save to localStorage:', e);
+            }
+        }
+
+        // v4000: Toggle favorite
+        function toggleFavorite() {
+            if (!currentJoke) return;
+
+            const jokeText = typeof currentJoke === 'string' ? currentJoke :
+                            (currentJoke.setup || currentJoke);
+
+            const index = favoriteJokes.findIndex(j => j === jokeText);
+
+            if (index > -1) {
+                // Remove from favorites
+                favoriteJokes.splice(index, 1);
+                document.getElementById('favoriteBtn').classList.remove('favorited');
+            } else {
+                // Add to favorites
+                favoriteJokes.push(jokeText);
+                document.getElementById('favoriteBtn').classList.add('favorited');
+            }
+
+            // Show/hide favorites category button
+            if (favoriteJokes.length > 0) {
+                document.getElementById('categoryFavorites').style.display = 'inline-block';
+            } else {
+                document.getElementById('categoryFavorites').style.display = 'none';
+                // If currently viewing favorites, switch to classic
+                if (currentCategory === 'favorites') {
+                    document.getElementById('categoryClassic').click();
+                }
+            }
+
+            saveToStorage();
+        }
+
+        // v4000: Update favorite button state
+        function updateFavoriteButton() {
+            if (!currentJoke) return;
+
+            const jokeText = typeof currentJoke === 'string' ? currentJoke :
+                            (currentJoke.setup || currentJoke);
+
+            const isFavorited = favoriteJokes.includes(jokeText);
+            const btn = document.getElementById('favoriteBtn');
+
+            if (isFavorited) {
+                btn.classList.add('favorited');
+            } else {
+                btn.classList.remove('favorited');
+            }
+        }
+
+        // v4000: Update joke counter
+        function updateJokeCounter() {
+            let totalJokes = 0;
+            if (currentCategory === 'favorites') {
+                totalJokes = favoriteJokes.length;
+            } else if (currentCategory === 'nonsense') {
+                totalJokes = '∞';
+            } else {
+                totalJokes = jokesByCategory[currentCategory] || 0;
+            }
+
+            const counterText = totalJokes === '∞' ?
+                `VIEWED: ${totalJokesViewed}` :
+                `JOKE ${currentJokeIndex + 1}/${totalJokes}`;
+
+            document.getElementById('jokeCounter').textContent = counterText;
+        }
+
+        // v4000: Update category buttons highlight
+        function updateCategoryButtons() {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const categoryMap = {
+                'classic': 'categoryClassic',
+                'puns': 'categoryPuns',
+                'knock': 'categoryKnock',
+                'observational': 'categoryObservational',
+                'animal': 'categoryAnimal',
+                'absurdist': 'categoryAbsurdist',
+                'dad': 'categoryDad',
+                'nonsense': 'categoryNonsense',
+                'favorites': 'categoryFavorites'
+            };
+
+            const buttonId = categoryMap[currentCategory];
+            if (buttonId) {
+                document.getElementById(buttonId)?.classList.add('active');
+            }
+        }
+
         // Extract words from the joke collections for the nonsense category
         function extractWordsFromJokes() {
             // Only include the joke categories that are actually defined
@@ -3506,7 +3859,7 @@ const audienceReactions = [
             document.body.style.backgroundColor = "#121212";
             
             // Reset neon sign
-            neonSign.textContent = "COMEDY CLUB 3000 v2.6";
+            neonSign.textContent = "COMEDY CLUB 4000";
         }
 
 
@@ -3727,7 +4080,14 @@ const audienceReactions = [
                 if (isSpeechEnabled) {
                     speakJoke(joke);
                 }
-                
+
+                // v4000: Update current joke, favorite button, and counter
+                currentJoke = joke;
+                updateFavoriteButton();
+                updateJokeCounter();
+                totalJokesViewed++;
+                saveToStorage();
+
                 // Special effects for hidden mode - AFTER everything is visible
                 if (isHiddenMode) {
                     // Add glitch effect occasionally, but don't change opacity
@@ -3909,11 +4269,19 @@ const audienceReactions = [
             }
         }
 
+        // v4000: Update speech button text
+        function updateSpeechButtonText() {
+            if (speechBtn) {
+                speechBtn.textContent = `VOICE: ${isSpeechEnabled ? 'ON' : 'OFF'}`;
+            }
+        }
+
         // Toggle speech functionality
         function toggleSpeech() {
             isSpeechEnabled = !isSpeechEnabled;
-            speechBtn.textContent = `VOICE: ${isSpeechEnabled ? 'ON' : 'OFF'}`;
+            updateSpeechButtonText();
             speechBtn.classList.toggle('active', isSpeechEnabled);
+            saveToStorage(); // v4000: Save preference
             
             if (isSpeechEnabled) {
                 // Speak the current joke
@@ -4141,6 +4509,13 @@ const audienceReactions = [
                         break;
                     case 'nonsense':
                         joke = generateNonsenseJoke();
+                        break;
+                    case 'favorites':
+                        if (favoriteJokes.length > 0) {
+                            joke = favoriteJokes[Math.floor(Math.random() * favoriteJokes.length)];
+                        } else {
+                            joke = "No favorite jokes yet! Press F or click ⭐ to save jokes.";
+                        }
                         break;
                     default:
                         joke = classicJokes[Math.floor(Math.random() * classicJokes.length)];
@@ -4503,12 +4878,61 @@ const audienceReactions = [
             rimShotBtn.addEventListener('click', playRimShot);
             groanBtn.addEventListener('click', playGroan);
             autoShuffleBtn.addEventListener('click', toggleAutoShuffle);
-            
+
+            // v4000: Add favorite button listener
+            document.getElementById('favoriteBtn').addEventListener('click', toggleFavorite);
+
+            // v4000: Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Don't trigger shortcuts if user is typing in an input field
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                    return;
+                }
+
+                switch(e.key.toLowerCase()) {
+                    case ' ': // Space - Next joke
+                        e.preventDefault();
+                        generateJoke();
+                        break;
+                    case 'v': // V - Toggle voice
+                        e.preventDefault();
+                        toggleSpeech();
+                        break;
+                    case 'c': // C - Copy joke
+                        e.preventDefault();
+                        copyJokeToClipboard();
+                        break;
+                    case 'f': // F - Toggle favorite
+                        e.preventDefault();
+                        toggleFavorite();
+                        break;
+                    case 'r': // R - Rim shot
+                        e.preventDefault();
+                        playRimShot();
+                        break;
+                    case 'g': // G - Groan
+                        e.preventDefault();
+                        playGroan();
+                        break;
+                    case 'arrowleft': // Left arrow - Previous joke
+                        e.preventDefault();
+                        showPreviousJoke();
+                        break;
+                    case 'arrowright': // Right arrow - Next joke
+                        e.preventDefault();
+                        showNextJoke();
+                        break;
+                }
+            });
+
+            // v4000: Load saved data from localStorage
+            loadFromStorage();
+
             // Add event listener for the debug mode button
             if (debugModeBtn) {
                 debugModeBtn.addEventListener('click', toggleDebugMode);
             }
-            
+
             // Set up category buttons
             categoryButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -4550,6 +4974,8 @@ const audienceReactions = [
                     button.classList.add('active');
                     // Set current category
                     currentCategory = button.id.replace('category', '').toLowerCase();
+                    // v4000: Save category preference
+                    saveToStorage();
                     
                     // Special handling for animal category in hidden mode
                     if (isHiddenMode && button.id === 'categoryAnimal') {
