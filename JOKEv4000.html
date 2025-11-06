@@ -734,37 +734,69 @@
                 max-width: 95%;
                 margin: 10px auto;
             }
-            
+
             .neon-sign {
                 font-size: 1.5rem;
+                cursor: pointer; /* Ensure cursor shows on mobile too */
             }
-            
+
             .joke-text {
-                font-size: 0.9rem;
+                font-size: 1.1rem; /* Increased from 0.9rem for better readability */
+                max-height: 120px; /* Slightly smaller on mobile */
             }
-            
+
+            .setup-emoji-line {
+                font-size: 1.5rem; /* Slightly smaller than desktop 1.8rem */
+                height: 30px;
+            }
+
+            .punchline-emoji-line {
+                font-size: 1.5rem; /* Slightly smaller than desktop 1.8rem */
+                height: 30px;
+            }
+
             .retro-btn {
                 padding: 8px 5px;
                 font-size: 0.6rem;
                 min-height: 44px; /* Standard touch target size */
             }
-            
+
             .generate-btn {
                 font-size: 0.8rem;
             }
-            
+
             .category-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 5px;
             }
-            
+
             .controls {
                 gap: 8px;
             }
-            
+
             /* Increase emoji click area */
             .emoji-key-sequence {
                 padding: 12px;
+            }
+
+            /* BCC Mode mobile adjustments */
+            .bcc-clearance-level {
+                top: 5px;
+                left: 5px;
+                font-size: 0.65rem;
+                padding: 6px 10px;
+            }
+
+            .bcc-access-granted h1 {
+                font-size: 2rem; /* Smaller on mobile */
+            }
+
+            .bcc-access-granted p {
+                font-size: 0.9rem; /* Smaller on mobile */
+            }
+
+            .bcc-mode .joke-text {
+                font-size: 1.0rem; /* Slightly smaller for classified text on mobile */
             }
         }
 
@@ -7268,6 +7300,11 @@ const audienceReactions = [
             // Add logo click handler for BCC mode - v5000
             if (neonSign) {
                 neonSign.addEventListener('click', handleLogoClick);
+                // Add touch support for mobile
+                neonSign.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    handleLogoClick();
+                });
                 neonSign.style.cursor = 'pointer';
             }
 
@@ -7275,6 +7312,11 @@ const audienceReactions = [
             const bccClearance = document.getElementById('bccClearanceLevel');
             if (bccClearance) {
                 bccClearance.addEventListener('click', exitBCCMode);
+                // Add touch support for mobile
+                bccClearance.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    exitBCCMode();
+                });
                 bccClearance.style.cursor = 'pointer';
             }
 
