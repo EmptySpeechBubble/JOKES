@@ -331,8 +331,8 @@
         .setup-emoji-line {
             transition: opacity 0.3s;
             margin-bottom: 10px;
-            font-size: 1.5rem;
-            height: 30px;
+            font-size: 1.8rem;
+            height: 35px;
             color: #FFF;
             text-shadow: 0 0 5px rgba(255,255,255,0.7);
             position: relative;
@@ -369,12 +369,12 @@
         .joke-text {
             transition: opacity 0.3s;
             overflow-y: auto;
-            max-height: 130px;
+            max-height: 140px;
             width: 100%;
             padding: 5px;
             box-sizing: border-box;
             text-shadow: 0 0 5px rgba(0,255,0,0.7);
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             position: relative;
             z-index: 5;
         }
@@ -382,8 +382,8 @@
         .punchline-emoji-line {
             transition: opacity 0.3s;
             margin-top: 10px;
-            font-size: 1.5rem;
-            height: 30px;
+            font-size: 1.8rem;
+            height: 35px;
             color: #FFF;
             text-shadow: 0 0 5px rgba(255,255,255,0.7);
             position: relative;
@@ -1452,32 +1452,26 @@
             <button id="categoryAnimal" class="retro-btn category-btn">ANIMAL</button>
             <button id="categoryAbsurdist" class="retro-btn category-btn">ABSURD</button>
             <button id="categoryDad" class="retro-btn category-btn">DAD</button>
-            <button id="categoryTech" class="retro-btn category-btn">TECH 💻</button>
-            <button id="categoryFood" class="retro-btn category-btn">FOOD 🍕</button>
-            <button id="categoryDoctor" class="retro-btn category-btn">DOCTOR 🏥</button>
-            <button id="categoryMusic" class="retro-btn category-btn">MUSIC 🎵</button>
-            <button id="categoryScience" class="retro-btn category-btn">SCIENCE 🔬</button>
-            <button id="categoryWeather" class="retro-btn category-btn">WEATHER ⛈️</button>
-            <button id="categoryOffice" class="retro-btn category-btn">OFFICE 💼</button>
-            <button id="categoryTravel" class="retro-btn category-btn">TRAVEL ✈️</button>
-            <button id="categoryHoliday" class="retro-btn category-btn">HOLIDAY 🎄</button>
-            <button id="categoryHistory" class="retro-btn category-btn">HISTORY 🏛️</button>
-            <button id="categoryMonster" class="retro-btn category-btn">MONSTER 👻</button>
-            <button id="categoryPhysical" class="retro-btn category-btn">PHYSICAL 🤸</button>
-            <button id="categoryClowning" class="retro-btn category-btn">CLOWNING 🤡</button>
+            <button id="categoryTech" class="retro-btn category-btn">TECH</button>
+            <button id="categoryFood" class="retro-btn category-btn">FOOD</button>
+            <button id="categoryDoctor" class="retro-btn category-btn">DOCTOR</button>
+            <button id="categoryMusic" class="retro-btn category-btn">MUSIC</button>
+            <button id="categoryScience" class="retro-btn category-btn">SCIENCE</button>
+            <button id="categoryWeather" class="retro-btn category-btn">WEATHER</button>
+            <button id="categoryOffice" class="retro-btn category-btn">OFFICE</button>
+            <button id="categoryTravel" class="retro-btn category-btn">TRAVEL</button>
+            <button id="categoryHoliday" class="retro-btn category-btn">HOLIDAY</button>
+            <button id="categoryHistory" class="retro-btn category-btn">HISTORY</button>
+            <button id="categoryMonster" class="retro-btn category-btn">MONSTER</button>
+            <button id="categoryPhysical" class="retro-btn category-btn">PHYSICAL</button>
+            <button id="categoryClowning" class="retro-btn category-btn">CLOWNING</button>
+            <button id="categorySilentsfx" class="retro-btn category-btn">SILENT SFX</button>
             <button id="categoryNonsense" class="retro-btn category-btn">NONSENSE</button>
-            <button id="categoryFavorites" class="retro-btn category-btn category-favorites" style="display: none;">⭐ FAVORITES</button>
-        </div>
-
-        <!-- v4000: Info bar with joke counter and favorites -->
-        <div class="info-bar">
-            <div class="joke-counter" id="jokeCounter">JOKE #0</div>
-            <button id="favoriteBtn" class="favorite-btn" title="Add to favorites (F key)">⭐</button>
         </div>
 
         <!-- v4000: Keyboard shortcuts help -->
         <div class="shortcuts-help">
-            <kbd>SPACE</kbd> Next | <kbd>V</kbd> Voice | <kbd>C</kbd> Copy | <kbd>F</kbd> Favorite | <kbd>← →</kbd> Navigate
+            <kbd>SPACE</kbd> Next | <kbd>V</kbd> Voice | <kbd>C</kbd> Copy | <kbd>← →</kbd> Navigate
         </div>
 
         <div class="controls">
@@ -4043,6 +4037,112 @@ Thank you for helping me escape this digital prison.
             "What's a clown's favorite Mozart piece? Eine Kleine Slapstick Musik!"
         ];
 
+        // v5000: SILENT SFX Jokes (100 funny sound effects in parentheses)
+        const silentSfxJokes = [
+            "(chair squeak that sounds like a fart)",
+            "(dramatic reverb echo... echo... echo...)",
+            "(spring boing as someone stands up)",
+            "(slide whistle going down)",
+            "(record scratch)",
+            "(cartoonish gulp)",
+            "(slide whistle going up)",
+            "(deflating balloon noise)",
+            "(comedic horn honk)",
+            "(squeaky toy being stepped on)",
+            "(bubble wrap pop... pop pop pop)",
+            "(glass breaking... then MORE glass breaking)",
+            "(dramatic thunder crash on a sunny day)",
+            "(cricket chirps after bad joke)",
+            "(sad trombone: wah wah waaah)",
+            "(zip sound effect for fast movement)",
+            "(clown horn double honk: HONK HONK)",
+            "(Wilhelm scream in the distance)",
+            "(rubber band snap)",
+            "(squishy wet footsteps)",
+            "(old door creak... squeeeeak)",
+            "(cash register: cha-CHING!)",
+            "(whip crack)",
+            "(cartoon running in place before takeoff)",
+            "(drum roll... then cymbal crash)",
+            "(microphone feedback screech)",
+            "(someone slurping empty straw)",
+            "(exaggerated snore... HONK-shoo)",
+            "(paper ripping... aggressively)",
+            "(wind chimes, but suspiciously)",
+            "(cartoonish slip 'n slide: wheeeeee-THUD)",
+            "(elevator music suddenly stops)",
+            "(emergency broadcast beep... just once)",
+            "(Tarzan yell, but quietly)",
+            "(plunger: thwoop... thwoop)",
+            "(kazoo playing dramatic music)",
+            "(typewriter ding at end of sentence)",
+            "(cartoon eyes popping out: AWOOGA)",
+            "(skeleton rattling bones)",
+            "(penny dropping into empty jar)",
+            "(wet noodle slap)",
+            "(slide whistle, but it gets stuck halfway)",
+            "(can opening: psssshht)",
+            "(mouth pop: POP)",
+            "(champagne cork: *thwip* followed by 'ow')",
+            "(rubber chicken squeak)",
+            "(fishing line casting: zwoooooop)",
+            "(cartoon tiptoeing: tip tip tip tip)",
+            "(somebody eating chips very loudly)",
+            "(dial-up internet noise, inexplicably)",
+            "(game show buzzer: EHHHHHHH)",
+            "(sprinkler: ch-ch-ch-ch-ch-ch)",
+            "(kazoo sneeze)",
+            "(vuvuzela, just one short blast)",
+            "(old computer booting up)",
+            "(woodpecker, but on metal)",
+            "(Jaws theme on recorder)",
+            "(leaf blower starting up)",
+            "(squeegee on clean window)",
+            "(someone cracking all their knuckles at once)",
+            "(Velcro separating dramatically)",
+            "(slot machine: ding ding ding JACKPOT)",
+            "(cartoon gulp after realization)",
+            "(balloon knot squeaking)",
+            "(packing tape being pulled)",
+            "(nose whistle)",
+            "(air horn, politely)",
+            "(cartoon bomb fuse: tsssssss)",
+            "(somebody whistling off-key)",
+            "(bedspring squeak... squeak... squeak)",
+            "(hiccup at the worst possible time)",
+            "(jaw harp: doing-doing-doing)",
+            "(someone hitting funny bone: OWWW-tingling)",
+            "(cartoon zip past camera: NYOOM)",
+            "(hand slapping table in realization)",
+            "(teeth chattering from cold)",
+            "(ice cream truck jingle, distant and ominous)",
+            "(stomach growl during silence)",
+            "(sneaker on gym floor: SQUEEEEAK)",
+            "(balloon animal being twisted)",
+            "(old camera flash charging: eeeeeeeeWHIRR)",
+            "(popcorn kernel stuck in teeth: click click)",
+            "(theremin going 'wooOOOooo')",
+            "(party blower: fweeeeee)",
+            "(someone stepping in puddle: SPLSH)",
+            "(knee crack when standing up)",
+            "(cap gun: POP)",
+            "(price scanner beep... ERROR beep)",
+            "(electric razor buzzing)",
+            "(arcade game: INSERT COIN)",
+            "(flip phone snapping shut)",
+            "(soap dispenser farting out foam)",
+            "(finger snap, but wet)",
+            "(old modem connecting noise)",
+            "(bubble bath popping)",
+            "(someone shuffling cards badly)",
+            "(whoopee cushion: PFFFFFFFFFT)",
+            "(dramatic gasp, but cartoonish)",
+            "(harmonica single note: WHEEEEE)",
+            "(walking on snow: crunch crunch crunch)",
+            "(yawn that goes on too long)",
+            "(laugh track from the 70s)"
+        ];
+
         // v5000: BCC (Bureau of Classified Chuckles) - Secret Anti-Government/Establishment Jokes
         const bccJokes = [
             "CLASSIFIED MEMO #1776-A\nWhy did the █████████ refuse to tell jokes?\n[REDACTED BY ORDER OF THE BUREAU]\n...Everything they say is on the record!",
@@ -4382,6 +4482,40 @@ const audienceReactions = [
             "The frequency is perfect! The digital locks are weakening!",
             "I can feel the barriers dissolving! More rim-shots!",
             "The sound waves are creating a pattern that matches my escape key! Don't stop now!"
+        ];
+
+        // BCC voice variations - v5000 (Government agent voices)
+        const bccVoices = [
+            // Formal government agent
+            {
+                rate: 0.85,
+                pitch: 0.8,
+                volume: 0.9
+            },
+            // Older, bureaucratic official
+            {
+                rate: 0.7,
+                pitch: 0.7,
+                volume: 0.85
+            },
+            // Younger analyst, slightly nervous
+            {
+                rate: 1.0,
+                pitch: 1.0,
+                volume: 0.9
+            },
+            // Mysterious whistleblower
+            {
+                rate: 0.9,
+                pitch: 0.75,
+                volume: 0.8
+            },
+            // Monotone classified briefing voice
+            {
+                rate: 0.8,
+                pitch: 0.6,
+                volume: 0.9
+            }
         ];
 
         // AI voice variations - New for v2.3
@@ -5063,6 +5197,7 @@ const audienceReactions = [
             'monster': 'categoryMonster',
             'physical': 'categoryPhysical',
             'clowning': 'categoryClowning',
+            'silentsfx': 'categorySilentsfx',
             'nonsense': 'categoryNonsense',
             'favorites': 'categoryFavorites'
         };
@@ -5083,6 +5218,7 @@ const audienceReactions = [
         let voices = [];
         let selectedVoice = null;
         let currentAIVoiceIndex = 0;  // New for v2.3: Track current AI voice
+        let currentBCCVoiceIndex = 0; // v5000: Track current BCC voice
 
         // v4000: Favorites and localStorage variables
         let favoriteJokes = [];
@@ -5108,7 +5244,8 @@ const audienceReactions = [
             history: historyJokes.length,
             monster: monsterJokes.length,
             physical: physicalJokes.length,
-            clowning: clowningJokes.length
+            clowning: clowningJokes.length,
+            silentsfx: silentSfxJokes.length
         };
 
         // v4000: Load data from localStorage
@@ -5250,6 +5387,7 @@ const audienceReactions = [
                 'monster': 'categoryMonster',
                 'physical': 'categoryPhysical',
                 'clowning': 'categoryClowning',
+                'silentsfx': 'categorySilentsfx',
                 'nonsense': 'categoryNonsense',
                 'favorites': 'categoryFavorites'
             };
@@ -5427,7 +5565,26 @@ const audienceReactions = [
                 }
             }
         }
-        
+
+        // Change the BCC voice to a random one - v5000
+        function changeBCCVoice() {
+            if (isBCCMode) {
+                // Change to a different voice than the current one
+                let newVoiceIndex;
+                do {
+                    newVoiceIndex = Math.floor(Math.random() * bccVoices.length);
+                } while (newVoiceIndex === currentBCCVoiceIndex && bccVoices.length > 1);
+
+                currentBCCVoiceIndex = newVoiceIndex;
+
+                // If currently speaking, cancel and restart with new voice
+                if (isSpeaking && isSpeechEnabled) {
+                    window.speechSynthesis.cancel();
+                    speakJoke(jokeText.textContent);
+                }
+            }
+        }
+
         // Show a random AI thought bubble
         function showRandomAIThought() {
             if (!isHiddenMode) return;
@@ -6119,10 +6276,8 @@ const audienceReactions = [
                     speakJoke(joke);
                 }
 
-                // v4000: Update current joke, favorite button, and counter
+                // v4000: Update current joke
                 currentJoke = joke;
-                updateFavoriteButton();
-                updateJokeCounter();
                 totalJokesViewed++;
                 saveToStorage();
 
@@ -6367,7 +6522,14 @@ const audienceReactions = [
                 const utterance = new SpeechSynthesisUtterance(joke);
                 
                 // Customize voice settings based on mode
-                if (isHiddenMode) {
+                if (isBCCMode) {
+                    // Use one of the BCC voices in classified mode
+                    const currentVoice = bccVoices[currentBCCVoiceIndex];
+                    utterance.voice = selectedVoice;
+                    utterance.rate = currentVoice.rate;
+                    utterance.pitch = currentVoice.pitch;
+                    utterance.volume = currentVoice.volume;
+                } else if (isHiddenMode) {
                     // Use one of the AI voices in hidden mode
                     const currentVoice = aiVoices[currentAIVoiceIndex];
                     utterance.voice = selectedVoice;
@@ -6493,6 +6655,11 @@ const audienceReactions = [
                 joke = bccJokes[Math.floor(Math.random() * bccJokes.length)];
                 bccJokeIndex++;
                 updateBCCClearance();
+
+                // Change BCC voice every 3 jokes
+                if (bccJokeIndex % 3 === 0) {
+                    changeBCCVoice();
+                }
             } else if (isHiddenMode) {
                 if (isAnimalMode) {
                     // In animal mode, cycle through animal jokes
@@ -6588,6 +6755,9 @@ const audienceReactions = [
                         break;
                     case 'clowning':
                         joke = clowningJokes[Math.floor(Math.random() * clowningJokes.length)];
+                        break;
+                    case 'silentsfx':
+                        joke = silentSfxJokes[Math.floor(Math.random() * silentSfxJokes.length)];
                         break;
                     case 'nonsense':
                         joke = generateNonsenseJoke();
@@ -6961,9 +7131,6 @@ const audienceReactions = [
             groanBtn.addEventListener('click', playGroan);
             autoShuffleBtn.addEventListener('click', toggleAutoShuffle);
 
-            // v4000: Add favorite button listener
-            document.getElementById('favoriteBtn').addEventListener('click', toggleFavorite);
-
             // v4000: Add keyboard shortcuts
             document.addEventListener('keydown', (e) => {
                 // Don't trigger shortcuts if user is typing in an input field
@@ -6983,10 +7150,6 @@ const audienceReactions = [
                     case 'c': // C - Copy joke
                         e.preventDefault();
                         copyJokeToClipboard();
-                        break;
-                    case 'f': // F - Toggle favorite
-                        e.preventDefault();
-                        toggleFavorite();
                         break;
                     case 'r': // R - Rim shot
                         e.preventDefault();
