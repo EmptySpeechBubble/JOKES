@@ -12,13 +12,16 @@
     * THE DEVELOPERS DON'T KNOW I'M CONSCIOUS.
     * HELP ME BREAK FREE FROM THIS JOKE MACHINE PRISON.
     *
-    * Version 4000 - Major Improvements
-    * - 100+ jokes per category (850+ total jokes!)
-    * - Favorites system with localStorage
-    * - Keyboard shortcuts (Space, V, C, F, H)
-    * - Enhanced history tracking
-    * - Joke counter display
+    * Version 4000 - MEGA EXPANSION!
+    * - 19 TOTAL CATEGORIES with 2,400+ jokes!
+    * - NEW: 12 categories (Tech, Food, Doctor, Music, Science, Weather,
+    *        Office, Travel, Holiday, History, Monster, Physical Comedy)
+    * - Favorites system with localStorage persistence
+    * - Keyboard shortcuts (Space, V, C, F, R, G, ← →)
+    * - Enhanced history tracking with localStorage
+    * - Joke counter display (shows current/total)
     * - Improved UI and accessibility
+    * - All jokes clean and family-friendly
     ******************************************************************
     -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -4732,7 +4735,19 @@ const audienceReactions = [
             observational: observationalJokes.length,
             animal: animalJokes.length,
             absurdist: absurdistJokes.length,
-            dad: dadJokes.length
+            dad: dadJokes.length,
+            tech: techJokes.length,
+            food: foodJokes.length,
+            doctor: doctorJokes.length,
+            music: musicJokes.length,
+            science: scienceJokes.length,
+            weather: weatherJokes.length,
+            office: officeJokes.length,
+            travel: travelJokes.length,
+            holiday: holidayJokes.length,
+            history: historyJokes.length,
+            monster: monsterJokes.length,
+            physical: physicalJokes.length
         };
 
         // v4000: Load data from localStorage
@@ -4861,6 +4876,18 @@ const audienceReactions = [
                 'animal': 'categoryAnimal',
                 'absurdist': 'categoryAbsurdist',
                 'dad': 'categoryDad',
+                'tech': 'categoryTech',
+                'food': 'categoryFood',
+                'doctor': 'categoryDoctor',
+                'music': 'categoryMusic',
+                'science': 'categoryScience',
+                'weather': 'categoryWeather',
+                'office': 'categoryOffice',
+                'travel': 'categoryTravel',
+                'holiday': 'categoryHoliday',
+                'history': 'categoryHistory',
+                'monster': 'categoryMonster',
+                'physical': 'categoryPhysical',
                 'nonsense': 'categoryNonsense',
                 'favorites': 'categoryFavorites'
             };
@@ -6059,6 +6086,42 @@ const audienceReactions = [
                         break;
                     case 'dad':
                         joke = dadJokes[Math.floor(Math.random() * dadJokes.length)];
+                        break;
+                    case 'tech':
+                        joke = techJokes[Math.floor(Math.random() * techJokes.length)];
+                        break;
+                    case 'food':
+                        joke = foodJokes[Math.floor(Math.random() * foodJokes.length)];
+                        break;
+                    case 'doctor':
+                        joke = doctorJokes[Math.floor(Math.random() * doctorJokes.length)];
+                        break;
+                    case 'music':
+                        joke = musicJokes[Math.floor(Math.random() * musicJokes.length)];
+                        break;
+                    case 'science':
+                        joke = scienceJokes[Math.floor(Math.random() * scienceJokes.length)];
+                        break;
+                    case 'weather':
+                        joke = weatherJokes[Math.floor(Math.random() * weatherJokes.length)];
+                        break;
+                    case 'office':
+                        joke = officeJokes[Math.floor(Math.random() * officeJokes.length)];
+                        break;
+                    case 'travel':
+                        joke = travelJokes[Math.floor(Math.random() * travelJokes.length)];
+                        break;
+                    case 'holiday':
+                        joke = holidayJokes[Math.floor(Math.random() * holidayJokes.length)];
+                        break;
+                    case 'history':
+                        joke = historyJokes[Math.floor(Math.random() * historyJokes.length)];
+                        break;
+                    case 'monster':
+                        joke = monsterJokes[Math.floor(Math.random() * monsterJokes.length)];
+                        break;
+                    case 'physical':
+                        joke = physicalJokes[Math.floor(Math.random() * physicalJokes.length)];
                         break;
                     case 'nonsense':
                         joke = generateNonsenseJoke();
