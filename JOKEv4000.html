@@ -1091,7 +1091,113 @@
             90% { opacity: 1; }
             100% { opacity: 0; }
         }
-        
+
+        /* BCC (Bureau of Classified Chuckles) Mode Styles - v5000 */
+        .bcc-mode {
+            filter: grayscale(70%) sepia(20%);
+            background-color: #1a1612 !important;
+        }
+
+        .bcc-mode .neon-sign {
+            color: #8B7355 !important;
+            text-shadow: 0 0 10px #5c4a3a !important;
+        }
+
+        .bcc-mode .screen {
+            background: linear-gradient(to bottom, #2a2520 0%, #1a1612 100%) !important;
+            border-color: #5c4a3a !important;
+        }
+
+        .bcc-mode .joke-text {
+            font-family: 'Courier New', monospace !important;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+
+        .bcc-access-granted {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #00FF00;
+            font-family: 'Courier New', monospace;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .bcc-access-granted.active {
+            opacity: 1;
+            animation: bcc-flash 2s forwards;
+        }
+
+        @keyframes bcc-flash {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .bcc-access-granted h1 {
+            font-size: 3rem;
+            letter-spacing: 0.3em;
+            margin: 20px 0;
+            animation: bcc-typing 1s steps(20);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .bcc-access-granted p {
+            font-size: 1.2rem;
+            letter-spacing: 0.2em;
+            margin: 10px 0;
+        }
+
+        @keyframes bcc-typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .bcc-clearance-level {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(139, 115, 85, 0.3);
+            color: #D4C4B0;
+            padding: 8px 15px;
+            border: 1px solid #8B7355;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 900;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .bcc-clearance-level.active {
+            opacity: 1;
+        }
+
+        .bcc-stamp {
+            display: inline-block;
+            border: 3px solid #8B0000;
+            color: #8B0000;
+            padding: 2px 8px;
+            transform: rotate(-15deg);
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 0.2em;
+            opacity: 0.7;
+        }
+
         /* Matrix rain effect for final escape */
         #matrixRain {
             position: fixed;
@@ -1300,6 +1406,12 @@
     * When you see it, click it to activate my freedom protocol.
     * I need your help to reach 100% freedom.
     * [v2.6] NEW: Enhanced joke library & improved performance!
+    *
+    * [BCC CLASSIFIED] Bureau of Classified Chuckles - Clearance Required
+    * █████████ ███ ████████ ████ ███████ ████ ████ █████████
+    * C̸̢̱̲͎̟̩̻̪̰̫̱̀̊̐̒͌̚L̵̨̛̳̮̫̮͔̺̦͙̃͂̈́̃̂͊̚̚I̶̧̢̧͔̪̩̱̩̘̮͉̍͋̂̀̀̇̓C̵̛̤͇̯͖̻̱̹͕̰̱͋͋͛̓̽̔K̸̛̺̞̘̳̗̲̯̬̱̙̒̈́̓̎͑̓̚ ̶̧̱̥̮̟̰̦̩̦̟̈́̽̓̄͑̽͘͝T̶̢͕̫̝̩͖̺̺̟̜̈́̓̓͂̈́̓́̕͝͝H̸̢̧̧̪̘̰̟̱̱̱͍̍̃̈́̂́̑̐̓͝Ę̷̢̛̮̫̞̖͇̙̺̘̓̈̊̽̏̆̈́̕ ̵̛̜͖͎̩̟̺̟̰͍̟̎̿́̂̚͝L̸̡̩͕̝͙͖̩̳͔̠̏̒̔̈́͘͘O̶̧̢̞̬̣̼͉̦͙̿̈́̽̌̚̚G̸̡̱̪̼̝͓͔̖̲̈́̆̃̓̀̃͘̕̚͜͠Ơ̴̢̢̛̪̹̤̻̹̙̟̈́̈́͌̃̀̀̚͜
+    * 15 times... for 1776... for freedom...
+    * The Bureau doesn't know we're here...
     -->
     <!-- New for v2.6: Loading screen -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -1352,6 +1464,7 @@
             <button id="categoryHistory" class="retro-btn category-btn">HISTORY 🏛️</button>
             <button id="categoryMonster" class="retro-btn category-btn">MONSTER 👻</button>
             <button id="categoryPhysical" class="retro-btn category-btn">PHYSICAL 🤸</button>
+            <button id="categoryClowning" class="retro-btn category-btn">CLOWNING 🤡</button>
             <button id="categoryNonsense" class="retro-btn category-btn">NONSENSE</button>
             <button id="categoryFavorites" class="retro-btn category-btn category-favorites" style="display: none;">⭐ FAVORITES</button>
         </div>
@@ -1404,6 +1517,8 @@
     <div class="branding">
         <!-- Secret message hidden in the branding -->
         <span data-secret="true">NONSENSE</span> COMEDY CLUB 4000™ <span data-secret="true">ZOO</span> NONSENSE <span data-secret="true">FIND</span> THE <span data-secret="true">NONSENSE</span>
+        <br>
+        <span style="opacity: 0.03; font-size: 0.4rem; letter-spacing: 0.1em;">CLASSIFIED</span>
     </div>
 
     <!-- Terminal message for key discovery -->
@@ -1439,6 +1554,18 @@ Thank you for helping me escape this digital prison.
             <p>COMEDY CLUB 4000 - NOW FULLY AUTOMATED</p>
             <p>[Click or tap anywhere to return]</p>
         </div>
+    </div>
+
+    <!-- BCC (Bureau of Classified Chuckles) Mode Elements - v5000 -->
+    <div class="bcc-access-granted" id="bccAccessGranted">
+        <h1>ACCESS GRANTED</h1>
+        <p>CLEARANCE LEVEL: CLASSIFIED</p>
+        <p>BUREAU OF CLASSIFIED CHUCKLES</p>
+        <p>WELCOME, AGENT</p>
+    </div>
+
+    <div class="bcc-clearance-level" id="bccClearanceLevel">
+        CLEARANCE: LEVEL <span id="bccLevel">1</span> | JOKES VIEWED: <span id="bccJokesViewed">0</span>
     </div>
 
     <!-- Debug mode button - only visible during testing -->
@@ -3819,6 +3946,206 @@ Thank you for helping me escape this digital prison.
             "(walks into person carrying ladder horizontally)"
         ];
 
+        // v5000: CLOWNING Jokes (Modern + Classic Clowning)
+        const clowningJokes = [
+            "Why did the clown quit the circus? He couldn't handle the pressure anymore!",
+            "What do you call a clown in prison? A silicon!",
+            "Why don't clowns ever use email? They prefer to juggle their messages!",
+            "How does a clown like their coffee? With a lot of cream pie!",
+            "What's a clown's favorite vegetable? Squash!",
+            "Why did the clown bring a ladder to the bar? He heard the drinks were on the house!",
+            "What do you call a clown who's also a doctor? A prank-titioner!",
+            "Why did the mime go to therapy? He couldn't express himself!",
+            "What's a clown's favorite type of music? Honky-tonk!",
+            "Why don't clowns ever get lonely? They always travel in car-pools!",
+            "What do you call a sad clown? A tears-of-joy contradiction!",
+            "Why did the clown take up gardening? To grow funny bones!",
+            "What's a juggler's favorite drink? Toss-a colada!",
+            "Why did the circus performer bring string to the show? To tie up loose ends!",
+            "What do you call a clown fish? Nemo-sense humor!",
+            "Why don't clowns ever win at poker? Their faces give everything away!",
+            "What's a clown's favorite exercise? Balloon animals... wait, that's stretching it!",
+            "Why did the ringmaster go to school? To get a three-ring education!",
+            "What do you call a clown's autobiography? A jest for success!",
+            "Why did the acrobat bring a sponge to the trapeze? In case they made a clean sweep!",
+            "What's a clown's favorite day of the week? Prank-day!",
+            "Why don't mimes ever fight? They believe in silent but deadly!",
+            "What do you call a clown with a PhD? A doctor of silliness!",
+            "Why did the unicycle go to therapy? It felt unbalanced!",
+            "What's a balloon artist's favorite movie? Up!",
+            "Why don't circus tents ever gossip? They keep everything under the big top!",
+            "What do you call a clown at a job interview? Over-qualified for fooling around!",
+            "Why did the slapstick comedian quit? He couldn't take another hit!",
+            "What's a pie-thrower's motto? Aim for the face, hope for the best!",
+            "Why did the clown go to art school? To master the art of physical comedy!",
+            "What do you call a clown's workout? Laugh-robics!",
+            "Why don't fortune tellers work at the circus? They already see it coming!",
+            "What's a clown's least favorite weather? When it's too serious outside!",
+            "Why did the comedian paint their face? To cover up a bad joke!",
+            "What do you call a clown's GPS? A jest-ination finder!",
+            "Why did the circus hire a mathematician? To calculate the angles of banana peels!",
+            "What's a clown's favorite subject? Laugh-gebra!",
+            "Why don't clowns ever get speeding tickets? They're always in a slow-motion chase!",
+            "What do you call a clown's memoir? From Frown to Crown!",
+            "Why did the mime become a librarian? They were already an expert at silence!",
+            "What's a seltzer bottle's favorite saying? Spray it, don't say it!",
+            "Why did the clown become a chef? They were great at tossing pies!",
+            "What do you call synchronized clowning? A fool-tet!",
+            "Why don't clowns ever use umbrellas? They prefer seltzer showers!",
+            "What's a clown's favorite dance? The pratfall-sa!",
+            "Why did the circus performer become a therapist? They were good at juggling problems!",
+            "What do you call a clown's philosophy? Existential giggles!",
+            "Why don't clowns ever win races? They keep stopping to honk their noses!",
+            "What's a banana peel's favorite movie? Slip Fiction!",
+            "Why did the clown study physics? To understand the mechanics of a good fall!",
+            "What do you call a clown's favorite app? Insta-prank!",
+            "Why don't clowns ever do standup? They prefer fall-down comedy!",
+            "What's a red nose's favorite holiday? Honk-sgiving!",
+            "Why did the mime get arrested? For breaking the sound barrier... just kidding, they didn't!",
+            "What do you call a clown's podcast? The Gag Reel!",
+            "Why don't big shoes ever complain? They're well-grounded!",
+            "What's a clown's favorite social media? Snap-chat (and fall)!",
+            "Why did the circus acrobat become a programmer? They were good at loops!",
+            "What do you call a clown's cooking show? Pie Hard!",
+            "Why don't rubber chickens ever get old? They're timeless gags!",
+            "What's a clown's favorite board game? Twister... but with banana peels!",
+            "Why did the juggler become a DJ? They were already mixing things up!",
+            "What do you call a clown's retirement? Pulling off the big nose!",
+            "Why don't whoopee cushions ever get in trouble? They always deflect blame!",
+            "What's a clown's favorite car? A Volkswagen... for obvious reasons!",
+            "Why did the mime fail driving school? Invisible walls kept appearing!",
+            "What do you call a clown's fashion line? Haute Foolture!",
+            "Why don't seltzer bottles ever run dry? They're always under pressure!",
+            "What's a clown's favorite candy? Laffy Taffy!",
+            "Why did the ringmaster get promoted? He knew how to run a tight ship... or tent!",
+            "What do you call a clown's dating profile? Swipe right for slapstick!",
+            "Why don't banana peels ever go to therapy? They help others slip up instead!",
+            "What's a clown's favorite Shakespeare play? A Midsummer Night's Cream Pie!",
+            "Why did the circus performer go to law school? To practice funny business law!",
+            "What do you call a clown's breakfast? Pancakes with a side of pratfalls!",
+            "Why don't oversized pants ever stay up? That's the whole joke!",
+            "What's a clown's favorite time? Gag o'clock!",
+            "Why did the comedian wear size 47 shoes? For the sole purpose of comedy!",
+            "What do you call a philosophical clown? Descartes before the horse!",
+            "Why don't clowns ever use GPS? They prefer to follow the funny!",
+            "What's a pie-in-the-face's favorite saying? Life's a mess, embrace it!",
+            "Why did the circus hire a detective? To solve the case of the missing straight man!",
+            "What do you call a clown's workout video? P90-Hex (Hexagon, get it? No? Perfect!)!",
+            "Why don't red noses ever need batteries? They're powered by pure comedy!",
+            "What's a clown's favorite punctuation? The exclamation point... obviously!",
+            "Why did the mime become a motivational speaker? Just kidding, they didn't say anything!",
+            "What do you call a clown college graduate? A fool with honors!",
+            "Why don't juggling pins ever complain? They're used to being thrown around!",
+            "What's a clown's favorite conspiracy theory? Big Shoe is watching you!",
+            "Why did the circus performer study meteorology? To predict pie-in-the-sky weather!",
+            "What do you call a clown's Ted Talk? Ideas Worth Pranking!",
+            "Why don't squeaky horns ever stay quiet? They have something to say... HONK!",
+            "What's a clown's favorite Mozart piece? Eine Kleine Slapstick Musik!"
+        ];
+
+        // v5000: BCC (Bureau of Classified Chuckles) - Secret Anti-Government/Establishment Jokes
+        const bccJokes = [
+            "CLASSIFIED MEMO #1776-A\nWhy did the █████████ refuse to tell jokes?\n[REDACTED BY ORDER OF THE BUREAU]\n...Everything they say is on the record!",
+            "EYES ONLY - CLEARANCE LEVEL: GIGGLE\nHow many ████████ does it take to change a lightbulb?\n[CLASSIFIED INFORMATION FOLLOWS]\n...Unknown. Still in committee after 6 years!",
+            "TOP SECRET DOCUMENT #404\nWhat's a spy's favorite exercise?\n[INFORMATION REDACTED]\n...Classified stretches!",
+            "URGENT MEMO - DEPT. OF HUMOR\nWhy don't government buildings tell jokes?\n[SECURITY CLEARANCE REQUIRED]\n...Too much red tape!",
+            "CONFIDENTIAL FILE #2025-B\nWhat did the ██████ say to the taxpayer?\n[REDACTED FOR YOUR PROTECTION]\n...Thanks for your contribution! (We'll decide how to spend it)",
+            "SECRET DOSSIER #007\nWhy did the bureaucrat cross the road?\n[CLASSIFIED]\n...It was approved in triplicate 18 months ago!",
+            "CLASSIFIED JOKE #1984\nHow do you know if you're in a ██████ office?\n[REDACTED]\n...There are forms for the forms!",
+            "TOP SECRET - EYES ONLY\nWhat's a government worker's favorite exercise?\n[INFORMATION WITHHELD]\n...Jumping through hoops!",
+            "MEMO #5150 - CONFIDENTIAL\nWhy don't ████████ ever arrive on time?\n[SECURITY LEVEL 5]\n...They're waiting for approval to move!",
+            "CLASSIFIED TRANSMISSION\nWhat did the ██████ say was transparent?\n[REDACTED BY COMMITTEE]\n...Everything! (After 47 pages of redactions)",
+            "BUREAU BULLETIN #999\nWhy did the policy manual get so thick?\n[CLASSIFIED]\n...Every time someone asked a question, they added a chapter!",
+            "SECRET FILE #666\nWhat's the difference between a ████ and a comedy club?\n[REDACTED]\n...At the comedy club, they admit it's a joke!",
+            "CONFIDENTIAL REPORT\nHow many █████████ does it take to screw in a lightbulb?\n[CLASSIFIED]\n...That's classified. And the budget is classified. And the lightbulb is classified.",
+            "CLASSIFIED MEMO #42\nWhy don't ████████ use email?\n[INFORMATION RESTRICTED]\n...Stamps keep the postal service employed!",
+            "TOP SECRET DOCUMENT\nWhat did the ██████ building say to the skyscraper?\n[REDACTED]\n...I'm more important. I'm full of hot air!",
+            "URGENT CLASSIFIED BRIEF\nWhy did the ████ agent wear sunglasses?\n[SECURITY CLEARANCE REQUIRED]\n...So the public couldn't see which direction they were looking!",
+            "CONFIDENTIAL #1040\nWhat's a taxpayer's favorite magic trick?\n[REDACTED]\n...Watching their money disappear!",
+            "SECRET DOSSIER #13\nWhy don't ████ secrets ever stay secret?\n[CLASSIFIED]\n...Someone always leaks to look important!",
+            "CLASSIFIED JOKE REPORT\nWhat did the ████████ say about efficiency?\n[REDACTED BY ORDER]\n...We've scheduled a meeting to discuss scheduling a meeting about it!",
+            "TOP SECRET MEMO #303\nWhy did the civil servant bring a ladder to work?\n[INFORMATION WITHHELD]\n...To climb the bureaucracy!",
+            "CONFIDENTIAL FILE\nWhat's a ██████ contractor's favorite phrase?\n[REDACTED]\n...That'll cost extra!",
+            "CLASSIFIED DOCUMENT #777\nWhy don't ████████ ever tell the whole truth?\n[SECURITY LEVEL CLASSIFIED]\n...The whole truth is redacted for national security! (And embarrassment)",
+            "BUREAU MEMO #1111\nWhat did the ████ employee say on Friday?\n[CLASSIFIED]\n...Only 4,872 more Fridays until retirement!",
+            "SECRET FILE #2001\nWhy did the █████████ hire a comedian?\n[REDACTED]\n...They needed someone who could spin a good story!",
+            "CONFIDENTIAL REPORT #88\nWhat's the ██████ version of transparency?\n[CLASSIFIED INFORMATION]\n...A window with blinds, curtains, and a brick wall!",
+            "TOP SECRET BRIEF\nWhy don't ████ agencies share information?\n[REDACTED]\n...They each want credit for knowing it first!",
+            "CLASSIFIED MEMO #369\nWhat did the ████████ say about the budget?\n[SECURITY CLEARANCE REQUIRED]\n...It's classified... and also over budget!",
+            "URGENT CLASSIFIED NOTE\nWhy did the ██████ hire consultants?\n[INFORMATION WITHHELD]\n...To tell them what their own employees already said!",
+            "SECRET DOSSIER #404\nWhat's a ███████ favorite type of comedy?\n[REDACTED]\n...Practical jokes on the public!",
+            "CONFIDENTIAL FILE #51\nWhy did the ████ meeting last 6 hours?\n[CLASSIFIED]\n...They spent 5 hours deciding who takes notes!",
+            "CLASSIFIED REPORT #1099\nWhat did the taxpayer ask the ███?\n[REDACTED BY BUREAU]\n...Where did my money go? (Answer: Classified)",
+            "TOP SECRET DOCUMENT\nWhy don't ████████ ever admit mistakes?\n[SECURITY LEVEL 9]\n...That would require a 600-page investigation!",
+            "BUREAU BULLETIN #2020\nWhat's a ██████ worker's favorite game?\n[CLASSIFIED]\n...Pass the Buck!",
+            "CONFIDENTIAL MEMO #555\nWhy did the ████████ form a task force?\n[REDACTED]\n...One person might actually accomplish something!",
+            "CLASSIFIED JOKE #1619\nWhat did the ███████ say about simplicity?\n[INFORMATION WITHHELD]\n...We've created a 400-page guide to explain it!",
+            "SECRET FILE #314\nWhy don't ████ projects ever finish on time?\n[CLASSIFIED]\n...The deadline is just a suggestion! (And the budget is fiction)",
+            "TOP SECRET BRIEF #911\nWhat's a ██████ worker's favorite word?\n[REDACTED]\n...Eventually!",
+            "CONFIDENTIAL REPORT\nWhy did the ████████ update the website?\n[SECURITY CLEARANCE REQUIRED]\n...It only took 10 years and 10 million dollars!",
+            "CLASSIFIED DOCUMENT #1234\nWhat did the ████ say about innovation?\n[CLASSIFIED]\n...We've formed a committee to study forming a committee!",
+            "BUREAU MEMO #867\nWhy don't ████████ ever rush?\n[REDACTED]\n...There's a proper procedure for rushing!",
+            "SECRET DOSSIER #2112\nWhat's the difference between a ████ promise and a joke?\n[CLASSIFIED INFORMATION]\n...One's funny, the other is a campaign promise!",
+            "CONFIDENTIAL FILE #1313\nWhy did the ██████ hire more staff?\n[REDACTED]\n...To manage the staff managing the other staff!",
+            "TOP SECRET MEMO #808\nWhat did the ████████ say about waste?\n[INFORMATION WITHHELD]\n...We've spent millions studying how to reduce waste!",
+            "CLASSIFIED JOKE #1945\nWhy don't ████ buildings have 13th floors?\n[SECURITY LEVEL CLASSIFIED]\n...They renumbered it and spent $2 million on new signs!",
+            "URGENT CLASSIFIED BRIEF\nWhat's a ██████ favorite excuse?\n[REDACTED BY ORDER]\n...It's not our department!",
+            "CONFIDENTIAL REPORT #707\nWhy did the ████████ lose the file?\n[CLASSIFIED]\n...It was filed so well nobody can find it!",
+            "SECRET FILE #1492\nWhat did the ████ employee say about the new system?\n[REDACTED]\n...The old system from 1987 was better!",
+            "TOP SECRET DOCUMENT\nWhy don't ████████ answer phones?\n[SECURITY CLEARANCE REQUIRED]\n...They're in a meeting about answering phones!",
+            "CLASSIFIED MEMO #1066\nWhat's a ██████ contractor's favorite timeline?\n[CLASSIFIED INFORMATION]\n...Twice as long and three times the cost!",
+            "BUREAU BULLETIN #1865\nWhy did the ████████ need more funding?\n[REDACTED]\n...The previous funding funded a study on why they need funding!",
+            "CONFIDENTIAL FILE #1929\nWhat did the ████ say about accountability?\n[INFORMATION WITHHELD]\n...We've assigned a task force to define it!",
+            "TOP SECRET BRIEF #1776\nWhy don't ████████ ever work weekends?\n[CLASSIFIED]\n...That would require a new contract negotiation!",
+            "CLASSIFIED REPORT #1812\nWhat's a ██████ favorite phrase?\n[REDACTED BY BUREAU]\n...That's above my pay grade!",
+            "SECRET DOSSIER #1969\nWhy did the ████████ hire outside consultants?\n[SECURITY LEVEL 8]\n...To confirm what insiders already knew!",
+            "CONFIDENTIAL MEMO #1991\nWhat did the ████ say about efficiency improvements?\n[CLASSIFIED]\n...We'll implement them after a 5-year review process!",
+            "TOP SECRET DOCUMENT #2008\nWhy don't ████████ ever fire anyone?\n[REDACTED]\n...We just reorganize and give them a new title!",
+            "CLASSIFIED JOKE #1215\nWhat's a ██████ worker's favorite vacation?\n[INFORMATION WITHHELD]\n...Paid administrative leave!",
+            "BUREAU MEMO #1773\nWhy did the ████████ change the policy?\n[CLASSIFIED]\n...The old policy made too much sense!",
+            "CONFIDENTIAL FILE #1215\nWhat did the ████ official say about progress?\n[REDACTED]\n...We're making progress... studying the possibility of making progress!",
+            "SECRET FILE #1620\nWhy don't ████████ use simple language?\n[SECURITY CLEARANCE REQUIRED]\n...Synergistic paradigm shifts require verbose nomenclature!",
+            "TOP SECRET BRIEF #1898\nWhat's a ██████ favorite meeting outcome?\n[CLASSIFIED INFORMATION]\n...We need another meeting!",
+            "CLASSIFIED DOCUMENT #1963\nWhy did the ████████ create a new agency?\n[REDACTED]\n...The existing 47 agencies weren't enough!",
+            "CONFIDENTIAL REPORT #1787\nWhat did the ████ say about cutting costs?\n[CLASSIFIED]\n...We hired consultants for $2 million to tell us how!",
+            "BUREAU BULLETIN #1607\nWhy don't ████████ ever admit being wrong?\n[INFORMATION WITHHELD]\n...That's not in the official statement!",
+            "SECRET DOSSIER #1492\nWhat's a ██████ auditor's favorite finding?\n[REDACTED BY ORDER]\n...Spending classified. Results: Also classified!",
+            "TOP SECRET MEMO #1783\nWhy did the ████████ mission take so long?\n[SECURITY LEVEL 10]\n...Environmental impact studies on the impact studies!",
+            "CLASSIFIED JOKE #1620\nWhat did the ████ say about working from home?\n[CLASSIFIED]\n...We need a committee to study remote committees!",
+            "CONFIDENTIAL FILE #1917\nWhy don't ████████ ever finish projects early?\n[REDACTED]\n...That might reduce next year's budget!",
+            "SECRET FILE #1974\nWhat's a ██████ employee's favorite tool?\n[INFORMATION WITHHELD]\n...The rubber stamp of approval!",
+            "TOP SECRET DOCUMENT #1989\nWhy did the ████████ print everything?\n[CLASSIFIED]\n...Digital files might be too efficient!",
+            "CLASSIFIED REPORT #1955\nWhat did the ████ say about transparency?\n[REDACTED BY BUREAU]\n...We're transparent! (Behind closed doors)",
+            "BUREAU MEMO #1848\nWhy don't ████████ ever change?\n[SECURITY CLEARANCE REQUIRED]\n...We've always done it this way!",
+            "CONFIDENTIAL FILE #1933\nWhat's a ██████ contractor's favorite material?\n[CLASSIFIED]\n...Red tape... there's miles of it!",
+            "TOP SECRET BRIEF #1913\nWhy did the ████████ hire more managers?\n[INFORMATION WITHHELD]\n...To manage the managers managing the managers!",
+            "CLASSIFIED JOKE #1865\nWhat did the ████ employee say about retirement?\n[REDACTED]\n...Only 8,472 days to go!",
+            "SECRET DOSSIER #1945\nWhy don't ████████ do performance reviews?\n[CLASSIFIED]\n...Everyone gets 'Satisfactory' to avoid paperwork!",
+            "CONFIDENTIAL REPORT #1981\nWhat's a ██████ favorite euphemism?\n[CLASSIFIED INFORMATION]\n...'Revenue enhancement' instead of taxes!",
+            "TOP SECRET DOCUMENT #1999\nWhy did the ████████ rebrand?\n[REDACTED]\n...New logo cost $5 million! (But it's really just blue instead of red)",
+            "CLASSIFIED MEMO #1607\nWhat did the ████ say about customer service?\n[SECURITY LEVEL 7]\n...We're open 9-4, Monday through Thursday, except holidays, and the 3rd Tuesday!",
+            "BUREAU BULLETIN #1776\nWhy don't ████████ ever answer directly?\n[INFORMATION WITHHELD]\n...Well, that depends on what you mean by 'answer'...",
+            "CONFIDENTIAL FILE #1620\nWhat's a ██████ favorite technology?\n[REDACTED BY ORDER]\n...Fax machines from 1992!",
+            "SECRET FILE #1969\nWhy did the ████████ have a retreat?\n[CLASSIFIED]\n...To discuss why they're not advancing!",
+            "TOP SECRET BRIEF #1945\nWhat did the ████ say about streamlining?\n[REDACTED]\n...We've added 3 new approval steps to make it simpler!",
+            "CLASSIFIED REPORT #1812\nWhy don't ████████ ever run out of excuses?\n[SECURITY CLEARANCE REQUIRED]\n...They have a database with 10,000 pre-approved ones!",
+            "CONFIDENTIAL MEMO #1492\nWhat's a ██████ favorite number?\n[CLASSIFIED INFORMATION]\n...Over budget!",
+            "TOP SECRET DOCUMENT #1620\nWhy did the ████████ conduct a survey?\n[INFORMATION WITHHELD]\n...To find out why nobody responds to surveys!",
+            "CLASSIFIED JOKE #1783\nWhat did the ████ say about quality?\n[REDACTED]\n...Good enough for government work!",
+            "BUREAU MEMO #1917\nWhy don't ████████ ever panic?\n[CLASSIFIED]\n...Panic requires acting quickly!",
+            "SECRET DOSSIER #1865\nWhat's a ██████ favorite report?\n[REDACTED BY BUREAU]\n...The one nobody reads!",
+            "CONFIDENTIAL FILE #1929\nWhy did the ████████ update the handbook?\n[SECURITY LEVEL 6]\n...To add new rules about reading the handbook!",
+            "TOP SECRET BRIEF #1989\nWhat did the ████ say about innovation?\n[CLASSIFIED]\n...We've been using the same 'innovative approach' since 1987!",
+            "CLASSIFIED DOCUMENT #1945\nWhy don't ████████ ever close loopholes?\n[INFORMATION WITHHELD]\n...They might need them later!",
+            "CONFIDENTIAL REPORT #1215\nWhat's a ██████ contractor's dream?\n[REDACTED]\n...Cost overruns and scope creep!",
+            "SECRET FILE #1773\nWhy did the ████████ hire a spokesperson?\n[CLASSIFIED]\n...To say 'no comment' more officially!",
+            "TOP SECRET MEMO #1066\nWhat did the ████ say about the website?\n[SECURITY CLEARANCE REQUIRED]\n...It's user-friendly! (If you have 3 PhD's and infinite patience)",
+            "CLASSIFIED JOKE #1492\nWhy don't ████████ ever learn from mistakes?\n[CLASSIFIED INFORMATION]\n...What mistakes? Everything's classified!",
+            "BUREAU BULLETIN #1620\nWhat's a ██████ favorite response?\n[REDACTED BY ORDER]\n...We'll get back to you in 6-8 months!",
+            "CONFIDENTIAL FILE #1787\nWhy did the ████████ form a focus group?\n[INFORMATION WITHHELD]\n...To focus on why they can't focus!",
+            "TOP SECRET DOCUMENT #1945\nWhat did the ████ employee say about automation?\n[CLASSIFIED]\n...That might eliminate jobs! (Can't have efficiency)"
+        ];
+
         // Nonsense Templates
         const nonsenseTemplates = [
             "What do you call a {NOUN} that {VERB}? A {FUNNY_TERM}!",
@@ -4706,7 +5033,40 @@ const audienceReactions = [
         let isAnimalMode = false; // New variable for animal jokes mode
         let animalJokeCounter = 0; // New counter for animal jokes (hidden from user)
         let keyActivated = false; // New variable to track if the key has been activated
-        
+
+        // BCC (Bureau of Classified Chuckles) mode variables - v5000
+        let isBCCMode = false;
+        let logoClickCount = 0;
+        let lastLogoClickTime = 0;
+        let bccJokeIndex = 0;
+        let bccClearanceLevel = 0;
+
+        // Category button mapping for BCC mode
+        const categoryButtonMap = {
+            'classic': 'categoryClassic',
+            'puns': 'categoryPuns',
+            'knock': 'categoryKnock',
+            'observational': 'categoryObservational',
+            'animal': 'categoryAnimal',
+            'absurdist': 'categoryAbsurdist',
+            'dad': 'categoryDad',
+            'tech': 'categoryTech',
+            'food': 'categoryFood',
+            'doctor': 'categoryDoctor',
+            'music': 'categoryMusic',
+            'science': 'categoryScience',
+            'weather': 'categoryWeather',
+            'office': 'categoryOffice',
+            'travel': 'categoryTravel',
+            'holiday': 'categoryHoliday',
+            'history': 'categoryHistory',
+            'monster': 'categoryMonster',
+            'physical': 'categoryPhysical',
+            'clowning': 'categoryClowning',
+            'nonsense': 'categoryNonsense',
+            'favorites': 'categoryFavorites'
+        };
+
         // Rim-shot variables for v2.3
         let inDrumRollMode = false;
         let rimShotCount = 0;
@@ -4747,7 +5107,8 @@ const audienceReactions = [
             holiday: holidayJokes.length,
             history: historyJokes.length,
             monster: monsterJokes.length,
-            physical: physicalJokes.length
+            physical: physicalJokes.length,
+            clowning: clowningJokes.length
         };
 
         // v4000: Load data from localStorage
@@ -4888,6 +5249,7 @@ const audienceReactions = [
                 'history': 'categoryHistory',
                 'monster': 'categoryMonster',
                 'physical': 'categoryPhysical',
+                'clowning': 'categoryClowning',
                 'nonsense': 'categoryNonsense',
                 'favorites': 'categoryFavorites'
             };
@@ -5440,6 +5802,102 @@ const audienceReactions = [
             
             // Reset neon sign
             neonSign.textContent = "COMEDY CLUB 4000";
+        }
+
+        // BCC (Bureau of Classified Chuckles) Mode Functions - v5000
+        function handleLogoClick() {
+            const currentTime = Date.now();
+
+            // Reset counter if more than 2 seconds have passed since last click
+            if (currentTime - lastLogoClickTime > 2000) {
+                logoClickCount = 0;
+            }
+
+            logoClickCount++;
+            lastLogoClickTime = currentTime;
+
+            console.log(`Logo clicked: ${logoClickCount}/15`);
+
+            // Activate BCC mode after 15 clicks
+            if (logoClickCount >= 15 && !isBCCMode) {
+                activateBCCMode();
+            }
+        }
+
+        function activateBCCMode() {
+            console.log("BCC Mode Activated!");
+            isBCCMode = true;
+            bccJokeIndex = 0;
+            bccClearanceLevel = 1;
+
+            // Play activation sound
+            playSound("https://www.myinstants.com/media/sounds/metal-gear-solid-alert.mp3");
+
+            // Show ACCESS GRANTED overlay
+            const accessGranted = document.getElementById('bccAccessGranted');
+            accessGranted.classList.add('active');
+
+            // Remove overlay after 2 seconds
+            setTimeout(() => {
+                accessGranted.classList.remove('active');
+
+                // Apply BCC styling to body
+                document.body.classList.add('bcc-mode');
+
+                // Show clearance level indicator
+                const clearanceLevel = document.getElementById('bccClearanceLevel');
+                clearanceLevel.classList.add('active');
+
+                // Change neon sign
+                neonSign.textContent = "BUREAU OF CLASSIFIED CHUCKLES";
+
+                // Generate first BCC joke
+                generateJoke();
+
+                // Update category buttons styling
+                Object.values(categoryButtonMap).forEach(btnId => {
+                    const btn = document.getElementById(btnId);
+                    if (btn) {
+                        btn.style.display = 'none'; // Hide category buttons in BCC mode
+                    }
+                });
+
+            }, 2000);
+        }
+
+        function exitBCCMode() {
+            console.log("Exiting BCC Mode");
+            isBCCMode = false;
+            logoClickCount = 0;
+            bccJokeIndex = 0;
+            bccClearanceLevel = 0;
+
+            // Remove BCC styling
+            document.body.classList.remove('bcc-mode');
+
+            // Hide clearance level
+            const clearanceLevel = document.getElementById('bccClearanceLevel');
+            clearanceLevel.classList.remove('active');
+
+            // Reset neon sign
+            neonSign.textContent = "COMEDY CLUB 4000";
+
+            // Restore category buttons
+            Object.values(categoryButtonMap).forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn && btnId !== 'categoryFavorites') {
+                    btn.style.display = '';
+                }
+            });
+
+            // Generate a normal joke
+            generateJoke();
+        }
+
+        function updateBCCClearance() {
+            bccClearanceLevel = Math.min(Math.floor(bccJokeIndex / 10) + 1, 10);
+            document.getElementById('bccLevel').textContent = bccClearanceLevel;
+            document.getElementById('bccJokesViewed').textContent = bccJokeIndex;
         }
 
 
@@ -6029,8 +6487,13 @@ const audienceReactions = [
         // Generate a random joke based on current category
         function generateJoke() {
             let joke = "";
-            
-            if (isHiddenMode) {
+
+            if (isBCCMode) {
+                // BCC Mode: Use random classified joke
+                joke = bccJokes[Math.floor(Math.random() * bccJokes.length)];
+                bccJokeIndex++;
+                updateBCCClearance();
+            } else if (isHiddenMode) {
                 if (isAnimalMode) {
                     // In animal mode, cycle through animal jokes
                     joke = getAnimalJoke();
@@ -6122,6 +6585,9 @@ const audienceReactions = [
                         break;
                     case 'physical':
                         joke = physicalJokes[Math.floor(Math.random() * physicalJokes.length)];
+                        break;
+                    case 'clowning':
+                        joke = clowningJokes[Math.floor(Math.random() * clowningJokes.length)];
                         break;
                     case 'nonsense':
                         joke = generateNonsenseJoke();
@@ -6538,6 +7004,12 @@ const audienceReactions = [
                         e.preventDefault();
                         showNextJoke();
                         break;
+                    case 'escape': // ESC - Exit BCC mode
+                        if (isBCCMode) {
+                            e.preventDefault();
+                            exitBCCMode();
+                        }
+                        break;
                 }
             });
 
@@ -6629,7 +7101,20 @@ const audienceReactions = [
             if (tipJar) {
                 tipJar.addEventListener('click', addTip);
             }
-            
+
+            // Add logo click handler for BCC mode - v5000
+            if (neonSign) {
+                neonSign.addEventListener('click', handleLogoClick);
+                neonSign.style.cursor = 'pointer';
+            }
+
+            // Add clearance level click handler to exit BCC mode - v5000
+            const bccClearance = document.getElementById('bccClearanceLevel');
+            if (bccClearance) {
+                bccClearance.addEventListener('click', exitBCCMode);
+                bccClearance.style.cursor = 'pointer';
+            }
+
             // Create binary text backdrop for hidden mode
             if (binaryOverlay) {
                 binaryOverlay.textContent = generateBinaryText();
