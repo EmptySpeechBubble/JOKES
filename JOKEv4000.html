@@ -7294,6 +7294,9 @@ const audienceReactions = [
 
             let joke = speechQueue.shift();
 
+            // Remove visual-only instructions from speech
+            joke = joke.replace(/\[Click screen for punchline\.\.\.]/gi, '');
+
             // For BCC mode: Replace redacted sections with pauses
             if (isBCCMode) {
                 // Replace [REDACTED] and similar patterns with pause markers
