@@ -7876,14 +7876,18 @@ const audienceReactions = [
             }
             
             // Set up event listeners for buttons
-            generateBtn.addEventListener('click', generateJoke);
-            speechBtn.addEventListener('click', toggleSpeech);
-            prevBtn.addEventListener('click', showPreviousJoke);
-            nextBtn.addEventListener('click', showNextJoke);
-            copyBtn.addEventListener('click', copyJokeToClipboard);
-            rimShotBtn.addEventListener('click', playRimShot);
-            groanBtn.addEventListener('click', playGroan);
-            autoShuffleBtn.addEventListener('click', toggleAutoShuffle);
+            if (generateBtn) generateBtn.addEventListener('click', generateJoke);
+            if (speechBtn) speechBtn.addEventListener('click', toggleSpeech);
+            if (prevBtn) prevBtn.addEventListener('click', showPreviousJoke);
+            if (nextBtn) nextBtn.addEventListener('click', showNextJoke);
+            if (copyBtn) copyBtn.addEventListener('click', copyJokeToClipboard);
+            if (rimShotBtn) rimShotBtn.addEventListener('click', playRimShot);
+            if (groanBtn) groanBtn.addEventListener('click', playGroan);
+            if (autoShuffleBtn) autoShuffleBtn.addEventListener('click', toggleAutoShuffle);
+
+            // Debug: Log if any critical buttons are missing
+            if (!generateBtn) console.error('generateBtn not found');
+            if (!categoryButtons || categoryButtons.length === 0) console.error('categoryButtons not found');
 
             // v4000: Add keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -8053,10 +8057,11 @@ const audienceReactions = [
                 }
             }
 
-            channelPrevBtn.addEventListener('click', () => changeChannel(-1));
-            channelNextBtn.addEventListener('click', () => changeChannel(1));
+            if (channelPrevBtn) channelPrevBtn.addEventListener('click', () => changeChannel(-1));
+            if (channelNextBtn) channelNextBtn.addEventListener('click', () => changeChannel(1));
 
             // Category toggle button
+            if (categoryToggleBtn && categoryContainer) {
             categoryToggleBtn.addEventListener('click', () => {
                 categoryContainer.classList.toggle('collapsed');
                 if (categoryContainer.classList.contains('collapsed')) {
@@ -8065,8 +8070,10 @@ const audienceReactions = [
                     categoryToggleBtn.textContent = '▲ HIDE CATEGORIES ▲';
                 }
             });
+            }
 
             // Update channel display when category button is clicked
+            if (categoryButtons && categoryButtons.length > 0) {
             categoryButtons.forEach((button, index) => {
                 button.addEventListener('click', () => {
                     const categoryIndex = categories.findIndex(cat => cat.id === button.id);
@@ -8076,6 +8083,7 @@ const audienceReactions = [
                     }
                 });
             });
+            }
 
             // Squarespace / Embedding Detection
             if (window.self !== window.top || window.location !== window.parent.location) {
@@ -8198,11 +8206,15 @@ const audienceReactions = [
         }
 
         // Wait for DOM to be loaded before initializing
+        // Always use DOMContentLoaded for inline scripts to ensure proper timing
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initialize);
-        } else {
+        } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
             // DOM already loaded, initialize now
             initialize();
+        } else {
+            // Fallback: ensure initialize runs after a short delay
+            setTimeout(initialize, 100);
         }
 
         // Wait for FULL DOM before setting up additional features (themes, modes, etc.)
