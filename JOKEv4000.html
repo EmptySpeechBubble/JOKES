@@ -7832,6 +7832,7 @@ const audienceReactions = [
 
         // Initialize
         function initialize() {
+            console.log('Initialize function called!');
             // Get all DOM element references
             jokeText = document.querySelector('.joke-text');
             setupEmojiLine = document.querySelector('.setup-emoji-line');
@@ -7846,6 +7847,7 @@ const audienceReactions = [
             autoShuffleBtn = document.getElementById('autoShuffleBtn');
             speakingIndicator = document.getElementById('speakingIndicator');
             categoryButtons = document.querySelectorAll('.category-btn');
+            console.log('Category buttons found:', categoryButtons.length);
             autoShuffleIndicator = document.querySelector('.auto-shuffle-active');
             tipCounter = document.querySelector('.tip-counter');
             comedyClub = document.querySelector('.comedy-club');
@@ -7943,22 +7945,24 @@ const audienceReactions = [
             }
 
             // Set up category buttons
+            console.log('Setting up category buttons. Count:', categoryButtons ? categoryButtons.length : 'NULL');
+            if (categoryButtons && categoryButtons.length > 0) {
             categoryButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     // Special handling for nonsense button to activate hidden mode
                     if (button.id === 'categoryNonsense') {
                         const currentTime = Date.now();
-                        
+
                         // Check if this is a rapid button press sequence
                         if (currentTime - lastButtonPressTime < 2000) { // Within 2 seconds
                             nonsenseButtonPressCount++;
-                            
+
                             // Special animation for sequential presses
                             button.classList.add('special-button-press');
                             setTimeout(() => {
                                 button.classList.remove('special-button-press');
                             }, 300);
-                            
+
                             // Activate hidden mode on third consecutive press
                             if (nonsenseButtonPressCount >= 3) {
                                 enterHiddenMode();
@@ -7969,13 +7973,13 @@ const audienceReactions = [
                             // Reset counter if too much time elapsed
                             nonsenseButtonPressCount = 1;
                         }
-                        
+
                         lastButtonPressTime = currentTime;
                     } else {
                         // Reset nonsense button counter for other buttons
                         nonsenseButtonPressCount = 0;
                     }
-                    
+
                     // Regular button handling
                     // Remove active class from all buttons
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
@@ -7985,7 +7989,7 @@ const audienceReactions = [
                     currentCategory = button.id.replace('category', '').toLowerCase();
                     // v4000: Save category preference
                     saveToStorage();
-                    
+
                     // Special handling for animal category in hidden mode
                     if (isHiddenMode && button.id === 'categoryAnimal') {
                         isAnimalMode = true;
@@ -7994,16 +7998,19 @@ const audienceReactions = [
                         // Exit animal mode if switching to another category
                         isAnimalMode = false;
                     }
-                    
+
                     // Exit hidden mode if needed
                     if (isHiddenMode && button.id !== 'categoryNonsense' && button.id !== 'categoryAnimal') {
                         exitHiddenMode();
                     }
-                    
+
                     // Generate a new joke in this category
                     generateJoke();
                 });
             });
+            } else {
+                console.error('CRITICAL: categoryButtons not found or empty!');
+            }
 
             // Channel Dial Navigation Setup
             const channelPrevBtn = document.getElementById('channelPrev');
