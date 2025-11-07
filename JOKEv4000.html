@@ -1404,13 +1404,20 @@
             font-family: 'Courier New', monospace;
             font-size: 0.8rem;
             letter-spacing: 0.1em;
-            z-index: 900;
+            z-index: 10000;
             opacity: 0;
             transition: opacity 0.5s;
+            cursor: pointer;
+            pointer-events: auto;
         }
 
         .bcc-clearance-level.active {
             opacity: 1;
+        }
+
+        .bcc-clearance-level:hover {
+            background-color: rgba(139, 115, 85, 0.5);
+            border-color: #A0826D;
         }
 
         .bcc-stamp {
@@ -8166,13 +8173,20 @@ const audienceReactions = [
             // Add clearance level click handler to exit BCC mode - v5000
             const bccClearance = document.getElementById('bccClearanceLevel');
             if (bccClearance) {
-                bccClearance.addEventListener('click', exitBCCMode);
+                bccClearance.addEventListener('click', () => {
+                    console.log('🎯 BCC CLEARANCE LEVEL CLICKED - Exiting BCC Mode');
+                    exitBCCMode();
+                });
                 // Add touch support for mobile
                 bccClearance.addEventListener('touchend', (e) => {
                     e.preventDefault();
+                    console.log('🎯 BCC CLEARANCE LEVEL TOUCHED - Exiting BCC Mode');
                     exitBCCMode();
                 });
                 bccClearance.style.cursor = 'pointer';
+                console.log('✅ BCC clearance level exit listener attached');
+            } else {
+                console.error('❌ bccClearanceLevel element not found!');
             }
 
             // Create binary text backdrop for hidden mode
@@ -8688,11 +8702,13 @@ const audienceReactions = [
         // ============================================
 
         function enableDecodeMode() {
+            console.log('📝 Decode mode enabled - watching for [REDACTED] text');
             // Add click handlers to all redacted text in BCC mode
             const observer = new MutationObserver(() => {
                 if (isBCCMode) {
                     const jokeTextEl = document.querySelector('.joke-text');
                     if (jokeTextEl && jokeTextEl.textContent.includes('[REDACTED]')) {
+                        console.log('🔍 Found [REDACTED] text, making it clickable');
                         makeRedactedClickable(jokeTextEl);
                     }
                 }
@@ -8739,9 +8755,12 @@ const audienceReactions = [
             element.innerHTML = newHTML;
 
             // Add click handlers
-            element.querySelectorAll('.redacted-clickable').forEach(span => {
+            const clickableSpans = element.querySelectorAll('.redacted-clickable');
+            console.log(`✅ Made ${clickableSpans.length} [REDACTED] sections clickable`);
+            clickableSpans.forEach(span => {
                 span.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    console.log('🎯 [REDACTED] CLICKED - Decoding...');
                     const reveal = span.dataset.reveal;
 
                     // Animate decode
@@ -8751,6 +8770,7 @@ const audienceReactions = [
                         span.style.color = '#00ff00';
                         span.style.textDecoration = 'none';
                         span.style.cursor = 'default';
+                        console.log('✅ Decoded:', reveal);
                     }, 500);
                 });
             });
