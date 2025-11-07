@@ -398,6 +398,95 @@
             width: 100%;
         }
 
+        /* Channel Dial Navigation */
+        .channel-dial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .channel-dial-btn {
+            background-color: #444;
+            color: #FFF;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.5);
+            transition: all 0.1s;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .channel-dial-btn:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        .channel-dial-btn:hover {
+            background-color: #555;
+        }
+
+        .channel-display {
+            background: linear-gradient(to bottom, #1a1a1a, #000);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid #FFD700;
+            min-width: 280px;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .channel-number {
+            font-size: 0.7rem;
+            color: #FFD700;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .channel-name {
+            font-size: 1rem;
+            color: #00FF00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        /* Category toggle */
+        .category-toggle {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .category-toggle-btn {
+            background: none;
+            border: none;
+            color: #FFD700;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.65rem;
+            cursor: pointer;
+            padding: 8px;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .category-toggle-btn:hover {
+            color: #FFA500;
+        }
+
+        .category-container.collapsed {
+            display: none;
+        }
+
         .controls {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -728,6 +817,27 @@
         }
 
         /* Mobile responsiveness */
+        /* Squarespace / Embedded Mode Compatibility */
+        .embedded-mode {
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: 100vh;
+        }
+
+        .embedded-mode .comedy-club {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            border-radius: 0;
+            min-height: 100vh;
+        }
+
+        .embedded-mode body {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-x: hidden;
+        }
+
         @media (max-width: 600px) {
             .comedy-club {
                 padding: 15px 10px;
@@ -768,6 +878,36 @@
             .category-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 5px;
+            }
+
+            /* Mobile: Start with categories collapsed, dial visible */
+            .category-container.collapsed {
+                display: none;
+            }
+
+            /* Channel dial mobile optimizations */
+            .channel-dial {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .channel-dial-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .channel-display {
+                min-width: 200px;
+                padding: 10px 15px;
+            }
+
+            .channel-number {
+                font-size: 0.6rem;
+            }
+
+            .channel-name {
+                font-size: 0.8rem;
             }
 
             .controls {
@@ -1476,7 +1616,22 @@
             </div>
         </div>
         
-        <div class="category-container">
+        <!-- Channel Dial Navigation -->
+        <div class="channel-dial">
+            <button class="channel-dial-btn" id="channelPrev" title="Previous Category">◄</button>
+            <div class="channel-display">
+                <div class="channel-number">CHANNEL <span id="channelNum">1</span>/22</div>
+                <div class="channel-name" id="channelName">CLASSIC</div>
+            </div>
+            <button class="channel-dial-btn" id="channelNext" title="Next Category">►</button>
+        </div>
+
+        <!-- Toggle to show/hide all category buttons -->
+        <div class="category-toggle">
+            <button class="category-toggle-btn" id="categoryToggle">▼ SHOW ALL CATEGORIES ▼</button>
+        </div>
+
+        <div class="category-container collapsed">
             <button id="categoryClassic" class="retro-btn category-btn active">CLASSIC</button>
             <button id="categoryPuns" class="retro-btn category-btn">WORDPLAY</button>
             <button id="categoryKnock" class="retro-btn category-btn">KNOCK</button>
@@ -2438,49 +2593,49 @@ Thank you for helping me escape this digital prison.
             "Why did the developer go broke? Because he used up all his cache!",
             "What's a computer's favorite snack? Microchips!",
             "Why was the computer cold? It left its Windows open!",
-            "How does a computer get drunk? It takes screenshots!",
-            "What do you call a computer that sings? A-Dell!",
+            "A SQL query walks into a bar, walks up to two tables and asks... 'Can I join you?'",
+            "Why do programmers always mix up Halloween and Christmas? Because Oct 31 equals Dec 25!",
             "Why did the PowerPoint presentation cross the road? To get to the other slide!",
             "What's a programmer's favorite hangout? Foo Bar!",
             "Why do Java developers wear glasses? Because they don't C#!",
             "How do you comfort a JavaScript bug? You console it!",
-            "What did the router say to the doctor? It hurts when IP!",
-            "Why did the computer keep sneezing? It had a virus!",
+            "Never ask a SQL developer to help you move furniture. They'll just DROP TABLE.",
+            "Why did the developer quit? Because they didn't get arrays!",
             "What do you call 8 hobbits? A hobbyte!",
-            "Why was the cell phone wearing glasses? It lost its contacts!",
+            "I would tell you a joke about UDP, but you might not get it.",
             "How do trees access the internet? They log in!",
-            "What's a computer's least favorite food? Spam!",
-            "Why did the computer show up at work late? It had a hard drive!",
-            "What do you get when you cross a computer with a lifeguard? A screensaver!",
+            "A programmer's spouse says: 'While you're out, buy some milk.' They never came back.",
+            "To understand recursion, you must first understand recursion.",
+            "Why do programmers prefer dark mode? Light attracts bugs!",
             "Why don't keyboards ever sleep? They have two shifts!",
-            "What's a spider's favorite thing on the computer? A website!",
-            "How does a computer tell you it needs a break? It freezes!",
-            "Why did the smartphone need glasses? It lost all its contacts!",
-            "What do computers eat for a snack? Cookies!",
-            "Why was the computer tired when it got home? It had a hard drive!",
+            "Algorithm: A word used by programmers when they don't want to explain what they did.",
+            "How many programmers does it take to change a light bulb? None, that's a hardware problem!",
+            "What's the object-oriented way to become wealthy? Inheritance!",
+            "Why do programmers prefer iOS development? Because they can't C#!",
+            "There are 10 types of people: those who understand binary and those who don't!",
             "What's a programmer's favorite place to hang out? The Foo Bar!",
             "Why did the computer go to the doctor? It had a virus!",
             "How do you stop an Internet troll? Unplug them!",
             "What do you call a programmer from Finland? Nerdic!",
             "Why was the JavaScript developer sad? Because he didn't Node how to Express himself!",
-            "What's the object-oriented way to become wealthy? Inheritance!",
-            "Why do programmers always mix up Halloween and Christmas? Because Oct 31 equals Dec 25!",
+            "Git commit -m 'Fixed the bug.' // Narrator: They did not fix the bug.",
+            "Debugging: Being the detective in a crime movie where you are also the murderer.",
             "How many developers does it take to screw in a light bulb? None. It's a hardware issue!",
-            "What did the Wi-Fi say when it was turned off? 'You hurt my peelings!'",
-            "Why do computer scientists get confused between Christmas and Halloween? Because DEC 25 = OCT 31!",
+            "Why did the developer go broke? Too many cache problems!",
+            "It's not a bug, it's an undocumented feature!",
             "What's the second movie about a database engineer? The SQL!",
-            "Why did the computer squeak? Because someone stepped on its mouse!",
-            "What do you call it when you have your mom's mom on speed dial? Instagram!",
+            "Programmer: A machine that turns coffee into code.",
+            "In order to understand recursion, you must first understand recursion.",
             "Why don't programmers like nature? It has too many bugs!",
             "What's the best thing about a Boolean? Even if you're wrong, you're only off by a bit!",
-            "Why did the computer get glasses? To improve its web-sight!",
-            "What do you call a computer superhero? A Screen Saver!",
-            "Why was the computer so good at golf? It had a hard drive!",
-            "How does a computer get beach ready? It clears its cookies!",
-            "Why did the IT guy go to art school? To learn about graphic design!",
-            "What did the computer do at lunchtime? Had a byte!",
-            "Why did the software developer stay home? They had a case of the bugs!",
-            "What's a computer's favorite beat? An algorithm!",
+            "How do you tell HTML from HTML5? Try it out in Internet Explorer. Did it work? No? It's HTML5.",
+            "A user interface is like a joke. If you have to explain it, it's not that good.",
+            "There's no place like 127.0.0.1!",
+            "Why do programmers hate nature? It has bugs and no Stack Overflow.",
+            "Documentation is like sex: when it's good, it's very good, and when it's bad, it's better than nothing.",
+            "Copy and paste is a design pattern!",
+            "Why did the developer get stuck in the shower? The shampoo bottle said 'Lather, Rinse, Repeat.'",
+            "I finally understand what 'push' means in Git. It's when you push your problems to someone else!",
             "Why don't phones ever get lonely? They have plenty of contacts!",
             "How do you make a computer laugh? Tell it a bit joke!",
             "Why was the computer so smart? It had lots of memory!",
@@ -2939,24 +3094,24 @@ Thank you for helping me escape this digital prison.
         const musicJokes = [
             "What's a skeleton's favorite instrument? A trom-BONE!",
             "Why did the music teacher need a ladder? To reach the high notes!",
-            "What do you call a cow that plays guitar? A moo-sician!",
+            "What concert costs just 45 cents? 50 Cent featuring Nickelback!",
             "Why don't pirates sing the whole alphabet? They always get lost at C!",
-            "What's a piano's favorite type of fish? Piano-tuna!",
-            "Why did the guitarist get arrested? For fingering A minor!",
+            "How do you make a bandstand? Take away their chairs!",
+            "What's the difference between a musician and a savings bond? A savings bond eventually matures and earns money.",
             "What do you call a musical insect? A hum-bug!",
             "Why don't musicians ever get locked out? They always have the keys!",
             "What's a musician's favorite vegetable? A beet!",
-            "Why did the drummer get fired? He couldn't keep time!",
-            "What do you call a fish that plays piano? A piano-tuna!",
+            "How do you know when a drummer is at your door? The knocking speeds up and slows down.",
+            "What's the difference between a pizza and a drummer? A pizza can feed a family of four.",
             "Why don't skeletons play music in church? They have no organs!",
             "What's a rock band's favorite lunch? A drum roll!",
-            "Why did the music note go to school? To get better at reading!",
-            "What do you call a singing computer? A-Dell!",
+            "Middle C, E flat, and G walk into a bar. 'Sorry,' says the bartender. 'We don't serve minors.'",
+            "How many bass players does it take to change a light bulb? None - the keyboard player can do it with his left hand.",
             "Why don't violins ever win arguments? They always string people along!",
             "What's Beethoven's favorite fruit? Ba-na-na-naaaaa!",
             "Why did the musician break up with the metronome? Bad timing!",
             "What do you call a group of musical whales? An orca-stra!",
-            "Why don't guitars ever go to jail? They know how to stay out of treble!",
+            "A band called '1023 Megabytes' — they haven't had any gigs yet.",
             "What's a trumpet's favorite game? Name that toot!",
             "Why did the musician sleep on the job? He was practicing his rest notes!",
             "What do you call a musical pickle? A sharp dill!",
@@ -3093,24 +3248,24 @@ Thank you for helping me escape this digital prison.
         const scienceJokes = [
             "Why can't you trust atoms? They make up everything!",
             "What did the thermometer say to the graduated cylinder? You may have graduated, but I have many degrees!",
-            "Why are chemists excellent for solving problems? They have all the solutions!",
-            "What do you call an educated tube? A graduated cylinder!",
+            "Oxygen and potassium went on a date. It went OK.",
+            "If you're not part of the solution, you're part of the precipitate.",
             "Why did the physicist break up with the biologist? There was no chemistry!",
             "What's a physicist's favorite food? Fission chips!",
-            "Why don't scientists trust atoms? Because they make up everything!",
+            "I told a chemistry joke once. There was no reaction.",
             "What did one DNA strand say to the other? Do these genes make me look fat?",
-            "Why did the germ cross the microscope? To get to the other slide!",
+            "Never trust an atom. They make up everything!",
             "What's a tornado's favorite game? Twister!",
-            "Why are chemists great at solving problems? They have all the solutions!",
+            "Heisenberg gets pulled over. Cop asks 'Do you know how fast you were going?' He says 'No, but I know exactly where I am!'",
             "What did the biologist wear to impress? Designer genes!",
             "Why did the scientist install a knocker on his door? To win the No-bell prize!",
-            "What's the fastest way to determine the sex of a chromosome? Pull down its genes!",
+            "Two hydrogen atoms walk into a bar. One says 'I've lost my electron.' The other says 'Are you sure?' 'Yes, I'm positive!'",
             "Why don't magnets ever feel lonely? They're always attracted to something!",
             "What did the volcano say to the mountain? I lava you!",
             "Why did the proton get arrested? For battery!",
-            "What's a physicist's favorite snack? Quantum leaps!",
+            "Schrödinger's cat walks into a bar. And doesn't.",
             "Why don't electrons ever pay rent? They have negative balance!",
-            "What did the science book say to the math book? Wow, you've got problems!",
+            "A neutron walks into a bar and asks how much for a drink. The bartender says 'For you? No charge!'",
             "Why did the amoeba cross the microscope? To get to the other slide!",
             "What's a geologist's favorite lullaby? Rock-a-bye baby!",
             "Why don't scientists ever lose? They have potential energy!",
@@ -3502,15 +3657,15 @@ Thank you for helping me escape this digital prison.
         // v4000: OFFICE/WORK Jokes (100 jokes)
         const officeJokes = [
             "Why did the employee get fired from the calendar factory? He took too many days off!",
-            "What do you call a bear with no teeth working in an office? A gummy bear-ista!",
+            "I told my boss I needed a raise because three companies were after me. He asked which ones. I said the gas, electric, and water company.",
             "Why don't keyboards ever take vacations? They have too many shifts!",
-            "What did the stapler say to the paper? I'm attached to you!",
+            "My boss told me to have a good day. So I went home.",
             "Why did the coffee file a police report? It got mugged at work!",
-            "What's a computer's favorite snack at the office? Microchips!",
-            "Why don't photocopiers ever keep secrets? They always make copies!",
+            "I'm not saying my office is small, but when I stand up, I hit my head on the ceiling. When I sit down, I hit my head on the floor.",
+            "The closest I've come to a diet is deleting food pics from my phone at work.",
             "What did the pen say to the paper? I've got you covered!",
             "Why did the worker bring a ladder to the office? For career advancement!",
-            "What's a desk's favorite exercise? Drawer-bics!",
+            "I'm great at multitasking. I can waste time, be unproductive, and procrastinate all at once!",
             "Why don't staplers ever get stressed? They keep it together!",
             "What did the boss say to the calculator? I'm counting on you!",
             "Why did the employee bring string to work? To tie up loose ends!",
@@ -7278,6 +7433,87 @@ const audienceReactions = [
                     generateJoke();
                 });
             });
+
+            // Channel Dial Navigation Setup
+            const channelPrevBtn = document.getElementById('channelPrev');
+            const channelNextBtn = document.getElementById('channelNext');
+            const channelNumDisplay = document.getElementById('channelNum');
+            const channelNameDisplay = document.getElementById('channelName');
+            const categoryToggleBtn = document.getElementById('categoryToggle');
+            const categoryContainer = document.querySelector('.category-container');
+
+            // Category list (order matters for channel navigation)
+            const categories = [
+                { id: 'categoryClassic', name: 'CLASSIC' },
+                { id: 'categoryPuns', name: 'WORDPLAY' },
+                { id: 'categoryKnock', name: 'KNOCK' },
+                { id: 'categoryObservational', name: 'OBSERV.' },
+                { id: 'categoryAnimal', name: 'ANIMAL' },
+                { id: 'categoryAbsurdist', name: 'ABSURD' },
+                { id: 'categoryDad', name: 'DAD' },
+                { id: 'categoryTech', name: 'TECH' },
+                { id: 'categoryFood', name: 'FOOD' },
+                { id: 'categoryDoctor', name: 'DOCTOR' },
+                { id: 'categoryMusic', name: 'MUSIC' },
+                { id: 'categoryScience', name: 'SCIENCE' },
+                { id: 'categoryWeather', name: 'WEATHER' },
+                { id: 'categoryOffice', name: 'OFFICE' },
+                { id: 'categoryTravel', name: 'TRAVEL' },
+                { id: 'categoryHoliday', name: 'HOLIDAY' },
+                { id: 'categoryHistory', name: 'HISTORY' },
+                { id: 'categoryMonster', name: 'MONSTER' },
+                { id: 'categoryPhysical', name: 'PHYSICAL' },
+                { id: 'categoryClowning', name: 'CLOWNING' },
+                { id: 'categorySilentsfx', name: 'SILENT SFX' },
+                { id: 'categoryNonsense', name: 'NONSENSE' }
+            ];
+
+            let currentChannelIndex = 0;
+
+            function updateChannelDisplay() {
+                channelNumDisplay.textContent = currentChannelIndex + 1;
+                channelNameDisplay.textContent = categories[currentChannelIndex].name;
+            }
+
+            function changeChannel(direction) {
+                currentChannelIndex = (currentChannelIndex + direction + categories.length) % categories.length;
+                updateChannelDisplay();
+
+                // Trigger the category button click
+                const categoryBtn = document.getElementById(categories[currentChannelIndex].id);
+                if (categoryBtn) {
+                    categoryBtn.click();
+                }
+            }
+
+            channelPrevBtn.addEventListener('click', () => changeChannel(-1));
+            channelNextBtn.addEventListener('click', () => changeChannel(1));
+
+            // Category toggle button
+            categoryToggleBtn.addEventListener('click', () => {
+                categoryContainer.classList.toggle('collapsed');
+                if (categoryContainer.classList.contains('collapsed')) {
+                    categoryToggleBtn.textContent = '▼ SHOW ALL CATEGORIES ▼';
+                } else {
+                    categoryToggleBtn.textContent = '▲ HIDE CATEGORIES ▲';
+                }
+            });
+
+            // Update channel display when category button is clicked
+            categoryButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    const categoryIndex = categories.findIndex(cat => cat.id === button.id);
+                    if (categoryIndex !== -1) {
+                        currentChannelIndex = categoryIndex;
+                        updateChannelDisplay();
+                    }
+                });
+            });
+
+            // Squarespace / Embedding Detection
+            if (window.self !== window.top || window.location !== window.parent.location) {
+                document.body.classList.add('embedded-mode');
+            }
 
             // Add spotlight flicker effect
             setInterval(() => {
