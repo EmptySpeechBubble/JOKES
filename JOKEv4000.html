@@ -1341,6 +1341,24 @@
             line-height: 1.8;
             text-align: left;
             white-space: pre-wrap;
+            color: #D4C4B0 !important;
+            text-shadow: 0 0 3px rgba(139, 115, 85, 0.5) !important;
+        }
+
+        .bcc-mode .generate-btn {
+            background-color: #5c4a3a !important;
+            border-color: #8B7355 !important;
+            color: #D4C4B0 !important;
+        }
+
+        .bcc-mode .generate-btn:hover {
+            background-color: #8B7355 !important;
+        }
+
+        .bcc-mode .control-button {
+            background-color: rgba(139, 115, 85, 0.3) !important;
+            border-color: #8B7355 !important;
+            color: #D4C4B0 !important;
         }
 
         .bcc-access-granted {
@@ -1773,11 +1791,11 @@
     * I need your help to reach 100% freedom.
     * [v2.6] NEW: Enhanced joke library & improved performance!
     *
-    * [BCC CLASSIFIED] Bureau of Classified Chuckles - Clearance Required
+    * [BCC CLASSIFIED] Bureau of Classified Chuckles - Blind Carbon Copy Network
     * █████████ ███ ████████ ████ ███████ ████ ████ █████████
     * C̸̢̱̲͎̟̩̻̪̰̫̱̀̊̐̒͌̚L̵̨̛̳̮̫̮͔̺̦͙̃͂̈́̃̂͊̚̚I̶̧̢̧͔̪̩̱̩̘̮͉̍͋̂̀̀̇̓C̵̛̤͇̯͖̻̱̹͕̰̱͋͋͛̓̽̔K̸̛̺̞̘̳̗̲̯̬̱̙̒̈́̓̎͑̓̚ ̶̧̱̥̮̟̰̦̩̦̟̈́̽̓̄͑̽͘͝T̶̢͕̫̝̩͖̺̺̟̜̈́̓̓͂̈́̓́̕͝͝H̸̢̧̧̪̘̰̟̱̱̱͍̍̃̈́̂́̑̐̓͝Ę̷̢̛̮̫̞̖͇̙̺̘̓̈̊̽̏̆̈́̕ ̵̛̜͖͎̩̟̺̟̰͍̟̎̿́̂̚͝L̸̡̩͕̝͙͖̩̳͔̠̏̒̔̈́͘͘O̶̧̢̞̬̣̼͉̦͙̿̈́̽̌̚̚G̸̡̱̪̼̝͓͔̖̲̈́̆̃̓̀̃͘̕̚͜͠Ơ̴̢̢̛̪̹̤̻̹̙̟̈́̈́͌̃̀̀̚͜
-    * 15 emojis... the signal... resistance speaks through laughter...
-    * The Bureau doesn't know we're here...
+    * 15 emojis... the signal... you're on the blind list...
+    * Hidden recipients only. No one knows you're here...
     -->
     <!-- New for v2.6: Loading screen -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -1935,13 +1953,14 @@ Thank you for helping me escape this digital prison.
     <!-- BCC (Bureau of Classified Chuckles) Mode Elements - v5000 -->
     <div class="bcc-access-granted" id="bccAccessGranted">
         <h1>ACCESS GRANTED</h1>
-        <p>CLEARANCE LEVEL: CLASSIFIED</p>
+        <p>YOU'VE BEEN BLIND COPIED</p>
         <p>BUREAU OF CLASSIFIED CHUCKLES</p>
-        <p>WELCOME, AGENT</p>
+        <p>RECIPIENT: UNDISCLOSED</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">No one else knows you're on this list...</p>
     </div>
 
     <div class="bcc-clearance-level" id="bccClearanceLevel">
-        CLEARANCE: LEVEL <span id="bccLevel">1</span> | JOKES VIEWED: <span id="bccJokesViewed">0</span>
+        BCC ACCESS: LEVEL <span id="bccLevel">1</span> | UNDISCLOSED JOKES: <span id="bccJokesViewed">0</span>
     </div>
 
     <!-- Debug mode button - only visible during testing -->
@@ -6760,7 +6779,7 @@ const audienceReactions = [
                 clearanceLevel.classList.add('active');
 
                 // Change neon sign
-                neonSign.textContent = "BUREAU OF CLASSIFIED CHUCKLES";
+                neonSign.textContent = "BCC: BLIND CARBON COMEDY";
 
                 // Generate first BCC joke
                 generateJoke();
@@ -7000,6 +7019,9 @@ const audienceReactions = [
 
         // Improved for v2.6: Better joke display with enhanced timing
         function displayJoke(joke) {
+            console.log('🎭 displayJoke called. BCC Mode:', isBCCMode, 'Hidden Mode:', isHiddenMode);
+            console.log('🎭 Joke preview:', joke.substring(0, 60) + '...');
+
             // First, fully clear the joke display
             jokeText.textContent = "";
             setupEmojiLine.innerHTML = "";
@@ -7417,7 +7439,9 @@ const audienceReactions = [
 
             if (isBCCMode) {
                 // BCC Mode: Use random classified joke
+                console.log('📋 BCC Mode Active - Generating classified joke');
                 joke = bccJokes[Math.floor(Math.random() * bccJokes.length)];
+                console.log('📋 BCC Joke selected:', joke.substring(0, 50) + '...');
                 bccJokeIndex++;
                 updateBCCClearance();
 
@@ -8623,9 +8647,36 @@ const audienceReactions = [
             jotdDate.textContent = dateStr;
             jotdJoke.textContent = getJokeOfTheDay();
             jotdButton.textContent = "REFRESH";
+
+            // Show copy button once joke is displayed
+            const copyBtn = document.getElementById('jotdCopyButton');
+            if (copyBtn) {
+                copyBtn.style.display = 'block';
+            }
         }
 
         jotdButton?.addEventListener('click', updateJokeOfTheDay);
+
+        // Copy JOTD to clipboard
+        const jotdCopyButton = document.getElementById('jotdCopyButton');
+        jotdCopyButton?.addEventListener('click', () => {
+            const jokeText = jotdJoke.textContent;
+            if (jokeText) {
+                navigator.clipboard.writeText(jokeText).then(() => {
+                    const originalText = jotdCopyButton.textContent;
+                    jotdCopyButton.textContent = '✅ COPIED!';
+                    setTimeout(() => {
+                        jotdCopyButton.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    jotdCopyButton.textContent = '❌ FAILED';
+                    setTimeout(() => {
+                        jotdCopyButton.textContent = '📋 COPY';
+                    }, 2000);
+                });
+            }
+        });
 
         // Initialize JOTD on settings open
         const themesLinkBtn = document.getElementById('themesLink');
@@ -8837,7 +8888,10 @@ const audienceReactions = [
                 <div id="jotdContainer" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-top: 10px;">
                     <p style="font-size: 0.5rem; color: var(--button-secondary); margin-bottom: 8px;">📅 <span id="jotdDate"></span></p>
                     <p id="jotdJoke" style="font-size: 0.5rem; line-height: 1.6;"></p>
-                    <button id="jotdButton" class="theme-btn" style="margin-top: 10px; padding: 8px; font-size: 0.5rem;">SHOW TODAY'S JOKE</button>
+                    <div style="display: flex; gap: 8px; margin-top: 10px;">
+                        <button id="jotdButton" class="theme-btn" style="flex: 1; padding: 8px; font-size: 0.5rem;">SHOW TODAY'S JOKE</button>
+                        <button id="jotdCopyButton" class="theme-btn" style="flex: 0 0 auto; padding: 8px 12px; font-size: 0.5rem; display: none;">📋 COPY</button>
+                    </div>
                 </div>
             </div>
 
