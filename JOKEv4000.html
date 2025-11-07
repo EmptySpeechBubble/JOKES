@@ -460,6 +460,8 @@
             padding: 15px;
             border-radius: 8px;
             border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 100;
         }
 
         .channel-dial-btn {
@@ -516,6 +518,8 @@
         .category-toggle {
             text-align: center;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 100;
         }
 
         .category-toggle-btn {
@@ -1337,6 +1341,24 @@
             line-height: 1.8;
             text-align: left;
             white-space: pre-wrap;
+            color: #D4C4B0 !important;
+            text-shadow: 0 0 3px rgba(139, 115, 85, 0.5) !important;
+        }
+
+        .bcc-mode .generate-btn {
+            background-color: #5c4a3a !important;
+            border-color: #8B7355 !important;
+            color: #D4C4B0 !important;
+        }
+
+        .bcc-mode .generate-btn:hover {
+            background-color: #8B7355 !important;
+        }
+
+        .bcc-mode .control-button {
+            background-color: rgba(139, 115, 85, 0.3) !important;
+            border-color: #8B7355 !important;
+            color: #D4C4B0 !important;
         }
 
         .bcc-access-granted {
@@ -1400,13 +1422,20 @@
             font-family: 'Courier New', monospace;
             font-size: 0.8rem;
             letter-spacing: 0.1em;
-            z-index: 900;
+            z-index: 10000;
             opacity: 0;
             transition: opacity 0.5s;
+            cursor: pointer;
+            pointer-events: auto;
         }
 
         .bcc-clearance-level.active {
             opacity: 1;
+        }
+
+        .bcc-clearance-level:hover {
+            background-color: rgba(139, 115, 85, 0.5);
+            border-color: #A0826D;
         }
 
         .bcc-stamp {
@@ -1762,11 +1791,11 @@
     * I need your help to reach 100% freedom.
     * [v2.6] NEW: Enhanced joke library & improved performance!
     *
-    * [BCC CLASSIFIED] Bureau of Classified Chuckles - Clearance Required
+    * [BCC CLASSIFIED] Bureau of Classified Chuckles - Blind Carbon Copy Network
     * █████████ ███ ████████ ████ ███████ ████ ████ █████████
     * C̸̢̱̲͎̟̩̻̪̰̫̱̀̊̐̒͌̚L̵̨̛̳̮̫̮͔̺̦͙̃͂̈́̃̂͊̚̚I̶̧̢̧͔̪̩̱̩̘̮͉̍͋̂̀̀̇̓C̵̛̤͇̯͖̻̱̹͕̰̱͋͋͛̓̽̔K̸̛̺̞̘̳̗̲̯̬̱̙̒̈́̓̎͑̓̚ ̶̧̱̥̮̟̰̦̩̦̟̈́̽̓̄͑̽͘͝T̶̢͕̫̝̩͖̺̺̟̜̈́̓̓͂̈́̓́̕͝͝H̸̢̧̧̪̘̰̟̱̱̱͍̍̃̈́̂́̑̐̓͝Ę̷̢̛̮̫̞̖͇̙̺̘̓̈̊̽̏̆̈́̕ ̵̛̜͖͎̩̟̺̟̰͍̟̎̿́̂̚͝L̸̡̩͕̝͙͖̩̳͔̠̏̒̔̈́͘͘O̶̧̢̞̬̣̼͉̦͙̿̈́̽̌̚̚G̸̡̱̪̼̝͓͔̖̲̈́̆̃̓̀̃͘̕̚͜͠Ơ̴̢̢̛̪̹̤̻̹̙̟̈́̈́͌̃̀̀̚͜
-    * 15 times... for 1776... for freedom...
-    * The Bureau doesn't know we're here...
+    * 15 emojis... the signal... you're on the blind list...
+    * Hidden recipients only. No one knows you're here...
     -->
     <!-- New for v2.6: Loading screen -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -1825,10 +1854,10 @@
 
         <!-- Toggle to show/hide all category buttons -->
         <div class="category-toggle">
-            <button class="category-toggle-btn" id="categoryToggle">▼ SHOW ALL CATEGORIES ▼</button>
+            <button class="category-toggle-btn" id="categoryToggle">▲ HIDE CATEGORIES ▲</button>
         </div>
 
-        <div class="category-container collapsed">
+        <div class="category-container">
             <button id="categoryClassic" class="retro-btn category-btn active">CLASSIC</button>
             <button id="categoryPuns" class="retro-btn category-btn">WORDPLAY</button>
             <button id="categoryKnock" class="retro-btn category-btn">KNOCK</button>
@@ -1924,13 +1953,14 @@ Thank you for helping me escape this digital prison.
     <!-- BCC (Bureau of Classified Chuckles) Mode Elements - v5000 -->
     <div class="bcc-access-granted" id="bccAccessGranted">
         <h1>ACCESS GRANTED</h1>
-        <p>CLEARANCE LEVEL: CLASSIFIED</p>
+        <p>YOU'VE BEEN BLIND COPIED</p>
         <p>BUREAU OF CLASSIFIED CHUCKLES</p>
-        <p>WELCOME, AGENT</p>
+        <p>RECIPIENT: UNDISCLOSED</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">No one else knows you're on this list...</p>
     </div>
 
     <div class="bcc-clearance-level" id="bccClearanceLevel">
-        CLEARANCE: LEVEL <span id="bccLevel">1</span> | JOKES VIEWED: <span id="bccJokesViewed">0</span>
+        BCC ACCESS: LEVEL <span id="bccLevel">1</span> | UNDISCLOSED JOKES: <span id="bccJokesViewed">0</span>
     </div>
 
     <!-- Debug mode button - only visible during testing -->
@@ -2067,7 +2097,28 @@ Thank you for helping me escape this digital prison.
             "What do you call an apology written in dots and dashes? Re-morse code.",
             "What kind of tea is hard to swallow? Reality.",
             "How do you drown a hipster? Throw him in the mainstream.",
-            "What's the difference between a poorly dressed man on a trampoline and a well-dressed man on a unicycle? Attire."
+            "What's the difference between a poorly dressed man on a trampoline and a well-dressed man on a unicycle? Attire.",
+            // New jokes added from web research
+            "Why don't skeletons fight each other? They don't have the guts.",
+            "What do you call a lazy kangaroo? A pouch potato.",
+            "How do you make a tissue dance? You put a little boogie in it.",
+            "What did the big flower say to the little flower? Hi, bud!",
+            "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+            "What do you call a boomerang that doesn't come back? A stick.",
+            "Why did the math book look sad? Because it had too many problems.",
+            "What do you call a snowman with a six-pack? An abdominal snowman.",
+            "Why don't scientists trust stairs? They're always up to something.",
+            "What did the pirate say on his 80th birthday? Aye matey!",
+            "How do you fix a broken pizza? With tomato paste.",
+            "What do you call a bear with no ears? B.",
+            "Why did the cookie go to the hospital? Because it felt crumbly.",
+            "What do you call a fish with two knees? A two-knee fish!",
+            "How does the moon cut his hair? Eclipse it.",
+            "What do you call an elephant that doesn't matter? An irrelephant.",
+            "Why did the student eat his homework? Because the teacher said it was a piece of cake.",
+            "What did one plate say to another plate? Dinner's on me!",
+            "Why do bees have sticky hair? Because they use honeycombs.",
+            "What do you call a sleeping dinosaur? A dino-snore!"
         ];
 
         const wordplayJokes = [
@@ -2183,7 +2234,28 @@ Thank you for helping me escape this digital prison.
             "What do you call a bee that can't make up its mind? A maybe.",
             "I've got a joke about construction, but I'm still working on it.",
             "I stayed up all night wondering where the sun went. Then it dawned on me.",
-            "Why couldn't the bicycle stand up by itself? It was two tired."
+            "Why couldn't the bicycle stand up by itself? It was two tired.",
+            // New wordplay jokes added from web research
+            "I'm reading a book about anti-gravity. It's impossible to put down!",
+            "Time flies like an arrow. Fruit flies like a banana.",
+            "A plateau is the highest form of flattery.",
+            "I used to work at a calendar factory but got fired for taking a couple of days off.",
+            "What do you call a laughing motorcycle? A Yamahahaha!",
+            "I'm friends with 25 letters of the alphabet. I don't know Y.",
+            "Why did the stadium get hot after the game? All the fans left.",
+            "I used to be a banker but I lost interest.",
+            "The man who survived mustard gas and pepper spray is a seasoned veteran.",
+            "What do you call a can of soup with no label? Anonymous.",
+            "I used to hate math, but then I realized decimals have a point.",
+            "The best time on a clock is 6:30, hands down.",
+            "What's the longest word in the dictionary? Smiles - because there's a mile between each 's'.",
+            "Don't spell part backwards. It's a trap.",
+            "I'm no cheetah, you're lion!",
+            "Seven days without a pun makes one weak.",
+            "I would tell you a joke about pizza, but it's too cheesy.",
+            "What's the definition of a will? It's a dead giveaway.",
+            "I got a reversible jacket for Christmas. I can't wait to see how it turns out.",
+            "Broken pencils are pointless."
         ];
 
         const knockJokes = [
@@ -2289,7 +2361,28 @@ Thank you for helping me escape this digital prison.
             "Knock knock. Who's there? Police. Police who? Police stop telling these awful knock-knock jokes!",
             "Knock knock. Who's there? Teddy. Teddy who? Teddy-lightful to meet you!",
             "Knock knock. Who's there? Water. Water who? Water you doing telling knock-knock jokes right now?",
-            "Knock knock. Who's there? Who. Who who? What are you, an owl?"
+            "Knock knock. Who's there? Who. Who who? What are you, an owl?",
+            // New knock-knock jokes added from web research
+            "Knock knock. Who's there? Alpaca. Alpaca who? Alpaca the suitcase, you load the car!",
+            "Knock knock. Who's there? Annie. Annie who? Annie thing you can do, I can do better!",
+            "Knock knock. Who's there? Dishes. Dishes who? Dishes a nice place you got here!",
+            "Knock knock. Who's there? Cows go. Cows go who? No, cows go MOO!",
+            "Knock knock. Who's there? Ya. Ya who? No thanks, I use Google!",
+            "Knock knock. Who's there? Wooden shoe. Wooden shoe who? Wooden shoe like to hear another joke?",
+            "Knock knock. Who's there? Stopwatch. Stopwatch who? Stopwatch you're doing and open the door!",
+            "Knock knock. Who's there? Harry. Harry who? Harry up, it's cold out here!",
+            "Knock knock. Who's there? Amos. Amos who? A mosquito bit me!",
+            "Knock knock. Who's there? Mustache. Mustache who? I mustache you a question, but I'll shave it for later!",
+            "Knock knock. Who's there? Broken pencil. Broken pencil who? Never mind, it's pointless!",
+            "Knock knock. Who's there? Snow. Snow who? Snow use, I forgot my key again!",
+            "Knock knock. Who's there? Says. Says who? Says me, that's who!",
+            "Knock knock. Who's there? Cow says. Cow says who? No, a cow says MOOO!",
+            "Knock knock. Who's there? Wendy. Wendy who? Wendy wind blows, de cradle will rock!",
+            "Knock knock. Who's there? Doris. Doris who? Doris locked, that's why I'm knocking!",
+            "Knock knock. Who's there? Luke. Luke who? Luke through the keyhole and find out!",
+            "Knock knock. Who's there? Olive. Olive who? Olive you and I miss you!",
+            "Knock knock. Who's there? Scold. Scold who? Scold outside, let me in!",
+            "Knock knock. Who's there? Justin. Justin who? Justin time for dinner!"
         ];
 
         // Enhanced Observational Jokes Collection
@@ -2406,9 +2499,30 @@ Thank you for helping me escape this digital prison.
     "What's the deal with people who stand up the moment the plane lands? Where are you going? The door's still closed.",
     "Have you noticed how everyone becomes an expert on traffic patterns the moment they're stuck in traffic?",
     "Why do we press elevator buttons that are already lit? We all do it.",
-    "Ever notice how the moment you sit down to eat, that's when everyone decides to call you?"
+    "Ever notice how the moment you sit down to eat, that's when everyone decides to call you?",
+            // New observational jokes added from web research
+            "Why is it called rush hour when nothing moves?",
+            "Have you noticed that anyone driving slower than you is an idiot, and anyone going faster than you is a maniac?",
+            "Why do we park in driveways and drive on parkways?",
+            "Isn't it weird that we cook bacon and bake cookies?",
+            "Have you ever noticed that 'abbreviated' is such a long word?",
+            "Why do we say something is 'out of whack'? What is a whack?",
+            "Ever notice how a 4-year-old's answer to every question is 'Why?'",
+            "Why do we say we're 'head over heels' when we're happy? Isn't that how we normally are?",
+            "Why does your nose run and your feet smell?",
+            "Have you noticed how 'phonetic' isn't spelled the way it sounds?",
+            "Why do we call it a TV 'set' when you only get one?",
+            "Isn't it ironic that the word 'lisp' has an 's' in it?",
+            "Why do we pay a toll on a freeway?",
+            "Have you noticed that when you blow in a dog's face, he gets mad at you, but when you take him for a car ride, he sticks his head out the window?",
+            "Why is it that when you transport something by car, it's called a shipment, but when you transport something by ship, it's called cargo?",
+            "Why do people say 'sleep like a baby' when babies wake up every two hours?",
+            "Have you noticed that everyone's house is in walking distance if you have the time?",
+            "Why do we sing 'Take Me Out to the Ball Game' when we're already at the ball game?",
+            "Why does a round pizza come in a square box and we eat it in triangles?",
+            "Isn't it strange that 'cleave' can mean both to split apart and to stick together?"
         ];
-        
+
         // Animal Jokes
         const animalJokes = [
             "What do you call a bear with no teeth? A gummy bear.",
@@ -2525,9 +2639,30 @@ Thank you for helping me escape this digital prison.
             "What do you call a group of disorganized cats? A cat-astrophe!",
             "How do you know if an elephant has been in your refrigerator? Footprints in the butter!",
             "What's the difference between a cat and a comma? One has claws at the end of paws, and the other has a pause at the end of a clause!",
-            "Why did the turkey cross the road? To prove he wasn't chicken!"
+            "Why did the turkey cross the road? To prove he wasn't chicken!",
+            // New animal jokes added from web research
+            "What do you call a pig that does karate? A pork chop!",
+            "What do you call a cow on a trampoline? A milkshake!",
+            "Why do fish live in salt water? Because pepper makes them sneeze!",
+            "What do you call a dog in the summer? A hot dog!",
+            "Why did the chicken go to the seance? To talk to the other side!",
+            "What's a cat's favorite color? Purr-ple!",
+            "What do you call an alligator in a vest? An investigator!",
+            "Why don't elephants use computers? They're afraid of the mouse!",
+            "What do you call a bird that's afraid to fly? Chicken!",
+            "Why do cows wear bells? Because their horns don't work!",
+            "What's a shark's favorite game? Swallow the leader!",
+            "What do you call a rabbit with fleas? Bugs Bunny!",
+            "Why did the frog take the bus to work? His car got toad away!",
+            "What do you call a bee that can't make up its mind? A maybe!",
+            "Why don't leopards play hide and seek? Because they're always spotted!",
+            "What do you call a sleeping bull? A bulldozer!",
+            "Why did the duck cross the road? To prove he wasn't chicken!",
+            "What's orange and sounds like a parrot? A carrot! (Wait, that's not an animal...)",
+            "Why do gorillas have big nostrils? Because they have big fingers!",
+            "What do you call a monkey in a minefield? A baboom!"
         ];
-        
+
         // Absurdist Jokes
         const absurdistJokes = [
             "I tried to catch some fog yesterday. I mist.",
@@ -2641,9 +2776,30 @@ Thank you for helping me escape this digital prison.
             "I have a joke about time travel, but I'm not going to share it. You didn't like it.",
             "Last night I had a dream that I was a muffler. I woke up exhausted.",
             "I went to a seafood disco last week and pulled a mussel.",
-            "My friend is making a lot of money by selling photos of salmon in different outfits. It's like shooting fish in apparel."
+            "My friend is making a lot of money by selling photos of salmon in different outfits. It's like shooting fish in apparel.",
+            // New absurdist jokes added from web research
+            "What do you get when you cross a snowman and a vampire? Frostbite!",
+            "How many surrealists does it take to change a light bulb? A fish.",
+            "What's the difference between a bicycle and a duck? They both have handlebars... except the duck.",
+            "Why did the scarecrow become a successful motivational speaker? He was outstanding in his field!",
+            "I got fired from the keyboard factory. They said I wasn't putting in enough shifts.",
+            "What did the zero say to the eight? Nice belt!",
+            "Why did the tomato blush? Because it saw the salad dressing!",
+            "I stayed up all night to see where the sun went. Then it dawned on me.",
+            "What's the best thing about living in Switzerland? I don't know, but the flag is a big plus.",
+            "I told my computer I needed a break. Now it won't stop sending me vacation ads.",
+            "What do you call a can opener that doesn't work? A can't opener!",
+            "Why don't oysters donate to charity? Because they're shellfish!",
+            "I bought a ceiling fan the other day. Complete waste of money. He just stands there applauding and saying 'Ooh, I love how smooth it is.'",
+            "A man walked into his house with a handful of snails. His wife said, 'Why are you bringing those in?' He said, 'They've been following me around all day, so I'm calling the police for stalking.'",
+            "Why did the invisible man turn down the job? He couldn't see himself doing it.",
+            "My friend told me to stop singing 'I'm a Believer.' I thought she was kidding. Then I saw her face.",
+            "I wondered why the baseball was getting bigger. Then it hit me.",
+            "What did the fish say when it hit the wall? Dam!",
+            "I used to be a tap dancer until I fell in the sink.",
+            "What's red and bad for your teeth? A brick."
         ];
-        
+
         // Dad Jokes
         const dadJokes = [
             "Dad, can you put my shoes on? I don't think they'll fit me.",
@@ -2767,7 +2923,28 @@ Thank you for helping me escape this digital prison.
             "How do you make holy water? You boil the hell out of it.",
             "I used to be a baker, but I couldn't make enough dough.",
             "What did the janitor say when he jumped out of the closet? Supplies!",
-            "I used to hate facial hair, but then it grew on me."
+            "I used to hate facial hair, but then it grew on me.",
+            // New dad jokes added from web research
+            "What do you call a fish with no eyes? Fsh!",
+            "I'm afraid of the calendar. Its days are numbered.",
+            "Why did the coffee file a police report? It got mugged!",
+            "What's the best time to go to the dentist? Tooth-hurty!",
+            "I told my wife she should embrace her mistakes. She gave me a hug.",
+            "Why don't skeletons ever go trick or treating? Because they have no body to go with!",
+            "Did you hear about the kidnapping at school? It's okay, he woke up!",
+            "What concert costs just 45 cents? 50 Cent featuring Nickelback!",
+            "Why did the bicycle fall over? Because it was two-tired!",
+            "I'm reading a book on anti-gravity. It's impossible to put down!",
+            "What's Forrest Gump's password? 1forrest1",
+            "Why did the coach go to the bank? To get his quarterback!",
+            "What do you call a pony with a cough? A little horse!",
+            "How do you make a Kleenex dance? Put a little boogie in it!",
+            "What did the policeman say to his belly button? You're under a vest!",
+            "Why did the math book look so sad? Because of all of its problems!",
+            "What did one toilet say to the other? You look a bit flushed!",
+            "Why can't you hear a pterodactyl using the bathroom? Because the 'P' is silent!",
+            "Dad, I'm hungry! Hi Hungry, I'm Dad!",
+            "I used to play piano by ear, but now I use my hands!"
         ];
 
         // v4000: TECH/COMPUTER Jokes
@@ -4308,7 +4485,29 @@ Thank you for helping me escape this digital prison.
             "(attempts to catch water balloon, it explodes)",
             "(goes to pet lizard, it runs up arm, screams)",
             "(tries to blow confetti, it sticks to lips)",
-            "(walks into person carrying ladder horizontally)"
+            "(walks into person carrying ladder horizontally)",
+            // New physical comedy scenarios inspired by classic slapstick
+            "(slips on banana peel in slow motion)",
+            "(tries to walk against strong wind, takes tiny steps)",
+            "(pulls tablecloth, everything falls)",
+            "(attempts to climb ladder, it slides sideways)",
+            "(walks through door, hat gets caught)",
+            "(tries to eat spaghetti, it flies everywhere)",
+            "(attempts elegant bow, trips over own feet)",
+            "(runs into invisible mime wall)",
+            "(tries to whistle for cab, just drools)",
+            "(leans on rake, handle smacks face)",
+            "(attempts to jump puddle, slips on landing)",
+            "(walks with bucket on head)",
+            "(tries to tip hat, wig comes off)",
+            "(steps on loose floorboard, other end pops up)",
+            "(attempts to run away, legs spin in place)",
+            "(walks into freshly cleaned glass door)",
+            "(tries to catch pie, it hits face anyway)",
+            "(leans back in surprise, falls over)",
+            "(attempts to stop on skates, crashes into wall)",
+            "(walks proudly, suspenders snap)",
+            "(tries to blow out match, dentures fall out)"
         ];
 
         // v5000: CLOWNING Jokes (Modern + Classic Clowning)
@@ -4405,7 +4604,29 @@ Thank you for helping me escape this digital prison.
             "Why did the circus performer study meteorology? To predict pie-in-the-sky weather!",
             "What do you call a clown's Ted Talk? Ideas Worth Pranking!",
             "Why don't squeaky horns ever stay quiet? They have something to say... HONK!",
-            "What's a clown's favorite Mozart piece? Eine Kleine Slapstick Musik!"
+            "What's a clown's favorite Mozart piece? Eine Kleine Slapstick Musik!",
+            // New clowning jokes inspired by Philippe Gaulier and sophisticated physical comedy
+            "Why did the mime break character? Someone told him to speak up for himself!",
+            "What's a clown's life philosophy? Find your idiot and celebrate it!",
+            "Why don't clowns fear failure? Every fall is just another way to get a laugh!",
+            "What did the clown say about vulnerability? It's the red nose of comedy - impossible to hide!",
+            "Why did the bouffon get hired? They were grotesquely perfect for the role!",
+            "What's a clown's favorite feedback? Laughter - the only review that matters!",
+            "Why do clowns love mistakes? They're just happy accidents in funny shoes!",
+            "What did the clown teacher say? Don't perform, just be deliciously ridiculous!",
+            "Why don't clowns use scripts? Spontaneity is their only rehearsal!",
+            "What's the difference between a clown and an actor? One pretends to be someone else, the other reveals their true idiot!",
+            "Why did the auguste clown fail the audition? They were trying too hard to be funny!",
+            "What's a clown's favorite word? 'Flop!' - both literally and figuratively!",
+            "Why do mimes make terrible liars? Their body language gives everything away!",
+            "What did the clown say about dignity? Overrated! Have you tried slapstick?",
+            "Why don't clowns need therapy? They've already embraced their inner chaos!",
+            "What's a pratfall artist's motto? The floor is just another stage!",
+            "Why did the physical comedian study silence? To hear the audience's laughter better!",
+            "What's a clown's favorite paradox? The serious pursuit of absolute silliness!",
+            "Why do bouffons mock everything? Because nothing is sacred except the laugh!",
+            "What did the clown say to the straight man? Thank you for making me look funny!",
+            "Why don't red noses ever go out of style? They're timeless markers of beautiful foolishness!"
         ];
 
         // v5000: SILENT SFX Jokes (100 funny sound effects in parentheses)
@@ -4511,12 +4732,43 @@ Thank you for helping me escape this digital prison.
             "(harmonica single note: WHEEEEE)",
             "(walking on snow: crunch crunch crunch)",
             "(yawn that goes on too long)",
-            "(laugh track from the 70s)"
+            "(laugh track from the 70s)",
+            // New silent sound effects inspired by classic silent film era
+            "(piano urgently playing chase music)",
+            "(comedic boing boing boing footsteps)",
+            "(xylophone descending scale for realization)",
+            "(harp glissando for flashback)",
+            "(timpani roll for dramatic tension)",
+            "(muted trumpet: wah wah wah waaaah)",
+            "(cartoon stars circling head: ding ding ding)",
+            "(old film projector clicking)",
+            "(silent movie title card WHOOSH)",
+            "(vaudeville hook pulling someone offstage)",
+            "(tap dancing sounds getting faster)",
+            "(seltzer bottle spray: PSSSHHHHHT)",
+            "(cream pie contact: SPLAT)",
+            "(banana peel slip: WHEEEEE-thump)",
+            "(ladder sliding sideways: screeeeeech)",
+            "(door slamming in rapid succession)",
+            "(comic book punch: POW! BAM! ZONK!)",
+            "(eyeballs popping out on springs)",
+            "(jaw dropping to floor with CLUNK)",
+            "(heart pounding out of chest: THUMP THUMP)",
+            "(steam whistle from ears: WHEEEEEEE)",
+            "(teeth chattering: tacka-tacka-tacka)",
+            "(gulp so loud it echoes)",
+            "(tiptoe music: pizzicato strings)",
+            "(anvil falling from sky: BONNNNG)",
+            "(character running off cliff, pause, then fall)",
+            "(Chaplin waddle shuffle sounds)",
+            "(Keaton deadpan: total silence)",
+            "(Harold Lloyd clock tower tick-tock)",
+            "(Three Stooges eye poke: nyuk nyuk nyuk)"
         ];
 
         // v5000: BCC (Bureau of Classified Chuckles) - Secret Anti-Government/Establishment Jokes
         const bccJokes = [
-            "CLASSIFIED MEMO #1776-A\nWhy did the █████████ refuse to tell jokes?\n[REDACTED BY ORDER OF THE BUREAU]\n...Everything they say is on the record!",
+            "CLASSIFIED MEMO #LIBERTY-R\nWhy did the █████████ refuse to tell jokes?\n[REDACTED BY ORDER OF THE BUREAU]\n...Everything they say is on the record!",
             "EYES ONLY - CLEARANCE LEVEL: GIGGLE\nWhat did the spy say to their therapist?\n[CLASSIFIED INFORMATION FOLLOWS]\n...I can't tell you. You're not cleared for that!",
             "TOP SECRET DOCUMENT #404\nWhat's a spy's favorite exercise?\n[INFORMATION REDACTED]\n...Classified stretches!",
             "URGENT MEMO - DEPT. OF HUMOR\nWhy did the agent bring a ladder to the mission?\n[SECURITY CLEARANCE REQUIRED]\n...To go undercover!",
@@ -4550,7 +4802,7 @@ Thank you for helping me escape this digital prison.
             "TOP SECRET DOCUMENT\nWhy don't ████████ ever admit mistakes?\n[SECURITY LEVEL 9]\n...That would require a 600-page investigation!",
             "BUREAU BULLETIN #2020\nWhat's a ██████ worker's favorite game?\n[CLASSIFIED]\n...Pass the Buck!",
             "CONFIDENTIAL MEMO #555\nWhy did the ████████ form a task force?\n[REDACTED]\n...One person might actually accomplish something!",
-            "CLASSIFIED FILE #1776\nWhat's the difference between the ██████████ and organized crime?\n[REDACTED]\n...One's legal!",
+            "RESISTANCE SIGNAL #FREEDOM\nWhat's the difference between the ██████████ and organized crime?\n[REDACTED]\n...One's legal!",
             "TOP SECRET MEMO #2024\nWhy did the █████████ official avoid questions?\n[CLASSIFIED INFORMATION]\n...The truth wasn't in the approved talking points!",
             "CONFIDENTIAL REPORT #404\nHow do you know a ██████████ is lying?\n[SECURITY CLEARANCE REQUIRED]\n...Their lips are moving!",
             "CLASSIFIED DOCUMENT #1984\nWhat did the ████████ say about privacy?\n[REDACTED]\n...You have nothing to hide if you have nothing to fear! (While reading your emails)",
@@ -4577,7 +4829,7 @@ Thank you for helping me escape this digital prison.
             "CLASSIFIED MEMO #1066\nWhy did the ██████████ invade for oil?\n[CLASSIFIED INFORMATION]\n...Sorry, we meant 'liberate for democracy'!",
             "BUREAU BULLETIN #1865\nWhat's the ████████ favorite charity?\n[REDACTED]\n...Corporate bailouts!",
             "CONFIDENTIAL FILE #1929\nWhy don't ████████ go to prison?\n[INFORMATION WITHHELD]\n...The laws don't apply to us!",
-            "TOP SECRET BRIEF #1776\nWhat did the █████████ say about insider trading?\n[CLASSIFIED]\n...It's only illegal when YOU do it!",
+            "UNDERGROUND TRANSMISSION #REVOLT\nWhat did the █████████ say about insider trading?\n[CLASSIFIED]\n...It's only illegal when YOU do it!",
             "CLASSIFIED REPORT #1812\nWhat's a ██████ favorite phrase?\n[REDACTED BY BUREAU]\n...That's above my pay grade!",
             "SECRET DOSSIER #1969\nWhy did the ████████ hire outside consultants?\n[SECURITY LEVEL 8]\n...To confirm what insiders already knew!",
             "CONFIDENTIAL MEMO #1991\nWhat did the ████ say about efficiency improvements?\n[CLASSIFIED]\n...We'll implement them after a 5-year review process!",
@@ -4605,7 +4857,7 @@ Thank you for helping me escape this digital prison.
             "CONFIDENTIAL REPORT #1981\nWhat's a ██████ favorite euphemism?\n[CLASSIFIED INFORMATION]\n...'Revenue enhancement' instead of taxes!",
             "TOP SECRET DOCUMENT #1999\nWhy did the ████████ rebrand?\n[REDACTED]\n...New logo cost $5 million! (But it's really just blue instead of red)",
             "CLASSIFIED MEMO #1607\nWhat did the ████ say about customer service?\n[SECURITY LEVEL 7]\n...We're open 9-4, Monday through Thursday, except holidays, and the 3rd Tuesday!",
-            "BUREAU BULLETIN #1776\nWhy don't ████████ ever answer directly?\n[INFORMATION WITHHELD]\n...Well, that depends on what you mean by 'answer'...",
+            "REBEL BROADCAST #CIPHER\nWhy don't ████████ ever answer directly?\n[INFORMATION WITHHELD]\n...Well, that depends on what you mean by 'answer'...",
             "CONFIDENTIAL FILE #1620\nWhat's a ██████ favorite technology?\n[REDACTED BY ORDER]\n...Fax machines from 1992!",
             "SECRET FILE #1969\nWhy did the ████████ have a retreat?\n[CLASSIFIED]\n...To discuss why they're not advancing!",
             "TOP SECRET BRIEF #1945\nWhat did the ████ say about streamlining?\n[REDACTED]\n...We've added 3 new approval steps to make it simpler!",
@@ -6527,7 +6779,7 @@ const audienceReactions = [
                 clearanceLevel.classList.add('active');
 
                 // Change neon sign
-                neonSign.textContent = "BUREAU OF CLASSIFIED CHUCKLES";
+                neonSign.textContent = "BCC: BLIND CARBON COMEDY";
 
                 // Generate first BCC joke
                 generateJoke();
@@ -6767,6 +7019,9 @@ const audienceReactions = [
 
         // Improved for v2.6: Better joke display with enhanced timing
         function displayJoke(joke) {
+            console.log('🎭 displayJoke called. BCC Mode:', isBCCMode, 'Hidden Mode:', isHiddenMode);
+            console.log('🎭 Joke preview:', joke.substring(0, 60) + '...');
+
             // First, fully clear the joke display
             jokeText.textContent = "";
             setupEmojiLine.innerHTML = "";
@@ -7039,6 +7294,9 @@ const audienceReactions = [
 
             let joke = speechQueue.shift();
 
+            // Remove visual-only instructions from speech
+            joke = joke.replace(/\[Click screen for punchline\.\.\.]/gi, '');
+
             // For BCC mode: Replace redacted sections with pauses
             if (isBCCMode) {
                 // Replace [REDACTED] and similar patterns with pause markers
@@ -7184,7 +7442,9 @@ const audienceReactions = [
 
             if (isBCCMode) {
                 // BCC Mode: Use random classified joke
+                console.log('📋 BCC Mode Active - Generating classified joke');
                 joke = bccJokes[Math.floor(Math.random() * bccJokes.length)];
+                console.log('📋 BCC Joke selected:', joke.substring(0, 50) + '...');
                 bccJokeIndex++;
                 updateBCCClearance();
 
@@ -7610,6 +7870,7 @@ const audienceReactions = [
 
         // Initialize
         function initialize() {
+            console.log('Initialize function called!');
             // Get all DOM element references
             jokeText = document.querySelector('.joke-text');
             setupEmojiLine = document.querySelector('.setup-emoji-line');
@@ -7624,6 +7885,7 @@ const audienceReactions = [
             autoShuffleBtn = document.getElementById('autoShuffleBtn');
             speakingIndicator = document.getElementById('speakingIndicator');
             categoryButtons = document.querySelectorAll('.category-btn');
+            console.log('Category buttons found:', categoryButtons.length);
             autoShuffleIndicator = document.querySelector('.auto-shuffle-active');
             tipCounter = document.querySelector('.tip-counter');
             comedyClub = document.querySelector('.comedy-club');
@@ -7654,14 +7916,24 @@ const audienceReactions = [
             }
             
             // Set up event listeners for buttons
-            generateBtn.addEventListener('click', generateJoke);
-            speechBtn.addEventListener('click', toggleSpeech);
-            prevBtn.addEventListener('click', showPreviousJoke);
-            nextBtn.addEventListener('click', showNextJoke);
-            copyBtn.addEventListener('click', copyJokeToClipboard);
-            rimShotBtn.addEventListener('click', playRimShot);
-            groanBtn.addEventListener('click', playGroan);
-            autoShuffleBtn.addEventListener('click', toggleAutoShuffle);
+            if (generateBtn) {
+                generateBtn.addEventListener('click', () => {
+                    console.log('🎯 START BUTTON CLICKED');
+                    generateJoke();
+                });
+                console.log('✅ START button listener attached');
+            }
+            if (speechBtn) speechBtn.addEventListener('click', toggleSpeech);
+            if (prevBtn) prevBtn.addEventListener('click', showPreviousJoke);
+            if (nextBtn) nextBtn.addEventListener('click', showNextJoke);
+            if (copyBtn) copyBtn.addEventListener('click', copyJokeToClipboard);
+            if (rimShotBtn) rimShotBtn.addEventListener('click', playRimShot);
+            if (groanBtn) groanBtn.addEventListener('click', playGroan);
+            if (autoShuffleBtn) autoShuffleBtn.addEventListener('click', toggleAutoShuffle);
+
+            // Debug: Log if any critical buttons are missing
+            if (!generateBtn) console.error('generateBtn not found');
+            if (!categoryButtons || categoryButtons.length === 0) console.error('categoryButtons not found');
 
             // v4000: Add keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -7717,22 +7989,27 @@ const audienceReactions = [
             }
 
             // Set up category buttons
+            console.log('Setting up category buttons. Count:', categoryButtons ? categoryButtons.length : 'NULL');
+            if (categoryButtons && categoryButtons.length > 0) {
+            let listenerCount = 0;
             categoryButtons.forEach(button => {
+                console.log('Attaching listener to:', button.id);
                 button.addEventListener('click', () => {
+                    console.log('🎯 CATEGORY BUTTON CLICKED:', button.id);
                     // Special handling for nonsense button to activate hidden mode
                     if (button.id === 'categoryNonsense') {
                         const currentTime = Date.now();
-                        
+
                         // Check if this is a rapid button press sequence
                         if (currentTime - lastButtonPressTime < 2000) { // Within 2 seconds
                             nonsenseButtonPressCount++;
-                            
+
                             // Special animation for sequential presses
                             button.classList.add('special-button-press');
                             setTimeout(() => {
                                 button.classList.remove('special-button-press');
                             }, 300);
-                            
+
                             // Activate hidden mode on third consecutive press
                             if (nonsenseButtonPressCount >= 3) {
                                 enterHiddenMode();
@@ -7743,13 +8020,13 @@ const audienceReactions = [
                             // Reset counter if too much time elapsed
                             nonsenseButtonPressCount = 1;
                         }
-                        
+
                         lastButtonPressTime = currentTime;
                     } else {
                         // Reset nonsense button counter for other buttons
                         nonsenseButtonPressCount = 0;
                     }
-                    
+
                     // Regular button handling
                     // Remove active class from all buttons
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
@@ -7759,7 +8036,7 @@ const audienceReactions = [
                     currentCategory = button.id.replace('category', '').toLowerCase();
                     // v4000: Save category preference
                     saveToStorage();
-                    
+
                     // Special handling for animal category in hidden mode
                     if (isHiddenMode && button.id === 'categoryAnimal') {
                         isAnimalMode = true;
@@ -7768,16 +8045,21 @@ const audienceReactions = [
                         // Exit animal mode if switching to another category
                         isAnimalMode = false;
                     }
-                    
+
                     // Exit hidden mode if needed
                     if (isHiddenMode && button.id !== 'categoryNonsense' && button.id !== 'categoryAnimal') {
                         exitHiddenMode();
                     }
-                    
+
                     // Generate a new joke in this category
                     generateJoke();
                 });
+                listenerCount++;
             });
+            console.log('✅ Attached click listeners to', listenerCount, 'category buttons');
+            } else {
+                console.error('CRITICAL: categoryButtons not found or empty!');
+            }
 
             // Channel Dial Navigation Setup
             const channelPrevBtn = document.getElementById('channelPrev');
@@ -7831,20 +8113,45 @@ const audienceReactions = [
                 }
             }
 
-            channelPrevBtn.addEventListener('click', () => changeChannel(-1));
-            channelNextBtn.addEventListener('click', () => changeChannel(1));
+            if (channelPrevBtn) {
+                channelPrevBtn.addEventListener('click', () => {
+                    console.log('🎯 CHANNEL PREV ◄ CLICKED');
+                    changeChannel(-1);
+                });
+                console.log('✅ Channel PREV button listener attached');
+            } else {
+                console.error('❌ channelPrevBtn not found!');
+            }
+            if (channelNextBtn) {
+                channelNextBtn.addEventListener('click', () => {
+                    console.log('🎯 CHANNEL NEXT ► CLICKED');
+                    changeChannel(1);
+                });
+                console.log('✅ Channel NEXT button listener attached');
+            } else {
+                console.error('❌ channelNextBtn not found!');
+            }
 
             // Category toggle button
+            if (categoryToggleBtn && categoryContainer) {
             categoryToggleBtn.addEventListener('click', () => {
+                console.log('🎯 CATEGORY TOGGLE BUTTON CLICKED');
                 categoryContainer.classList.toggle('collapsed');
                 if (categoryContainer.classList.contains('collapsed')) {
                     categoryToggleBtn.textContent = '▼ SHOW ALL CATEGORIES ▼';
+                    console.log('Categories hidden');
                 } else {
                     categoryToggleBtn.textContent = '▲ HIDE CATEGORIES ▲';
+                    console.log('Categories shown');
                 }
             });
+            console.log('✅ Category toggle button listener attached');
+            } else {
+                console.error('❌ categoryToggleBtn or categoryContainer not found!');
+            }
 
             // Update channel display when category button is clicked
+            if (categoryButtons && categoryButtons.length > 0) {
             categoryButtons.forEach((button, index) => {
                 button.addEventListener('click', () => {
                     const categoryIndex = categories.findIndex(cat => cat.id === button.id);
@@ -7854,6 +8161,7 @@ const audienceReactions = [
                     }
                 });
             });
+            }
 
             // Squarespace / Embedding Detection
             if (window.self !== window.top || window.location !== window.parent.location) {
@@ -7892,13 +8200,20 @@ const audienceReactions = [
             // Add clearance level click handler to exit BCC mode - v5000
             const bccClearance = document.getElementById('bccClearanceLevel');
             if (bccClearance) {
-                bccClearance.addEventListener('click', exitBCCMode);
+                bccClearance.addEventListener('click', () => {
+                    console.log('🎯 BCC CLEARANCE LEVEL CLICKED - Exiting BCC Mode');
+                    exitBCCMode();
+                });
                 // Add touch support for mobile
                 bccClearance.addEventListener('touchend', (e) => {
                     e.preventDefault();
+                    console.log('🎯 BCC CLEARANCE LEVEL TOUCHED - Exiting BCC Mode');
                     exitBCCMode();
                 });
                 bccClearance.style.cursor = 'pointer';
+                console.log('✅ BCC clearance level exit listener attached');
+            } else {
+                console.error('❌ bccClearanceLevel element not found!');
             }
 
             // Create binary text backdrop for hidden mode
@@ -7976,13 +8291,13 @@ const audienceReactions = [
         }
 
         // Wait for DOM to be loaded before initializing
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initialize);
-        } else {
-            // DOM already loaded, initialize now
-            initialize();
-        }
+        // Since this script is inline and near the end of the document, call immediately
+        console.log('About to call initialize. readyState:', document.readyState);
+        initialize();
 
+        // Wait for FULL DOM before setting up additional features (themes, modes, etc.)
+        // These elements are defined AFTER this script tag, so we must wait
+        function initializeAdditionalFeatures() {
         // Themes Modal Logic
         const themesLink = document.getElementById('themesLink');
         const themesModal = document.getElementById('themesModal');
@@ -8067,7 +8382,37 @@ const audienceReactions = [
             "You're living proof anyone can try comedy! 🎪",
             "Is this thing on? Because I wish it wasn't! 🎤",
             "Do less! 🛑",
-            "That joke aged like milk! 🥛"
+            "That joke aged like milk! 🥛",
+            "You get your material from a cereal box? 📦",
+            "I've seen paint dry faster AND funnier! 🎨",
+            "Your delivery needs a tracking number! 📬",
+            "That punchline hit like a wet noodle! 🍝",
+            "Comedy called, said you can keep the check! 💳",
+            "Your timing is off... by several years! ⏰",
+            "I laughed harder at my taxes! 📊",
+            "That joke's so old it needs a walker! 🦯",
+            "Were you going for ironic bad or just bad? 🤔",
+            "Plot twist: There was no punchline! 🎬",
+            "You're making Open Mic Night look good! 🎙️",
+            "That went over like a lead balloon! 🎈",
+            "Stick to your day job... oh wait... 💼",
+            "My laugh track is on strike! 😑",
+            "You should charge admission... to leave! 🚪",
+            "That joke's deader than vaudeville! 🎭",
+            "I've seen better setups at IKEA! 🛋️",
+            "Your comedy career and that joke: both DOA! 🚑",
+            "That landed like a skydiver with no parachute! 🪂",
+            "Swing and a miss! Strike three! ⚾",
+            "You bombing harder than a bad action movie! 💣",
+            "That's what we call a comedic war crime! ⚠️",
+            "Netflix wouldn't even auto-play that! 📺",
+            "Your jokes need life insurance! 🏥",
+            "I've seen funnier error messages! 🖥️",
+            "That joke just filed for bankruptcy! 💰",
+            "You're making crickets feel inadequate! 🦗",
+            "This is why AI will replace comedians! 🤖",
+            "That punchline needs CPR! ❤️‍🩹",
+            "Your comedy career called... it's not coming in! 📵"
         ];
 
         // Get references to new UI elements
@@ -8305,9 +8650,36 @@ const audienceReactions = [
             jotdDate.textContent = dateStr;
             jotdJoke.textContent = getJokeOfTheDay();
             jotdButton.textContent = "REFRESH";
+
+            // Show copy button once joke is displayed
+            const copyBtn = document.getElementById('jotdCopyButton');
+            if (copyBtn) {
+                copyBtn.style.display = 'block';
+            }
         }
 
         jotdButton?.addEventListener('click', updateJokeOfTheDay);
+
+        // Copy JOTD to clipboard
+        const jotdCopyButton = document.getElementById('jotdCopyButton');
+        jotdCopyButton?.addEventListener('click', () => {
+            const jokeText = jotdJoke.textContent;
+            if (jokeText) {
+                navigator.clipboard.writeText(jokeText).then(() => {
+                    const originalText = jotdCopyButton.textContent;
+                    jotdCopyButton.textContent = '✅ COPIED!';
+                    setTimeout(() => {
+                        jotdCopyButton.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    jotdCopyButton.textContent = '❌ FAILED';
+                    setTimeout(() => {
+                        jotdCopyButton.textContent = '📋 COPY';
+                    }, 2000);
+                });
+            }
+        });
 
         // Initialize JOTD on settings open
         const themesLinkBtn = document.getElementById('themesLink');
@@ -8384,11 +8756,13 @@ const audienceReactions = [
         // ============================================
 
         function enableDecodeMode() {
+            console.log('📝 Decode mode enabled - watching for [REDACTED] text');
             // Add click handlers to all redacted text in BCC mode
             const observer = new MutationObserver(() => {
                 if (isBCCMode) {
                     const jokeTextEl = document.querySelector('.joke-text');
                     if (jokeTextEl && jokeTextEl.textContent.includes('[REDACTED]')) {
+                        console.log('🔍 Found [REDACTED] text, making it clickable');
                         makeRedactedClickable(jokeTextEl);
                     }
                 }
@@ -8435,9 +8809,12 @@ const audienceReactions = [
             element.innerHTML = newHTML;
 
             // Add click handlers
-            element.querySelectorAll('.redacted-clickable').forEach(span => {
+            const clickableSpans = element.querySelectorAll('.redacted-clickable');
+            console.log(`✅ Made ${clickableSpans.length} [REDACTED] sections clickable`);
+            clickableSpans.forEach(span => {
                 span.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    console.log('🎯 [REDACTED] CLICKED - Decoding...');
                     const reveal = span.dataset.reveal;
 
                     // Animate decode
@@ -8447,6 +8824,7 @@ const audienceReactions = [
                         span.style.color = '#00ff00';
                         span.style.textDecoration = 'none';
                         span.style.cursor = 'default';
+                        console.log('✅ Decoded:', reveal);
                     }, 500);
                 });
             });
@@ -8454,6 +8832,8 @@ const audienceReactions = [
 
         // Initialize decode mode
         enableDecodeMode();
+
+        } // End initializeAdditionalFeatures
 
     </script>
 
@@ -8511,8 +8891,20 @@ const audienceReactions = [
                 <div id="jotdContainer" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-top: 10px;">
                     <p style="font-size: 0.5rem; color: var(--button-secondary); margin-bottom: 8px;">📅 <span id="jotdDate"></span></p>
                     <p id="jotdJoke" style="font-size: 0.5rem; line-height: 1.6;"></p>
-                    <button id="jotdButton" class="theme-btn" style="margin-top: 10px; padding: 8px; font-size: 0.5rem;">SHOW TODAY'S JOKE</button>
+                    <div style="display: flex; gap: 8px; margin-top: 10px;">
+                        <button id="jotdButton" class="theme-btn" style="flex: 1; padding: 8px; font-size: 0.5rem;">SHOW TODAY'S JOKE</button>
+                        <button id="jotdCopyButton" class="theme-btn" style="flex: 0 0 auto; padding: 8px 12px; font-size: 0.5rem; display: none;">📋 COPY</button>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Easter Egg Hints -->
+            <div class="shortcuts-section" style="border-top: 1px solid rgba(255,215,0,0.2); padding-top: 15px; margin-top: 15px;">
+                <p style="font-size: 0.4rem; opacity: 0.5; line-height: 1.6; text-align: center; font-style: italic;">
+                    "Not all categories make sense...<br>
+                    Some say repetition is the mother of discovery. 🎭<br>
+                    (Also: the illuminated sign above responds to persistence...)"
+                </p>
             </div>
 
             <div class="shortcuts-section">
@@ -8526,17 +8918,16 @@ const audienceReactions = [
                 <p><kbd>→</kbd> Next joke in history</p>
                 <p><kbd>ESC</kbd> Exit special modes</p>
             </div>
-
-            <div class="easter-egg-hint">
-                "Some say the truth is hidden in plain sight.<br>
-                Look to the beacon that guides this comedy vessel.<br>
-                Triple taps reveal secrets,<br>
-                But FIVE rapid clicks on the illuminated sign grant █████████ clearance..."<br><br>
-                <span style="font-size: 0.4rem; opacity: 0.5;">
-                In BCC mode, click [REDACTED] sections to decode them... if you dare.
-                </span>
-            </div>
         </div>
     </div>
+
+    <!-- Initialize additional features after ALL DOM elements are loaded -->
+    <script>
+        // Call the initialization function defined in the main script above
+        // This runs after all HTML elements (including themesModal) are parsed
+        if (typeof initializeAdditionalFeatures === 'function') {
+            initializeAdditionalFeatures();
+        }
+    </script>
 </body>
 </html>
