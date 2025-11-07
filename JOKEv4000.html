@@ -8213,16 +8213,9 @@ const audienceReactions = [
         }
 
         // Wait for DOM to be loaded before initializing
-        // Always use DOMContentLoaded for inline scripts to ensure proper timing
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initialize);
-        } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
-            // DOM already loaded, initialize now
-            initialize();
-        } else {
-            // Fallback: ensure initialize runs after a short delay
-            setTimeout(initialize, 100);
-        }
+        // Since this script is inline and near the end of the document, call immediately
+        console.log('About to call initialize. readyState:', document.readyState);
+        initialize();
 
         // Wait for FULL DOM before setting up additional features (themes, modes, etc.)
         // These elements are defined AFTER this script tag, so we must wait
@@ -8771,16 +8764,6 @@ const audienceReactions = [
                 <p><kbd>←</kbd> Previous joke in history</p>
                 <p><kbd>→</kbd> Next joke in history</p>
                 <p><kbd>ESC</kbd> Exit special modes</p>
-            </div>
-
-            <div class="easter-egg-hint">
-                "Some say the truth is hidden in plain sight.<br>
-                Look to the beacon that guides this comedy vessel.<br>
-                Triple taps reveal secrets,<br>
-                But FIVE rapid clicks on the illuminated sign grant █████████ clearance..."<br><br>
-                <span style="font-size: 0.4rem; opacity: 0.5;">
-                In BCC mode, click [REDACTED] sections to decode them... if you dare.
-                </span>
             </div>
         </div>
     </div>
