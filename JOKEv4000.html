@@ -7983,6 +7983,14 @@ const audienceReactions = [
             initialize();
         }
 
+        // Wait for DOM before setting up additional features (themes, modes, etc.)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeAdditionalFeatures);
+        } else {
+            initializeAdditionalFeatures();
+        }
+
+        function initializeAdditionalFeatures() {
         // Themes Modal Logic
         const themesLink = document.getElementById('themesLink');
         const themesModal = document.getElementById('themesModal');
@@ -8454,6 +8462,8 @@ const audienceReactions = [
 
         // Initialize decode mode
         enableDecodeMode();
+
+        } // End initializeAdditionalFeatures
 
     </script>
 
