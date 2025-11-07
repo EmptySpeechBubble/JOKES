@@ -8963,7 +8963,10 @@ const audienceReactions = [
         }
 
         // Initialize decode mode
-        enableDecodeMode();
+        // DISABLED: This MutationObserver interferes with joke display in BCC mode
+        // The observer was causing conflicts when displayJoke sets textContent
+        // Jokes are more important than this easter egg feature
+        // enableDecodeMode();
 
         } // End initializeAdditionalFeatures
 
