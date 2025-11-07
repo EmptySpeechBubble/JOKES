@@ -7878,7 +7878,13 @@ const audienceReactions = [
             }
             
             // Set up event listeners for buttons
-            if (generateBtn) generateBtn.addEventListener('click', generateJoke);
+            if (generateBtn) {
+                generateBtn.addEventListener('click', () => {
+                    console.log('🎯 START BUTTON CLICKED');
+                    generateJoke();
+                });
+                console.log('✅ START button listener attached');
+            }
             if (speechBtn) speechBtn.addEventListener('click', toggleSpeech);
             if (prevBtn) prevBtn.addEventListener('click', showPreviousJoke);
             if (nextBtn) nextBtn.addEventListener('click', showNextJoke);
@@ -7947,8 +7953,11 @@ const audienceReactions = [
             // Set up category buttons
             console.log('Setting up category buttons. Count:', categoryButtons ? categoryButtons.length : 'NULL');
             if (categoryButtons && categoryButtons.length > 0) {
+            let listenerCount = 0;
             categoryButtons.forEach(button => {
+                console.log('Attaching listener to:', button.id);
                 button.addEventListener('click', () => {
+                    console.log('🎯 CATEGORY BUTTON CLICKED:', button.id);
                     // Special handling for nonsense button to activate hidden mode
                     if (button.id === 'categoryNonsense') {
                         const currentTime = Date.now();
@@ -8007,7 +8016,9 @@ const audienceReactions = [
                     // Generate a new joke in this category
                     generateJoke();
                 });
+                listenerCount++;
             });
+            console.log('✅ Attached click listeners to', listenerCount, 'category buttons');
             } else {
                 console.error('CRITICAL: categoryButtons not found or empty!');
             }
