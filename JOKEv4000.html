@@ -8030,6 +8030,423 @@ const audienceReactions = [
                 localStorage.setItem('comedyClub4000_theme', theme);
             });
         });
+
+        // ============================================
+        // NEW FEATURES: Comedian Mode, Heckler Mode, JOTD, Persona, Decode
+        // ============================================
+
+        // State variables for new features
+        let comedianModeActive = false;
+        let hecklerModeActive = false;
+        let currentPersona = 'random';
+        let jokeSetupStored = null;
+        let jokePunchlineStored = null;
+        let waitingForPunchline = false;
+
+        // Heckler comments
+        const hecklerComments = [
+            "I've heard better at a funeral! 💀",
+            "My grandma tells funnier jokes! 👵",
+            "Did you write that one yourself? 🙄",
+            "I want my money back! 💸",
+            "That's comedy gold... FOOL'S gold! 🤡",
+            "You trying to bore us to death? 😴",
+            "I've seen rocks with better timing! 🪨",
+            "That joke called - it wants its punchline back! 📞",
+            "Were you dropped as a baby comedian? 🍼",
+            "Even my dad's jokes are better! 👨",
+            "That killed alright... killed the mood! ☠️",
+            "You're living proof anyone can try comedy! 🎪",
+            "Is this thing on? Because I wish it wasn't! 🎤",
+            "Do less! 🛑",
+            "That joke aged like milk! 🥛"
+        ];
+
+        // Get references to new UI elements
+        const comedianModeToggle = document.getElementById('comedianModeToggle');
+        const hecklerModeToggle = document.getElementById('hecklerModeToggle');
+        const personaSelect = document.getElementById('personaSelect');
+        const jotdButton = document.getElementById('jotdButton');
+        const jotdDate = document.getElementById('jotdDate');
+        const jotdJoke = document.getElementById('jotdJoke');
+
+        // Load saved preferences
+        comedianModeActive = localStorage.getItem('comedianMode') === 'true';
+        hecklerModeActive = localStorage.getItem('hecklerMode') === 'true';
+        currentPersona = localStorage.getItem('comedianPersona') || 'random';
+
+        if (comedianModeToggle) comedianModeToggle.checked = comedianModeActive;
+        if (hecklerModeToggle) hecklerModeToggle.checked = hecklerModeActive;
+        if (personaSelect) personaSelect.value = currentPersona;
+
+        // Event listeners for toggles
+        comedianModeToggle?.addEventListener('change', (e) => {
+            comedianModeActive = e.target.checked;
+            localStorage.setItem('comedianMode', comedianModeActive);
+            if (!comedianModeActive) {
+                // Reset any waiting state
+                waitingForPunchline = false;
+                jokeSetupStored = null;
+                jokePunchlineStored = null;
+            }
+        });
+
+        hecklerModeToggle?.addEventListener('change', (e) => {
+            hecklerModeActive = e.target.checked;
+            localStorage.setItem('hecklerMode', hecklerModeActive);
+        });
+
+        personaSelect?.addEventListener('change', (e) => {
+            currentPersona = e.target.value;
+            localStorage.setItem('comedianPersona', currentPersona);
+        });
+
+        // ============================================
+        // COMEDIAN MODE - Setup/Punchline Reveal
+        // ============================================
+
+        // Store original displayJoke function
+        const originalDisplayJoke = displayJoke;
+
+        // Override displayJoke to support Comedian Mode
+        displayJoke = function(joke) {
+            if (comedianModeActive && !isBCCMode && !isHiddenMode) {
+                // Try to split joke into setup and punchline
+                const split = splitJokeForComedianMode(joke);
+
+                if (split && !waitingForPunchline) {
+                    // Show only setup first
+                    jokeSetupStored = split.setup;
+                    jokePunchlineStored = split.punchline;
+                    waitingForPunchline = true;
+
+                    originalDisplayJoke.call(this, split.setup + "\n\n[Click screen for punchline...]");
+                    return;
+                } else if (waitingForPunchline && jokePunchlineStored) {
+                    // Reveal full joke
+                    const fullJoke = jokeSetupStored + "\n\n" + jokePunchlineStored;
+                    waitingForPunchline = false;
+                    jokeSetupStored = null;
+                    jokePunchlineStored = null;
+                    originalDisplayJoke.call(this, fullJoke);
+
+                    // Add heckler comment after punchline reveal if enabled
+                    if (hecklerModeActive) {
+                        setTimeout(showHecklerComment, 2000);
+                    }
+                    return;
+                }
+            }
+
+            // Normal display
+            originalDisplayJoke.call(this, joke);
+
+            // Add heckler comment if enabled (and not in setup mode)
+            if (hecklerModeActive && !waitingForPunchline) {
+                setTimeout(showHecklerComment, 2000);
+            }
+        };
+
+        // Function to split jokes into setup and punchline
+        function splitJokeForComedianMode(joke) {
+            // Try various split patterns
+            const patterns = [
+                /^(.*?)\?\s*\n\n(.+)$/s,  // Question format
+                /^(.*?)\n\n\.\.\.(.+)$/s,  // Ellipsis pause
+                /^(.*?)\.\s*\n\n(.+)$/s,   // Period + double newline
+                /^(.*?)!\s*\n\n(.+)$/s,    // Exclamation + double newline
+            ];
+
+            for (const pattern of patterns) {
+                const match = joke.match(pattern);
+                if (match && match[1].length > 10 && match[2].length > 5) {
+                    return {
+                        setup: match[1].trim(),
+                        punchline: match[2].trim()
+                    };
+                }
+            }
+
+            // Fallback: split at first sentence break after 30 chars
+            const sentences = joke.split(/[.!?]\s+/);
+            if (sentences.length >= 2) {
+                const setup = sentences[0];
+                const punchline = sentences.slice(1).join('. ');
+                if (setup.length > 20 && punchline.length > 10) {
+                    return {
+                        setup: setup,
+                        punchline: punchline
+                    };
+                }
+            }
+
+            return null; // Can't split this joke
+        }
+
+        // Add click handler to joke display for punchline reveal
+        const jokeTextElement = document.querySelector('.joke-text');
+        jokeTextElement?.addEventListener('click', () => {
+            if (waitingForPunchline && comedianModeActive) {
+                // Regenerate to show punchline
+                displayJoke(currentJoke);
+            }
+        });
+
+        // ============================================
+        // HECKLER MODE
+        // ============================================
+
+        function showHecklerComment() {
+            if (!hecklerModeActive) return;
+
+            const heckle = hecklerComments[Math.floor(Math.random() * hecklerComments.length)];
+
+            // Create heckler overlay
+            const hecklerDiv = document.createElement('div');
+            hecklerDiv.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(255, 0, 0, 0.9);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-family: 'Press Start 2P', monospace;
+                font-size: 0.6rem;
+                max-width: 300px;
+                z-index: 10000;
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+                animation: hecklerPop 0.3s ease-out;
+            `;
+            hecklerDiv.textContent = heckle;
+
+            // Add animation keyframes if not already added
+            if (!document.getElementById('hecklerStyles')) {
+                const style = document.createElement('style');
+                style.id = 'hecklerStyles';
+                style.textContent = `
+                    @keyframes hecklerPop {
+                        0% { transform: scale(0) rotate(-5deg); opacity: 0; }
+                        50% { transform: scale(1.1) rotate(2deg); }
+                        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            document.body.appendChild(hecklerDiv);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                hecklerDiv.style.animation = 'hecklerPop 0.3s ease-in reverse';
+                setTimeout(() => hecklerDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================
+        // JOKE OF THE DAY
+        // ============================================
+
+        function getJokeOfTheDay() {
+            const today = new Date();
+            const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+
+            // Simple hash function to get consistent joke for the day
+            let hash = 0;
+            for (let i = 0; i < dateString.length; i++) {
+                hash = ((hash << 5) - hash) + dateString.charCodeAt(i);
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+
+            // Get all jokes from all categories
+            const allJokes = [
+                ...classicJokes,
+                ...wordplayJokes,
+                ...knockJokes,
+                ...observationalJokes,
+                ...animalJokes,
+                ...absurdistJokes,
+                ...dadJokes,
+                ...techJokes,
+                ...foodJokes,
+                ...doctorJokes,
+                ...musicJokes,
+                ...scienceJokes,
+                ...weatherJokes,
+                ...officeJokes,
+                ...travelJokes,
+                ...holidayJokes,
+                ...historyJokes,
+                ...monsterJokes
+            ];
+
+            // Use hash to pick a joke
+            const index = Math.abs(hash) % allJokes.length;
+            return allJokes[index];
+        }
+
+        function updateJokeOfTheDay() {
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            jotdDate.textContent = dateStr;
+            jotdJoke.textContent = getJokeOfTheDay();
+            jotdButton.textContent = "REFRESH";
+        }
+
+        jotdButton?.addEventListener('click', updateJokeOfTheDay);
+
+        // Initialize JOTD on settings open
+        const settingsBtn = document.getElementById('settingsBtn');
+        settingsBtn?.addEventListener('click', () => {
+            if (jotdJoke.textContent === '') {
+                updateJokeOfTheDay();
+            }
+        });
+
+        // ============================================
+        // COMEDIAN PERSONA / CATEGORY PLAYLIST
+        // ============================================
+
+        // Store original generateJoke function
+        const originalGenerateJoke = generateJoke;
+
+        // Override generateJoke to support Persona filtering
+        generateJoke = function() {
+            // If in special modes or random persona, use original
+            if (currentPersona === 'random' || isBCCMode || isHiddenMode) {
+                return originalGenerateJoke.call(this);
+            }
+
+            // Filter jokes based on persona
+            let jokePool = [];
+
+            switch(currentPersona) {
+                case 'punster':
+                    // Wordplay heavy
+                    jokePool = [...wordplayJokes, ...dadJokes];
+                    break;
+
+                case 'observer':
+                    // Observational humor
+                    jokePool = [...observationalJokes, ...officeJokes, ...travelJokes];
+                    break;
+
+                case 'absurdist':
+                    // Nonsense & weird
+                    jokePool = [...absurdistJokes, ...animalJokes, ...weatherJokes];
+                    break;
+
+                case 'nerd':
+                    // Tech & Science focus
+                    jokePool = [...techJokes, ...scienceJokes, ...historyJokes];
+                    break;
+
+                case 'storyteller':
+                    // Longer narrative jokes (knock-knock, classic, doctor)
+                    jokePool = [...knockJokes, ...classicJokes, ...doctorJokes, ...holidayJokes];
+                    break;
+
+                case 'dark':
+                    // Monster & edgy
+                    jokePool = [...monsterJokes, ...doctorJokes, ...historyJokes];
+                    break;
+
+                default:
+                    return originalGenerateJoke.call(this);
+            }
+
+            // Pick random joke from persona pool
+            const joke = jokePool[Math.floor(Math.random() * jokePool.length)];
+
+            // Display the joke (handles comedian mode if enabled)
+            displayJoke(joke);
+
+            // Add to history
+            addToHistory(joke);
+        };
+
+        // ============================================
+        // DECODE MODE - BCC Easter Egg Enhancement
+        // ============================================
+
+        function enableDecodeMode() {
+            // Add click handlers to all redacted text in BCC mode
+            const observer = new MutationObserver(() => {
+                if (isBCCMode) {
+                    const jokeTextEl = document.getElementById('jokeText');
+                    if (jokeTextEl && jokeTextEl.textContent.includes('[REDACTED]')) {
+                        makeRedactedClickable(jokeTextEl);
+                    }
+                }
+            });
+
+            // Observe joke text changes
+            const jokeTextEl = document.getElementById('jokeText');
+            if (jokeTextEl) {
+                observer.observe(jokeTextEl, {
+                    childList: true,
+                    characterData: true,
+                    subtree: true
+                });
+            }
+        }
+
+        function makeRedactedClickable(element) {
+            const text = element.textContent;
+
+            // Replace [REDACTED] and similar with clickable spans
+            const redactedPatterns = [
+                { pattern: /\[REDACTED[^\]]*\]/g, reveal: 'CLASSIFIED INFORMATION' },
+                { pattern: /\[CLASSIFIED[^\]]*\]/g, reveal: 'TOP SECRET DATA' },
+                { pattern: /\[INFORMATION [^\]]*\]/g, reveal: 'SENSITIVE DETAILS' },
+                { pattern: /\[SECURITY [^\]]*\]/g, reveal: 'ACCESS DENIED' },
+                { pattern: /█+/g, reveal: 'CENSORED' }
+            ];
+
+            let hasRedacted = false;
+            redactedPatterns.forEach(({pattern}) => {
+                if (pattern.test(text)) hasRedacted = true;
+            });
+
+            if (!hasRedacted) return;
+
+            // Create new HTML with clickable redactions
+            let newHTML = text;
+            redactedPatterns.forEach(({pattern, reveal}) => {
+                newHTML = newHTML.replace(pattern, (match) => {
+                    return `<span class="redacted-clickable" data-reveal="${reveal}" style="cursor: pointer; text-decoration: underline dotted; color: #ff4444;" title="Click to attempt decode">${match}</span>`;
+                });
+            });
+
+            element.innerHTML = newHTML;
+
+            // Add click handlers
+            element.querySelectorAll('.redacted-clickable').forEach(span => {
+                span.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const reveal = span.dataset.reveal;
+
+                    // Animate decode
+                    span.style.animation = 'glitch 0.5s';
+                    setTimeout(() => {
+                        span.textContent = reveal;
+                        span.style.color = '#00ff00';
+                        span.style.textDecoration = 'none';
+                        span.style.cursor = 'default';
+                    }, 500);
+                });
+            });
+        }
+
+        // Initialize decode mode
+        enableDecodeMode();
+
     </script>
 
     <!-- Themes Modal -->
@@ -8048,6 +8465,48 @@ const audienceReactions = [
                 <button class="theme-btn" data-theme="mono">MONO</button>
             </div>
 
+            <!-- Comedy Modes Section -->
+            <div class="shortcuts-section">
+                <h3>COMEDY MODES</h3>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: flex; align-items: center; font-size: 0.55rem; cursor: pointer;">
+                        <input type="checkbox" id="comedianModeToggle" style="margin-right: 8px; width: 16px; height: 16px;">
+                        <span>COMEDIAN MODE - Setup first, click for punchline</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: flex; align-items: center; font-size: 0.55rem; cursor: pointer;">
+                        <input type="checkbox" id="hecklerModeToggle" style="margin-right: 8px; width: 16px; height: 16px;">
+                        <span>HECKLER MODE - Random heckler comments (comedy roasting!)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Comedian Persona / Playlist -->
+            <div class="shortcuts-section">
+                <h3>COMEDIAN PERSONA</h3>
+                <p style="font-size: 0.45rem; margin-bottom: 10px; opacity: 0.7;">Choose your style - affects joke selection</p>
+                <select id="personaSelect" style="width: 100%; padding: 8px; font-family: 'Press Start 2P', monospace; font-size: 0.5rem; background: rgba(0,0,0,0.5); color: var(--screen-text); border: 2px solid var(--button-secondary); border-radius: 5px;">
+                    <option value="random">RANDOM - All jokes equally</option>
+                    <option value="punster">THE PUNSTER - Wordplay heavy</option>
+                    <option value="observer">THE OBSERVER - Observational humor</option>
+                    <option value="absurdist">THE ABSURDIST - Nonsense & weird</option>
+                    <option value="nerd">THE NERD - Tech & Science focus</option>
+                    <option value="storyteller">THE STORYTELLER - Longer narrative jokes</option>
+                    <option value="dark">THE DARK COMEDIAN - Monster & edgy</option>
+                </select>
+            </div>
+
+            <!-- Joke of the Day -->
+            <div class="shortcuts-section">
+                <h3>JOKE OF THE DAY</h3>
+                <div id="jotdContainer" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-top: 10px;">
+                    <p style="font-size: 0.5rem; color: var(--button-secondary); margin-bottom: 8px;">📅 <span id="jotdDate"></span></p>
+                    <p id="jotdJoke" style="font-size: 0.5rem; line-height: 1.6;"></p>
+                    <button id="jotdButton" class="theme-btn" style="margin-top: 10px; padding: 8px; font-size: 0.5rem;">SHOW TODAY'S JOKE</button>
+                </div>
+            </div>
+
             <div class="shortcuts-section">
                 <h3>KEYBOARD SHORTCUTS</h3>
                 <p><kbd>SPACE</kbd> Generate next joke</p>
@@ -8064,7 +8523,10 @@ const audienceReactions = [
                 "Some say the truth is hidden in plain sight.<br>
                 Look to the beacon that guides this comedy vessel.<br>
                 Triple taps reveal secrets,<br>
-                But FIVE rapid clicks on the illuminated sign grant █████████ clearance..."
+                But FIVE rapid clicks on the illuminated sign grant █████████ clearance..."<br><br>
+                <span style="font-size: 0.4rem; opacity: 0.5;">
+                In BCC mode, click [REDACTED] sections to decode them... if you dare.
+                </span>
             </div>
         </div>
     </div>
