@@ -1825,10 +1825,10 @@
 
         <!-- Toggle to show/hide all category buttons -->
         <div class="category-toggle">
-            <button class="category-toggle-btn" id="categoryToggle">▼ SHOW ALL CATEGORIES ▼</button>
+            <button class="category-toggle-btn" id="categoryToggle">▲ HIDE CATEGORIES ▲</button>
         </div>
 
-        <div class="category-container collapsed">
+        <div class="category-container">
             <button id="categoryClassic" class="retro-btn category-btn active">CLASSIC</button>
             <button id="categoryPuns" class="retro-btn category-btn">WORDPLAY</button>
             <button id="categoryKnock" class="retro-btn category-btn">KNOCK</button>
@@ -8075,8 +8075,24 @@ const audienceReactions = [
                 }
             }
 
-            if (channelPrevBtn) channelPrevBtn.addEventListener('click', () => changeChannel(-1));
-            if (channelNextBtn) channelNextBtn.addEventListener('click', () => changeChannel(1));
+            if (channelPrevBtn) {
+                channelPrevBtn.addEventListener('click', () => {
+                    console.log('🎯 CHANNEL PREV ◄ CLICKED');
+                    changeChannel(-1);
+                });
+                console.log('✅ Channel PREV button listener attached');
+            } else {
+                console.error('❌ channelPrevBtn not found!');
+            }
+            if (channelNextBtn) {
+                channelNextBtn.addEventListener('click', () => {
+                    console.log('🎯 CHANNEL NEXT ► CLICKED');
+                    changeChannel(1);
+                });
+                console.log('✅ Channel NEXT button listener attached');
+            } else {
+                console.error('❌ channelNextBtn not found!');
+            }
 
             // Category toggle button
             if (categoryToggleBtn && categoryContainer) {
