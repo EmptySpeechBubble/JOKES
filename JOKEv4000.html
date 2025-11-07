@@ -1448,8 +1448,21 @@
         }
 
         .bcc-clearance-level:hover {
-            background-color: rgba(139, 115, 85, 0.5);
-            border-color: #A0826D;
+            background-color: rgba(139, 115, 85, 0.8);
+            border-color: #FFD700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .bcc-clearance-level::after {
+            content: " [CLICK TO EXIT]";
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: #FFD700;
+        }
+
+        .bcc-clearance-level:hover::after {
+            opacity: 1;
         }
 
         .bcc-stamp {
@@ -6795,6 +6808,15 @@ const audienceReactions = [
                 // Change neon sign
                 neonSign.textContent = "BCC: BLIND CARBON COMEDY";
 
+                // Show exit instructions in console
+                console.log('%c═══════════════════════════════════════════', 'color: #8B7355; font-weight: bold');
+                console.log('%c🔒 BCC MODE ACTIVATED', 'color: #D4C4B0; font-size: 16px; font-weight: bold');
+                console.log('%c═══════════════════════════════════════════', 'color: #8B7355; font-weight: bold');
+                console.log('%cTo EXIT BCC Mode:', 'color: #FFD700; font-weight: bold');
+                console.log('%c  • Click the clearance level indicator (top-left)', 'color: #D4C4B0');
+                console.log('%c  • Or press ESC key', 'color: #D4C4B0');
+                console.log('%c═══════════════════════════════════════════', 'color: #8B7355; font-weight: bold');
+
                 // Force jokeText to be visible (fix for BCC display issues)
                 if (jokeText) {
                     jokeText.style.display = 'block';
@@ -6818,32 +6840,58 @@ const audienceReactions = [
         }
 
         function exitBCCMode() {
-            console.log("Exiting BCC Mode");
-            isBCCMode = false;
-            logoClickCount = 0;
-            bccJokeIndex = 0;
-            bccClearanceLevel = 0;
+            console.log('%c═══════════════════════════════════════════', 'color: #8B7355; font-weight: bold');
+            console.log('%c🔓 EXITING BCC MODE', 'color: #FFD700; font-size: 16px; font-weight: bold');
+            console.log('%c═══════════════════════════════════════════', 'color: #8B7355; font-weight: bold');
 
-            // Remove BCC styling
-            document.body.classList.remove('bcc-mode');
+            try {
+                isBCCMode = false;
+                logoClickCount = 0;
+                bccJokeIndex = 0;
+                bccClearanceLevel = 0;
 
-            // Hide clearance level
-            const clearanceLevel = document.getElementById('bccClearanceLevel');
-            clearanceLevel.classList.remove('active');
+                // Remove BCC styling
+                document.body.classList.remove('bcc-mode');
+                console.log('✅ BCC styling removed from body');
 
-            // Reset neon sign
-            neonSign.textContent = "COMEDY CLUB 4000";
-
-            // Restore category buttons
-            Object.values(categoryButtonMap).forEach(btnId => {
-                const btn = document.getElementById(btnId);
-                if (btn && btnId !== 'categoryFavorites') {
-                    btn.style.display = '';
+                // Hide clearance level
+                const clearanceLevel = document.getElementById('bccClearanceLevel');
+                if (clearanceLevel) {
+                    clearanceLevel.classList.remove('active');
+                    console.log('✅ Clearance level hidden');
                 }
-            });
 
-            // Generate a normal joke
-            generateJoke();
+                // Reset neon sign
+                if (neonSign) {
+                    neonSign.textContent = "COMEDY CLUB 4000";
+                    console.log('✅ Neon sign reset');
+                }
+
+                // Restore category buttons
+                Object.values(categoryButtonMap).forEach(btnId => {
+                    const btn = document.getElementById(btnId);
+                    if (btn && btnId !== 'categoryFavorites') {
+                        btn.style.display = '';
+                    }
+                });
+                console.log('✅ Category buttons restored');
+
+                // Reset joke text visibility
+                if (jokeText) {
+                    jokeText.style.display = '';
+                    jokeText.style.visibility = '';
+                    jokeText.style.opacity = '';
+                    jokeText.style.maxHeight = '';
+                }
+
+                // Generate a normal joke
+                console.log('✅ Generating normal joke...');
+                generateJoke();
+
+                console.log('%c✅ BCC MODE EXIT COMPLETE', 'color: #00FF00; font-weight: bold');
+            } catch (error) {
+                console.error('❌ Error exiting BCC mode:', error);
+            }
         }
 
         function updateBCCClearance() {
@@ -6866,13 +6914,22 @@ const audienceReactions = [
 
         // Analyze joke text and suggest emojis for setup and punchline
         function suggestEmojis(joke) {
-            // Use AI specific emojis in hidden mode
-            if (isHiddenMode) {
-                return {
-                    setup: getRandomAIEmojis(3),
-                    punchline: getRandomAIEmojis(3)
-                };
-            }
+            try {
+                // Use AI specific emojis in hidden mode
+                if (isHiddenMode) {
+                    return {
+                        setup: getRandomAIEmojis(3),
+                        punchline: getRandomAIEmojis(3)
+                    };
+                }
+
+                // For BCC mode, don't show emojis (classified documents don't need emojis)
+                if (isBCCMode) {
+                    return {
+                        setup: "",
+                        punchline: ""
+                    };
+                }
             
             // Regular emoji suggestion logic
             // Split joke into setup and punchline
@@ -6994,6 +7051,14 @@ const audienceReactions = [
                 setup: setupResult || "❓",
                 punchline: punchlineResult || "😂"
             };
+            } catch (error) {
+                console.error('❌ Error in suggestEmojis:', error);
+                // Return empty emojis on error to prevent display failure
+                return {
+                    setup: "",
+                    punchline: ""
+                };
+            }
         }
         
         // Improved for v2.6: Emoji sequence detection and handling
@@ -7041,34 +7106,45 @@ const audienceReactions = [
 
         // Improved for v2.6: Better joke display with enhanced timing
         function displayJoke(joke) {
-            console.log('🎭 displayJoke called. BCC Mode:', isBCCMode, 'Hidden Mode:', isHiddenMode);
-            console.log('🎭 Joke preview:', joke.substring(0, 60) + '...');
-            console.log('🎭 jokeText element:', jokeText);
-            console.log('🎭 jokeText computed style display:', window.getComputedStyle(jokeText).display);
-            console.log('🎭 jokeText computed style visibility:', window.getComputedStyle(jokeText).visibility);
-            console.log('🎭 jokeText computed style opacity:', window.getComputedStyle(jokeText).opacity);
+            try {
+                console.log('🎭 displayJoke called. BCC Mode:', isBCCMode, 'Hidden Mode:', isHiddenMode);
+                console.log('🎭 Joke preview:', joke.substring(0, 60) + '...');
+                console.log('🎭 jokeText element:', jokeText);
 
-            // First, fully clear the joke display
-            jokeText.textContent = "";
-            setupEmojiLine.innerHTML = "";
-            punchlineEmojiLine.innerHTML = "";
+                if (!jokeText) {
+                    console.error('❌ jokeText element not found!');
+                    return;
+                }
 
-            // Display the joke with animation
-            jokeText.style.opacity = '0';
-            setupEmojiLine.style.opacity = '0';
-            punchlineEmojiLine.style.opacity = '0';
+                console.log('🎭 jokeText computed style display:', window.getComputedStyle(jokeText).display);
+                console.log('🎭 jokeText computed style visibility:', window.getComputedStyle(jokeText).visibility);
+                console.log('🎭 jokeText computed style opacity:', window.getComputedStyle(jokeText).opacity);
 
-            // Use longer timeout for better rendering
-            setTimeout(() => {
-                // Set the joke text
-                jokeText.textContent = joke;
-                console.log('🎭 Joke text set. Length:', joke.length);
-                console.log('🎭 jokeText.textContent:', jokeText.textContent.substring(0, 50) + '...');
-                
-                // Generate emoji suggestions
-                const emojis = suggestEmojis(joke);
-                setupEmojiLine.innerHTML = emojis.setup;
-                punchlineEmojiLine.innerHTML = emojis.punchline;
+                // First, fully clear the joke display
+                jokeText.textContent = "";
+                if (setupEmojiLine) setupEmojiLine.innerHTML = "";
+                if (punchlineEmojiLine) punchlineEmojiLine.innerHTML = "";
+
+                // Display the joke with animation
+                jokeText.style.opacity = '0';
+                if (setupEmojiLine) setupEmojiLine.style.opacity = '0';
+                if (punchlineEmojiLine) punchlineEmojiLine.style.opacity = '0';
+
+                // Use longer timeout for better rendering
+                setTimeout(() => {
+                    try {
+                        // Set the joke text
+                        jokeText.textContent = joke;
+                        console.log('🎭 Joke text set. Length:', joke.length);
+                        console.log('🎭 jokeText.textContent:', jokeText.textContent.substring(0, 50) + '...');
+
+                        // Generate emoji suggestions
+                        const emojis = suggestEmojis(joke);
+                        if (setupEmojiLine) setupEmojiLine.innerHTML = emojis.setup;
+                        if (punchlineEmojiLine) punchlineEmojiLine.innerHTML = emojis.punchline;
+                    } catch (innerError) {
+                        console.error('❌ Error in displayJoke setTimeout:', innerError);
+                    }
                 
                 // Make elements visible again
                 jokeText.style.opacity = '1';
@@ -7135,6 +7211,14 @@ const audienceReactions = [
                     });
                 }, 500); // Longer delay for stability
             }, 300);
+            } catch (error) {
+                console.error('❌ Error in displayJoke:', error);
+                // Try to at least show the joke text even if emojis fail
+                if (jokeText && joke) {
+                    jokeText.textContent = joke;
+                    jokeText.style.opacity = '1';
+                }
+            }
         }
 
         // Force display escape sequence joke
@@ -7468,21 +7552,38 @@ const audienceReactions = [
         function generateJoke() {
             let joke = "";
 
-            if (isBCCMode) {
-                // BCC Mode: Use random classified joke
-                console.log('📋 BCC Mode Active - Generating classified joke');
-                console.log('📋 BCC Jokes array length:', bccJokes.length);
-                const randomIndex = Math.floor(Math.random() * bccJokes.length);
-                joke = bccJokes[randomIndex];
-                console.log('📋 BCC Joke selected (index ' + randomIndex + '):', joke.substring(0, 50) + '...');
-                console.log('📋 Full joke length:', joke.length, 'characters');
-                bccJokeIndex++;
-                updateBCCClearance();
+            try {
+                if (isBCCMode) {
+                    // BCC Mode: Use random classified joke
+                    console.log('📋 BCC Mode Active - Generating classified joke');
+                    console.log('📋 BCC Jokes array length:', bccJokes.length);
 
-                // Change BCC voice every 3 jokes
-                if (bccJokeIndex % 3 === 0) {
-                    changeBCCVoice();
+                    if (!bccJokes || bccJokes.length === 0) {
+                        console.error('❌ BCC Jokes array is empty or undefined!');
+                        joke = "ERROR: BCC JOKES DATABASE CORRUPTED\n\nPlease contact your system administrator.";
+                    } else {
+                        const randomIndex = Math.floor(Math.random() * bccJokes.length);
+                        joke = bccJokes[randomIndex];
+                        console.log('📋 BCC Joke selected (index ' + randomIndex + '):', joke.substring(0, 50) + '...');
+                        console.log('📋 Full joke length:', joke.length, 'characters');
+                        bccJokeIndex++;
+                        updateBCCClearance();
+
+                        // Change BCC voice every 3 jokes
+                        if (bccJokeIndex % 3 === 0) {
+                            changeBCCVoice();
+                        }
+                    }
                 }
+            } catch (error) {
+                console.error('❌ Error generating BCC joke:', error);
+                joke = "ERROR: JOKE GENERATION FAILED\n\nSystem malfunction detected.";
+            }
+
+            if (isBCCMode && joke) {
+                console.log('📋 About to display BCC joke');
+                displayJoke(joke);
+                return;
             } else if (isHiddenMode) {
                 if (isAnimalMode) {
                     // In animal mode, cycle through animal jokes
