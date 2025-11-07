@@ -992,6 +992,11 @@
 
             .bcc-mode .joke-text {
                 font-size: 1.0rem; /* Slightly smaller for classified text on mobile */
+                max-height: 250px !important;
+                overflow-y: auto !important;
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
             }
         }
 
@@ -1333,6 +1338,10 @@
         .bcc-mode .screen {
             background: linear-gradient(to bottom, #2a2520 0%, #1a1612 100%) !important;
             border-color: #5c4a3a !important;
+            display: block !important;
+            visibility: visible !important;
+            position: relative !important;
+            z-index: 1 !important;
         }
 
         .bcc-mode .joke-text {
@@ -1343,6 +1352,11 @@
             white-space: pre-wrap;
             color: #D4C4B0 !important;
             text-shadow: 0 0 3px rgba(139, 115, 85, 0.5) !important;
+            max-height: 300px !important;
+            overflow-y: auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
         .bcc-mode .generate-btn {
@@ -6781,6 +6795,14 @@ const audienceReactions = [
                 // Change neon sign
                 neonSign.textContent = "BCC: BLIND CARBON COMEDY";
 
+                // Force jokeText to be visible (fix for BCC display issues)
+                if (jokeText) {
+                    jokeText.style.display = 'block';
+                    jokeText.style.visibility = 'visible';
+                    jokeText.style.opacity = '1';
+                    console.log('🔧 Forced jokeText visibility for BCC mode');
+                }
+
                 // Generate first BCC joke
                 generateJoke();
 
@@ -7021,21 +7043,27 @@ const audienceReactions = [
         function displayJoke(joke) {
             console.log('🎭 displayJoke called. BCC Mode:', isBCCMode, 'Hidden Mode:', isHiddenMode);
             console.log('🎭 Joke preview:', joke.substring(0, 60) + '...');
+            console.log('🎭 jokeText element:', jokeText);
+            console.log('🎭 jokeText computed style display:', window.getComputedStyle(jokeText).display);
+            console.log('🎭 jokeText computed style visibility:', window.getComputedStyle(jokeText).visibility);
+            console.log('🎭 jokeText computed style opacity:', window.getComputedStyle(jokeText).opacity);
 
             // First, fully clear the joke display
             jokeText.textContent = "";
             setupEmojiLine.innerHTML = "";
             punchlineEmojiLine.innerHTML = "";
-            
+
             // Display the joke with animation
             jokeText.style.opacity = '0';
             setupEmojiLine.style.opacity = '0';
             punchlineEmojiLine.style.opacity = '0';
-            
+
             // Use longer timeout for better rendering
             setTimeout(() => {
                 // Set the joke text
                 jokeText.textContent = joke;
+                console.log('🎭 Joke text set. Length:', joke.length);
+                console.log('🎭 jokeText.textContent:', jokeText.textContent.substring(0, 50) + '...');
                 
                 // Generate emoji suggestions
                 const emojis = suggestEmojis(joke);
@@ -7443,8 +7471,11 @@ const audienceReactions = [
             if (isBCCMode) {
                 // BCC Mode: Use random classified joke
                 console.log('📋 BCC Mode Active - Generating classified joke');
-                joke = bccJokes[Math.floor(Math.random() * bccJokes.length)];
-                console.log('📋 BCC Joke selected:', joke.substring(0, 50) + '...');
+                console.log('📋 BCC Jokes array length:', bccJokes.length);
+                const randomIndex = Math.floor(Math.random() * bccJokes.length);
+                joke = bccJokes[randomIndex];
+                console.log('📋 BCC Joke selected (index ' + randomIndex + '):', joke.substring(0, 50) + '...');
+                console.log('📋 Full joke length:', joke.length, 'characters');
                 bccJokeIndex++;
                 updateBCCClearance();
 
