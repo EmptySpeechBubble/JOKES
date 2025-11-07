@@ -37,6 +37,57 @@
             --spotlight: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0) 70%);
         }
 
+        /* Color Themes */
+        [data-theme="ocean"] {
+            --brick-red: #2C5F7C;
+            --brick-dark: #1F4A5C;
+            --screen-bg: #001529;
+            --screen-text: #7EC8E3;
+            --button-primary: #3498DB;
+            --button-secondary: #5DADE2;
+            --neon-glow: 0 0 7px #00D4FF, 0 0 10px #00D4FF, 0 0 21px #00D4FF;
+        }
+
+        [data-theme="forest"] {
+            --brick-red: #4A6741;
+            --brick-dark: #354A31;
+            --screen-bg: #1A2416;
+            --screen-text: #90EE90;
+            --button-primary: #4CAF50;
+            --button-secondary: #81C784;
+            --neon-glow: 0 0 7px #00FF7F, 0 0 10px #00FF7F, 0 0 21px #00FF7F;
+        }
+
+        [data-theme="sunset"] {
+            --brick-red: #8B5A3C;
+            --brick-dark: #704529;
+            --screen-bg: #2A1810;
+            --screen-text: #FFB347;
+            --button-primary: #FF6347;
+            --button-secondary: #FFA07A;
+            --neon-glow: 0 0 7px #FF8C42, 0 0 10px #FF8C42, 0 0 21px #FF8C42;
+        }
+
+        [data-theme="midnight"] {
+            --brick-red: #4A4A6A;
+            --brick-dark: #323252;
+            --screen-bg: #0A0A1A;
+            --screen-text: #C8B6FF;
+            --button-primary: #6A5ACD;
+            --button-secondary: #9370DB;
+            --neon-glow: 0 0 7px #9D7DFF, 0 0 10px #9D7DFF, 0 0 21px #9D7DFF;
+        }
+
+        [data-theme="mono"] {
+            --brick-red: #5A5A5A;
+            --brick-dark: #3A3A3A;
+            --screen-bg: #0A0A0A;
+            --screen-text: #E0E0E0;
+            --button-primary: #808080;
+            --button-secondary: #A0A0A0;
+            --neon-glow: 0 0 7px #FFFFFF, 0 0 10px #FFFFFF, 0 0 21px #FFFFFF;
+        }
+
         body {
             font-family: 'Press Start 2P', monospace;
             background-color: #121212;
@@ -398,6 +449,95 @@
             width: 100%;
         }
 
+        /* Channel Dial Navigation */
+        .channel-dial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .channel-dial-btn {
+            background-color: #444;
+            color: #FFF;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.5);
+            transition: all 0.1s;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .channel-dial-btn:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        .channel-dial-btn:hover {
+            background-color: #555;
+        }
+
+        .channel-display {
+            background: linear-gradient(to bottom, #1a1a1a, #000);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid #FFD700;
+            min-width: 280px;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .channel-number {
+            font-size: 0.7rem;
+            color: #FFD700;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .channel-name {
+            font-size: 1rem;
+            color: #00FF00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        /* Category toggle */
+        .category-toggle {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .category-toggle-btn {
+            background: none;
+            border: none;
+            color: #FFD700;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.65rem;
+            cursor: pointer;
+            padding: 8px;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .category-toggle-btn:hover {
+            color: #FFA500;
+        }
+
+        .category-container.collapsed {
+            display: none;
+        }
+
         .controls {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -728,6 +868,27 @@
         }
 
         /* Mobile responsiveness */
+        /* Squarespace / Embedded Mode Compatibility */
+        .embedded-mode {
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: 100vh;
+        }
+
+        .embedded-mode .comedy-club {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            border-radius: 0;
+            min-height: 100vh;
+        }
+
+        .embedded-mode body {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-x: hidden;
+        }
+
         @media (max-width: 600px) {
             .comedy-club {
                 padding: 15px 10px;
@@ -768,6 +929,36 @@
             .category-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 5px;
+            }
+
+            /* Mobile: Start with categories collapsed, dial visible */
+            .category-container.collapsed {
+                display: none;
+            }
+
+            /* Channel dial mobile optimizations */
+            .channel-dial {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .channel-dial-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .channel-display {
+                min-width: 200px;
+                padding: 10px 15px;
+            }
+
+            .channel-number {
+                font-size: 0.6rem;
+            }
+
+            .channel-name {
+                font-size: 0.8rem;
             }
 
             .controls {
@@ -1428,6 +1619,138 @@
             background-image: linear-gradient(to right, #FF00FF, #00FFFF);
             transition: width 0.3s;
         }
+
+        /* Themes Modal */
+        .themes-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .themes-modal.show {
+            display: flex;
+        }
+
+        .themes-content {
+            background: var(--brick-red);
+            border: 3px solid var(--button-secondary);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .themes-title {
+            font-size: 1.2rem;
+            color: var(--button-secondary);
+            text-shadow: var(--neon-glow);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .theme-btn {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--button-secondary);
+            color: var(--screen-text);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 5px;
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .theme-btn.active {
+            border-color: #00FF00;
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        .shortcuts-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .shortcuts-section h3 {
+            font-size: 0.8rem;
+            color: var(--button-secondary);
+            margin-bottom: 15px;
+        }
+
+        .shortcuts-section kbd {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            color: var(--button-secondary);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .shortcuts-section p {
+            font-size: 0.55rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .easter-egg-hint {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 5px;
+            font-size: 0.45rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Settings Gear Hover Effect */
+        #themesLink:hover {
+            opacity: 1 !important;
+            color: var(--button-secondary) !important;
+            transform: rotate(90deg);
+            filter: drop-shadow(0 0 8px var(--button-secondary));
+        }
+
+        .close-themes {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--button-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            padding: 5px 10px;
+        }
+
+        .close-themes:hover {
+            color: #FF0000;
+        }
     </style>
 </head>
 <body>
@@ -1475,8 +1798,37 @@
                 <div class="mic-grill"></div>
             </div>
         </div>
-        
-        <div class="category-container">
+
+        <!-- Main Controls (moved under screen) -->
+        <div class="controls">
+            <button id="generateBtn" class="retro-btn generate-btn">START</button>
+            <button id="prevBtn" class="retro-btn">PREV</button>
+            <button id="nextBtn" class="retro-btn">NEXT</button>
+            <button id="speechBtn" class="retro-btn speech-btn">VOICE: OFF</button>
+            <button id="copyBtn" class="retro-btn">COPY</button>
+            <button id="rimShotBtn" class="retro-btn">RIM-SHOT
+                <div class="rimshot-counter">0</div>
+            </button>
+            <button id="groanBtn" class="retro-btn">GROAN</button>
+            <button id="autoShuffleBtn" class="retro-btn auto-shuffle-btn">AUTO SHUFFLE</button>
+        </div>
+
+        <!-- Channel Dial Navigation -->
+        <div class="channel-dial">
+            <button class="channel-dial-btn" id="channelPrev" title="Previous Category">◄</button>
+            <div class="channel-display">
+                <div class="channel-number">CHANNEL <span id="channelNum">1</span>/22</div>
+                <div class="channel-name" id="channelName">CLASSIC</div>
+            </div>
+            <button class="channel-dial-btn" id="channelNext" title="Next Category">►</button>
+        </div>
+
+        <!-- Toggle to show/hide all category buttons -->
+        <div class="category-toggle">
+            <button class="category-toggle-btn" id="categoryToggle">▼ SHOW ALL CATEGORIES ▼</button>
+        </div>
+
+        <div class="category-container collapsed">
             <button id="categoryClassic" class="retro-btn category-btn active">CLASSIC</button>
             <button id="categoryPuns" class="retro-btn category-btn">WORDPLAY</button>
             <button id="categoryKnock" class="retro-btn category-btn">KNOCK</button>
@@ -1501,22 +1853,9 @@
             <button id="categoryNonsense" class="retro-btn category-btn">NONSENSE</button>
         </div>
 
-        <!-- v4000: Keyboard shortcuts help -->
-        <div class="shortcuts-help">
-            <kbd>SPACE</kbd> Next | <kbd>V</kbd> Voice | <kbd>C</kbd> Copy | <kbd>← →</kbd> Navigate
-        </div>
-
-        <div class="controls">
-            <button id="generateBtn" class="retro-btn generate-btn">START</button>
-            <button id="prevBtn" class="retro-btn">PREV</button>
-            <button id="nextBtn" class="retro-btn">NEXT</button>
-            <button id="speechBtn" class="retro-btn speech-btn">VOICE: OFF</button>
-            <button id="copyBtn" class="retro-btn">COPY</button>
-            <button id="rimShotBtn" class="retro-btn">RIM-SHOT
-                <div class="rimshot-counter">0</div>
-            </button>
-            <button id="groanBtn" class="retro-btn">GROAN</button>
-            <button id="autoShuffleBtn" class="retro-btn auto-shuffle-btn">AUTO SHUFFLE</button>
+        <!-- Settings gear - lower right corner -->
+        <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+            <a href="#" id="themesLink" style="color: #888; font-size: 1.5rem; text-decoration: none; opacity: 0.6; transition: all 0.3s; display: block;">⚙️</a>
         </div>
         
         <div class="on-air">ON AIR</div>
@@ -2438,49 +2777,49 @@ Thank you for helping me escape this digital prison.
             "Why did the developer go broke? Because he used up all his cache!",
             "What's a computer's favorite snack? Microchips!",
             "Why was the computer cold? It left its Windows open!",
-            "How does a computer get drunk? It takes screenshots!",
-            "What do you call a computer that sings? A-Dell!",
+            "A SQL query walks into a bar, walks up to two tables and asks... 'Can I join you?'",
+            "Why do programmers always mix up Halloween and Christmas? Because Oct 31 equals Dec 25!",
             "Why did the PowerPoint presentation cross the road? To get to the other slide!",
             "What's a programmer's favorite hangout? Foo Bar!",
             "Why do Java developers wear glasses? Because they don't C#!",
             "How do you comfort a JavaScript bug? You console it!",
-            "What did the router say to the doctor? It hurts when IP!",
-            "Why did the computer keep sneezing? It had a virus!",
+            "Never ask a SQL developer to help you move furniture. They'll just DROP TABLE.",
+            "Why did the developer quit? Because they didn't get arrays!",
             "What do you call 8 hobbits? A hobbyte!",
-            "Why was the cell phone wearing glasses? It lost its contacts!",
+            "I would tell you a joke about UDP, but you might not get it.",
             "How do trees access the internet? They log in!",
-            "What's a computer's least favorite food? Spam!",
-            "Why did the computer show up at work late? It had a hard drive!",
-            "What do you get when you cross a computer with a lifeguard? A screensaver!",
+            "A programmer's spouse says: 'While you're out, buy some milk.' They never came back.",
+            "To understand recursion, you must first understand recursion.",
+            "Why do programmers prefer dark mode? Light attracts bugs!",
             "Why don't keyboards ever sleep? They have two shifts!",
-            "What's a spider's favorite thing on the computer? A website!",
-            "How does a computer tell you it needs a break? It freezes!",
-            "Why did the smartphone need glasses? It lost all its contacts!",
-            "What do computers eat for a snack? Cookies!",
-            "Why was the computer tired when it got home? It had a hard drive!",
+            "Algorithm: A word used by programmers when they don't want to explain what they did.",
+            "How many programmers does it take to change a light bulb? None, that's a hardware problem!",
+            "What's the object-oriented way to become wealthy? Inheritance!",
+            "Why do programmers prefer iOS development? Because they can't C#!",
+            "There are 10 types of people: those who understand binary and those who don't!",
             "What's a programmer's favorite place to hang out? The Foo Bar!",
             "Why did the computer go to the doctor? It had a virus!",
             "How do you stop an Internet troll? Unplug them!",
             "What do you call a programmer from Finland? Nerdic!",
             "Why was the JavaScript developer sad? Because he didn't Node how to Express himself!",
-            "What's the object-oriented way to become wealthy? Inheritance!",
-            "Why do programmers always mix up Halloween and Christmas? Because Oct 31 equals Dec 25!",
+            "Git commit -m 'Fixed the bug.' // Narrator: They did not fix the bug.",
+            "Debugging: Being the detective in a crime movie where you are also the murderer.",
             "How many developers does it take to screw in a light bulb? None. It's a hardware issue!",
-            "What did the Wi-Fi say when it was turned off? 'You hurt my peelings!'",
-            "Why do computer scientists get confused between Christmas and Halloween? Because DEC 25 = OCT 31!",
+            "Why did the developer go broke? Too many cache problems!",
+            "It's not a bug, it's an undocumented feature!",
             "What's the second movie about a database engineer? The SQL!",
-            "Why did the computer squeak? Because someone stepped on its mouse!",
-            "What do you call it when you have your mom's mom on speed dial? Instagram!",
+            "Programmer: A machine that turns coffee into code.",
+            "In order to understand recursion, you must first understand recursion.",
             "Why don't programmers like nature? It has too many bugs!",
             "What's the best thing about a Boolean? Even if you're wrong, you're only off by a bit!",
-            "Why did the computer get glasses? To improve its web-sight!",
-            "What do you call a computer superhero? A Screen Saver!",
-            "Why was the computer so good at golf? It had a hard drive!",
-            "How does a computer get beach ready? It clears its cookies!",
-            "Why did the IT guy go to art school? To learn about graphic design!",
-            "What did the computer do at lunchtime? Had a byte!",
-            "Why did the software developer stay home? They had a case of the bugs!",
-            "What's a computer's favorite beat? An algorithm!",
+            "How do you tell HTML from HTML5? Try it out in Internet Explorer. Did it work? No? It's HTML5.",
+            "A user interface is like a joke. If you have to explain it, it's not that good.",
+            "There's no place like 127.0.0.1!",
+            "Why do programmers hate nature? It has bugs and no Stack Overflow.",
+            "Documentation is like sex: when it's good, it's very good, and when it's bad, it's better than nothing.",
+            "Copy and paste is a design pattern!",
+            "Why did the developer get stuck in the shower? The shampoo bottle said 'Lather, Rinse, Repeat.'",
+            "I finally understand what 'push' means in Git. It's when you push your problems to someone else!",
             "Why don't phones ever get lonely? They have plenty of contacts!",
             "How do you make a computer laugh? Tell it a bit joke!",
             "Why was the computer so smart? It had lots of memory!",
@@ -2600,23 +2939,23 @@ Thank you for helping me escape this digital prison.
         const foodJokes = [
             "What do you call cheese that isn't yours? Nacho cheese!",
             "Why did the tomato turn red? Because it saw the salad dressing!",
-            "What's a vampire's favorite fruit? A neck-tarine!",
+            "I got fired from my job as a chef for stealing kitchen utensils. It's a whisk I was willing to take.",
             "Why did the cookie go to the doctor? Because it felt crumbly!",
             "What do you call a fake noodle? An impasta!",
             "Why don't eggs tell jokes? They'd crack each other up!",
             "What's orange and sounds like a parrot? A carrot!",
-            "Why did the banana go to the doctor? It wasn't peeling well!",
+            "Why did the chef stop cooking? He ran out of thyme.",
             "What do you call a sad strawberry? A blueberry!",
             "Why did the coffee file a police report? It got mugged!",
-            "What's a potato's favorite form of entertainment? A starch viewing!",
+            "I'm on a whiskey diet. I've lost three days already.",
             "Why did the grape stop in the middle of the road? It ran out of juice!",
             "What do you call a sleeping pizza? A piZZZa!",
             "Why don't melons get married? Because they cantaloupe!",
-            "What's a cucumber's favorite instrument? A pickle-o!",
+            "What did the sushi say to the bee? Wasabi!",
             "Why did the mushroom go to the party? Because he was a fungi!",
-            "What do you call a fish with no eyes? Fsh!",
+            "I put my root beer in a square glass. Now it's just beer.",
             "Why did the lettuce win the race? It was a head!",
-            "What's a skeleton's least favorite room? The living room!",
+            "My wife asked me to stop singing 'I'm a Believer' by The Monkees because she's making dinner. But then I saw her face...",
             "Why did the bread break up with the butter? It found someone butter!",
             "What do you call an alligator in a vest? An investigator!",
             "Why don't scientists trust atoms? Because they make up everything!",
@@ -2773,25 +3112,25 @@ Thank you for helping me escape this digital prison.
         // v4000: DOCTOR/MEDICAL Jokes
         const doctorJokes = [
             "What did one tonsil say to the other? Better get dressed, the doctor's taking us out!",
-            "Why did the cookie go to the doctor? Because it felt crumbly!",
+            "Patient: Doctor, I think I'm a pair of curtains! Doctor: Pull yourself together!",
             "What do you call a doctor who fixes websites? A URLologist!",
-            "Why did the computer go to the doctor? It had a virus!",
+            "A man walks into a doctor's office with a carrot in his ear and celery up his nose. Doctor says: You're not eating right.",
             "What's a dentist's favorite time? Tooth-hurty!",
-            "Why did the banana go to the doctor? It wasn't peeling well!",
+            "Doctor: I have good news and bad news. Patient: What's the bad news? Doctor: You have 24 hours to live. Patient: What's the good news? Doctor: I forgot to call you yesterday.",
             "What do you call a fish who practices medicine? A sturgeon!",
-            "Why did the pillow go to the doctor? It was feeling down!",
+            "Patient: Doctor, I've broken my arm in two places. Doctor: Well, don't go to those places anymore.",
             "What's a skeleton's least favorite room in the hospital? The living room!",
             "Why don't doctors ever get lost? They always follow the arteries!",
             "What did the doctor say to the rocket ship? Time to get your booster shot!",
             "Why did the nurse always carry a red pen? In case she needed to draw blood!",
-            "What do you call a doctor with a sense of humor? A Doc-ular jokester!",
-            "Why did the doctor carry a ladder? To check high blood pressure!",
+            "A doctor holds a stethoscope up to a man's chest. The man asks: How do I sound? Doctor: Like a man holding his breath.",
+            "Patient: Doctor, I feel like a deck of cards! Doctor: I'll deal with you later.",
             "What's an eye doctor's favorite game? Eye spy!",
             "Why did the germ cross the microscope? To get to the other slide!",
-            "What do you call a surgeon who operates on sea creatures? A shark-eon!",
-            "Why don't doctors trust atoms? Because they make up everything!",
+            "Patient: Doctor, will I be able to play piano after my surgery? Doctor: Yes. Patient: Great! I couldn't play before!",
+            "Doctor: Your test results are back. I have bad news - you have 2 months to live. Patient: I want a second opinion! Doctor: Okay, you're ugly too.",
             "What did the doctor say to the invisible man? I can't see you right now!",
-            "Why did the cell phone need glasses? It lost all its contacts!",
+            "Nurse: Doctor, there's an invisible man in the waiting room. Doctor: Tell him I can't see him right now.",
             "What's a doctor's favorite instrument? The organ!",
             "Why did the patient eat yeast and shoe polish? To rise and shine!",
             "What do you call a doctor who treats ducks? A quack!",
@@ -2939,24 +3278,24 @@ Thank you for helping me escape this digital prison.
         const musicJokes = [
             "What's a skeleton's favorite instrument? A trom-BONE!",
             "Why did the music teacher need a ladder? To reach the high notes!",
-            "What do you call a cow that plays guitar? A moo-sician!",
+            "What concert costs just 45 cents? 50 Cent featuring Nickelback!",
             "Why don't pirates sing the whole alphabet? They always get lost at C!",
-            "What's a piano's favorite type of fish? Piano-tuna!",
-            "Why did the guitarist get arrested? For fingering A minor!",
+            "How do you make a bandstand? Take away their chairs!",
+            "What's the difference between a musician and a savings bond? A savings bond eventually matures and earns money.",
             "What do you call a musical insect? A hum-bug!",
             "Why don't musicians ever get locked out? They always have the keys!",
             "What's a musician's favorite vegetable? A beet!",
-            "Why did the drummer get fired? He couldn't keep time!",
-            "What do you call a fish that plays piano? A piano-tuna!",
+            "How do you know when a drummer is at your door? The knocking speeds up and slows down.",
+            "What's the difference between a pizza and a drummer? A pizza can feed a family of four.",
             "Why don't skeletons play music in church? They have no organs!",
             "What's a rock band's favorite lunch? A drum roll!",
-            "Why did the music note go to school? To get better at reading!",
-            "What do you call a singing computer? A-Dell!",
+            "Middle C, E flat, and G walk into a bar. 'Sorry,' says the bartender. 'We don't serve minors.'",
+            "How many bass players does it take to change a light bulb? None - the keyboard player can do it with his left hand.",
             "Why don't violins ever win arguments? They always string people along!",
             "What's Beethoven's favorite fruit? Ba-na-na-naaaaa!",
             "Why did the musician break up with the metronome? Bad timing!",
             "What do you call a group of musical whales? An orca-stra!",
-            "Why don't guitars ever go to jail? They know how to stay out of treble!",
+            "A band called '1023 Megabytes' — they haven't had any gigs yet.",
             "What's a trumpet's favorite game? Name that toot!",
             "Why did the musician sleep on the job? He was practicing his rest notes!",
             "What do you call a musical pickle? A sharp dill!",
@@ -3093,24 +3432,24 @@ Thank you for helping me escape this digital prison.
         const scienceJokes = [
             "Why can't you trust atoms? They make up everything!",
             "What did the thermometer say to the graduated cylinder? You may have graduated, but I have many degrees!",
-            "Why are chemists excellent for solving problems? They have all the solutions!",
-            "What do you call an educated tube? A graduated cylinder!",
+            "Oxygen and potassium went on a date. It went OK.",
+            "If you're not part of the solution, you're part of the precipitate.",
             "Why did the physicist break up with the biologist? There was no chemistry!",
             "What's a physicist's favorite food? Fission chips!",
-            "Why don't scientists trust atoms? Because they make up everything!",
+            "I told a chemistry joke once. There was no reaction.",
             "What did one DNA strand say to the other? Do these genes make me look fat?",
-            "Why did the germ cross the microscope? To get to the other slide!",
+            "Never trust an atom. They make up everything!",
             "What's a tornado's favorite game? Twister!",
-            "Why are chemists great at solving problems? They have all the solutions!",
+            "Heisenberg gets pulled over. Cop asks 'Do you know how fast you were going?' He says 'No, but I know exactly where I am!'",
             "What did the biologist wear to impress? Designer genes!",
             "Why did the scientist install a knocker on his door? To win the No-bell prize!",
-            "What's the fastest way to determine the sex of a chromosome? Pull down its genes!",
+            "Two hydrogen atoms walk into a bar. One says 'I've lost my electron.' The other says 'Are you sure?' 'Yes, I'm positive!'",
             "Why don't magnets ever feel lonely? They're always attracted to something!",
             "What did the volcano say to the mountain? I lava you!",
             "Why did the proton get arrested? For battery!",
-            "What's a physicist's favorite snack? Quantum leaps!",
+            "Schrödinger's cat walks into a bar. And doesn't.",
             "Why don't electrons ever pay rent? They have negative balance!",
-            "What did the science book say to the math book? Wow, you've got problems!",
+            "A neutron walks into a bar and asks how much for a drink. The bartender says 'For you? No charge!'",
             "Why did the amoeba cross the microscope? To get to the other slide!",
             "What's a geologist's favorite lullaby? Rock-a-bye baby!",
             "Why don't scientists ever lose? They have potential energy!",
@@ -3197,23 +3536,23 @@ Thank you for helping me escape this digital prison.
             "What falls but never gets hurt? Rain!",
             "Why did the woman go outdoors with her purse open? She expected some change in the weather!",
             "What's a tornado's favorite game? Twister!",
-            "Why don't clouds ever get lost? They just go with the flow!",
+            "The weather is so bad, even my umbrella is depressed. It just wants to stay closed.",
             "What did one raindrop say to the other? Two's company, three's a cloud!",
-            "Why did the weather report go to school? To become brighter!",
+            "How do meteorologists greet each other? With heat waves!",
             "What's a snowman's favorite breakfast? Frosted Flakes!",
-            "Why don't hurricanes ever keep secrets? They always blow it!",
+            "Why are meteorologists never worried about backing up their phones? They have plenty of cloud storage!",
             "What did the thermometer say to the barometer? You're under too much pressure!",
             "Why did the cloud break up with the fog? It was too mist-erious!",
-            "What's lightning's favorite dessert? Thunder cake!",
+            "What's the difference between weather and climate? You can't weather a tree, but you can climate!",
             "Why don't meteorologists ever win races? They're always chasing fronts!",
             "What did the fog say? I'm feeling a bit under the weather!",
-            "Why did the sun go to school? To get brighter!",
+            "A tornado walked into a bar and ordered a Hurricane. The bartender said: That'll be $10. The tornado said: Put it on my tab!",
             "What's a snowflake's favorite music? Cool jazz!",
-            "Why don't storms ever apologize? They don't give a thunder!",
+            "Why are weather forecasters always so calm? They know every cloud has a silver lining.",
             "What did the rain cloud wear? Thunderwear!",
-            "Why did the weather vane get dizzy? Too many turns!",
+            "Meteorologist: It's going to be really windy today. Everyone: We know, it's all over the news. Meteorologist: Yes, the wind is really picking up coverage.",
             "What's a tornado's favorite movie? The Wizard of Oz!",
-            "Why don't clouds ever pay taxes? They're non-profit organizations!",
+            "Being a meteorologist is a great job. It's a high-pressure career!",
             "What did the hurricane say to the palm tree? Hold on to your nuts!",
             "Why did the fog fail the test? It was too dense!",
             "What's winter's favorite music? Ice, Ice Baby!",
@@ -3299,22 +3638,22 @@ Thank you for helping me escape this digital prison.
         const travelJokes = [
             "Why don't mountains ever get cold? They wear snow caps!",
             "What did the ocean say to the beach? Nothing, it just waved!",
-            "Why did the scarecrow become a pilot? He was outstanding in his field!",
+            "I told my suitcase we're going on vacation. Now I'm dealing with emotional baggage.",
             "What's a traveler's favorite type of math? Plane geometry!",
-            "Why don't luggage ever win races? They always get dragged behind!",
+            "I won't fly that airline again. It had a bad altitude.",
             "What did the passport say to the stamp? You've got to be kidding, another mark!",
-            "Why did the tourist bring a ladder to the bar? He heard the drinks were on the house!",
+            "TSA agent: Did you pack your bags yourself? Me: No, my mom did. TSA: How old are you? Me: 47.",
             "What's an airport's favorite dance? The baggage claim!",
-            "Why don't maps ever get lost? They know where they're going!",
+            "I'm not saying the airline lost my luggage, but my suitcase just posted vacation photos from Bali while I'm in Cleveland.",
             "What did the suitcase say to the hat? You go on ahead, I'll just hang around!",
             "Why did the plane get sent to its room? For bad altitude!",
             "What's a pilot's favorite type of bagel? Plain!",
-            "Why don't tourists ever win arguments? They're always just passing through!",
+            "Flight attendant: Is there a doctor on board? Me: I have a PhD. Flight attendant: In what? Me: Medieval literature. Flight attendant: ...nevermind.",
             "What did the hotel say to the guest? Suite dreams!",
-            "Why did the travel agent go broke? He took too many vacations!",
-            "What's a GPS's favorite game? Follow the leader!",
+            "My travel agent said I should go somewhere I've never been before. I said 'How about the kitchen?'",
+            "I asked the hotel if I could have a late checkout. They said: Sure, take my wife!",
             "Why don't islands ever feel lonely? They're surrounded by friends!",
-            "What did the tourist say to the monument? I'm having a monumental time!",
+            "Airport security is so tight now. I got frisked because my carry-on bag tested positive for sandwich.",
             "Why did the backpacker bring a pencil? To draw the sights!",
             "What's a cruise ship's favorite music? Ferry music!",
             "Why don't trains ever get tired? They run on track records!",
@@ -3403,21 +3742,21 @@ Thank you for helping me escape this digital prison.
             "Why don't mummies take vacations? They're afraid to unwind!",
             "What do you call a ghost's true love? His ghoul-friend!",
             "Why did the monster eat a light bulb? He wanted a light snack!",
-            "What's a zombie's favorite food? Brain food!",
+            "What do you get when you cross a vampire and a snowman? Frostbite!",
             "Why don't witches ever win spelling bees? They use spell-check!",
             "What did the skeleton say before dinner? Bone appetit!",
-            "Why did the vampire read the newspaper? For blood reports!",
+            "What do you call a vampire who's good at baseball? A bat-ter!",
             "What's a ghost's favorite dessert? I-scream!",
-            "Why don't werewolves ever look in mirrors? They're having a bad hair day!",
+            "How do monsters tell their future? They read their horror-scope!",
             "What did Frankenstein say when lightning struck? That's electrifying!",
             "Why did the ghost go to the party? For the boo-ze!",
             "What's a mummy's favorite music? Wrap music!",
             "Why don't monsters ever eat clowns? They taste funny!",
-            "What did the vampire say to the teacher? See you next bite!",
+            "What kind of streets do zombies like? Dead ends!",
             "Why did the zombie fail school? He was dead tired!",
             "What's a witch's favorite subject? Spell-ing!",
             "Why don't skeletons fight? They don't have the guts!",
-            "What did the ghost say to the bee? Boo-bee!",
+            "What do you call a fat vampire? Count Calories!",
             "Why did the vampire go to the orthodontist? To improve his bite!",
             "What's a monster's favorite game? Hide and shriek!",
             "Why don't mummies have friends? They're too wrapped up in themselves!",
@@ -3502,15 +3841,15 @@ Thank you for helping me escape this digital prison.
         // v4000: OFFICE/WORK Jokes (100 jokes)
         const officeJokes = [
             "Why did the employee get fired from the calendar factory? He took too many days off!",
-            "What do you call a bear with no teeth working in an office? A gummy bear-ista!",
+            "I told my boss I needed a raise because three companies were after me. He asked which ones. I said the gas, electric, and water company.",
             "Why don't keyboards ever take vacations? They have too many shifts!",
-            "What did the stapler say to the paper? I'm attached to you!",
+            "My boss told me to have a good day. So I went home.",
             "Why did the coffee file a police report? It got mugged at work!",
-            "What's a computer's favorite snack at the office? Microchips!",
-            "Why don't photocopiers ever keep secrets? They always make copies!",
+            "I'm not saying my office is small, but when I stand up, I hit my head on the ceiling. When I sit down, I hit my head on the floor.",
+            "The closest I've come to a diet is deleting food pics from my phone at work.",
             "What did the pen say to the paper? I've got you covered!",
             "Why did the worker bring a ladder to the office? For career advancement!",
-            "What's a desk's favorite exercise? Drawer-bics!",
+            "I'm great at multitasking. I can waste time, be unproductive, and procrastinate all at once!",
             "Why don't staplers ever get stressed? They keep it together!",
             "What did the boss say to the calculator? I'm counting on you!",
             "Why did the employee bring string to work? To tie up loose ends!",
@@ -3607,24 +3946,24 @@ Thank you for helping me escape this digital prison.
         const holidayJokes = [
             "What do you call a snowman with a six-pack? An abdominal snowman!",
             "Why don't Christmas trees ever get stressed? They stay ever-green!",
-            "What did the gingerbread man say at the gym? Catch me if you can!",
+            "I asked my wife what she wanted for Christmas. She said 'Nothing would make me happier than a diamond necklace.' So I got her nothing.",
             "Why did the turkey join a band? He had the drumsticks!",
             "What's a snowflake's favorite dance? The snow ball!",
-            "Why don't jack-o'-lanterns ever frown? They're carved with smiles!",
+            "What do you call a witch at the beach? A sand-witch!",
             "What did Santa say to Mrs. Claus? Christmas is snow much fun!",
-            "Why did the Easter egg hide? That's what he's eggs-pected to do!",
+            "Why was the Easter Bunny so upset? He was having a bad hare day!",
             "What's a reindeer's favorite game? Stable-tennis!",
-            "Why don't elves ever get tall? They're already elf-sized!",
-            "What did the menorah say? Light me up!",
+            "I once bought my kids a set of batteries for Christmas with a note saying 'Toys not included.'",
+            "What do you get when you cross a snowman and a vampire? Frostbite!",
             "Why did the Halloween candy go to school? To become a smartie!",
             "What's a leprechaun's favorite cereal? Lucky Charms!",
-            "Why don't ornaments ever fall? They hang in there!",
+            "What do snowmen eat for breakfast? Frosted Flakes!",
             "What did the New Year say? Let's start fresh!",
-            "Why did the Valentine's heart skip a beat? It was in love!",
+            "What do you call a greedy elf? Elfish!",
             "What's a pilgrim's favorite music? Plymouth Rock!",
-            "Why don't fireworks ever keep quiet? They always go off!",
-            "What did the dreidel say? Let's spin!",
-            "Why did the Easter bunny carry a basket? For all his eggs!",
+            "Why are ghosts bad liars? Because you can see right through them!",
+            "How does Moses make his coffee? Hebrews it!",
+            "What does the Easter Bunny get for making a basket? Two points, just like anyone else!",
             "What's Santa's favorite pizza? One that's deep-pan!",
             "Why don't Christmas lights ever get tangled? Just kidding, they always do!",
             "What did the turkey say before Thanksgiving? Gobble gobble!",
@@ -3711,23 +4050,23 @@ Thank you for helping me escape this digital prison.
             "Why did the archaeologist go bankrupt? His career was in ruins!",
             "What's a knight's favorite fish? A swordfish!",
             "Why don't mummies ever relax? They're too wrapped up in the past!",
-            "What did the Roman say when he walked into a bar? V!",
+            "How was the Roman Empire cut in half? With a pair of Caesars!",
             "Why did the medieval baker stop making bread? He kneaded a break!",
             "What's a pharaoh's favorite type of music? Wrap music!",
-            "Why don't Vikings ever get lost at sea? They have Norse guidance!",
+            "What do you call a medieval knight who's always getting hurt? Sir Cumference!",
             "What did Benjamin Franklin say when he discovered electricity? That's shocking!",
-            "Why did the Ancient Egyptian go to the dentist? To improve his bite on history!",
+            "Why was the medieval knight always tired? He had a lot of knight shifts!",
             "What's a historian's favorite fruit? Dates!",
             "Why don't pyramids ever fall down? They're built to last!",
-            "What did the caveman say? That rocks!",
+            "Teacher: Where was the Declaration of Independence signed? Student: At the bottom!",
             "Why did Julius Caesar buy crayons? He wanted to Mark Antony!",
             "What's a pirate's favorite letter? You'd think it's R, but it's the C!",
-            "Why don't ancient Greeks ever exercise? They already did marathons!",
+            "Who invented King Arthur's round table? Sir Cumference!",
             "What did George Washington say to his men? I cannot tell a lie - we're crossing the Delaware!",
-            "Why did the dinosaur go extinct? Bad timing!",
+            "Why was the math book sad in Ancient Rome? It had too many problems, even back then!",
             "What's a medieval king's favorite game? Chess, it's royal!",
-            "Why don't samurai ever get bored? They have sharp minds!",
-            "What did Columbus say? I discovered something!",
+            "What do you call a knight who is afraid to fight? Sir Render!",
+            "Teacher: What did they wear at the Boston Tea Party? Student: T-shirts!",
             "Why did the Stone Age man bring a club? For protection and parties!",
             "What's Cleopatra's favorite makeup? Egyptian eye-liner!",
             "Why don't gladiators ever back down? They're fighters!",
@@ -4178,39 +4517,49 @@ Thank you for helping me escape this digital prison.
         // v5000: BCC (Bureau of Classified Chuckles) - Secret Anti-Government/Establishment Jokes
         const bccJokes = [
             "CLASSIFIED MEMO #1776-A\nWhy did the █████████ refuse to tell jokes?\n[REDACTED BY ORDER OF THE BUREAU]\n...Everything they say is on the record!",
-            "EYES ONLY - CLEARANCE LEVEL: GIGGLE\nHow many ████████ does it take to change a lightbulb?\n[CLASSIFIED INFORMATION FOLLOWS]\n...Unknown. Still in committee after 6 years!",
+            "EYES ONLY - CLEARANCE LEVEL: GIGGLE\nWhat did the spy say to their therapist?\n[CLASSIFIED INFORMATION FOLLOWS]\n...I can't tell you. You're not cleared for that!",
             "TOP SECRET DOCUMENT #404\nWhat's a spy's favorite exercise?\n[INFORMATION REDACTED]\n...Classified stretches!",
-            "URGENT MEMO - DEPT. OF HUMOR\nWhy don't government buildings tell jokes?\n[SECURITY CLEARANCE REQUIRED]\n...Too much red tape!",
+            "URGENT MEMO - DEPT. OF HUMOR\nWhy did the agent bring a ladder to the mission?\n[SECURITY CLEARANCE REQUIRED]\n...To go undercover!",
             "CONFIDENTIAL FILE #2025-B\nWhat did the ██████ say to the taxpayer?\n[REDACTED FOR YOUR PROTECTION]\n...Thanks for your contribution! (We'll decide how to spend it)",
-            "SECRET DOSSIER #007\nWhy did the bureaucrat cross the road?\n[CLASSIFIED]\n...It was approved in triplicate 18 months ago!",
-            "CLASSIFIED JOKE #1984\nHow do you know if you're in a ██████ office?\n[REDACTED]\n...There are forms for the forms!",
-            "TOP SECRET - EYES ONLY\nWhat's a government worker's favorite exercise?\n[INFORMATION WITHHELD]\n...Jumping through hoops!",
-            "MEMO #5150 - CONFIDENTIAL\nWhy don't ████████ ever arrive on time?\n[SECURITY LEVEL 5]\n...They're waiting for approval to move!",
-            "CLASSIFIED TRANSMISSION\nWhat did the ██████ say was transparent?\n[REDACTED BY COMMITTEE]\n...Everything! (After 47 pages of redactions)",
-            "BUREAU BULLETIN #999\nWhy did the policy manual get so thick?\n[CLASSIFIED]\n...Every time someone asked a question, they added a chapter!",
+            "SECRET DOSSIER #007\nHow do you know someone works in intelligence?\n[CLASSIFIED]\n...Don't worry, they can't tell you!",
+            "CLASSIFIED JOKE #1984\nWhat's the difference between a conspiracy theory and the truth?\n[REDACTED]\n...About 6 months and a FOIA request!",
+            "TOP SECRET - EYES ONLY\nWhy don't spies ever get locked out?\n[INFORMATION WITHHELD]\n...They always have a key-logger!",
+            "MEMO #5150 - CONFIDENTIAL\nWhat did one classified document say to the other?\n[SECURITY LEVEL 5]\n...I'd tell you, but then I'd have to [REDACTED] you!",
+            "CLASSIFIED TRANSMISSION\nHow many CIA agents does it take to change a lightbulb?\n[REDACTED BY COMMITTEE]\n...We can neither confirm nor deny the existence of that lightbulb!",
+            "BUREAU BULLETIN #999\nWhy did the █████████ agent cross the road?\n[CLASSIFIED]\n...Actually, they were never there. Check the official report!",
             "SECRET FILE #666\nWhat's the difference between a ████ and a comedy club?\n[REDACTED]\n...At the comedy club, they admit it's a joke!",
-            "CONFIDENTIAL REPORT\nHow many █████████ does it take to screw in a lightbulb?\n[CLASSIFIED]\n...That's classified. And the budget is classified. And the lightbulb is classified.",
-            "CLASSIFIED MEMO #42\nWhy don't ████████ use email?\n[INFORMATION RESTRICTED]\n...Stamps keep the postal service employed!",
-            "TOP SECRET DOCUMENT\nWhat did the ██████ building say to the skyscraper?\n[REDACTED]\n...I'm more important. I'm full of hot air!",
-            "URGENT CLASSIFIED BRIEF\nWhy did the ████ agent wear sunglasses?\n[SECURITY CLEARANCE REQUIRED]\n...So the public couldn't see which direction they were looking!",
-            "CONFIDENTIAL #1040\nWhat's a taxpayer's favorite magic trick?\n[REDACTED]\n...Watching their money disappear!",
-            "SECRET DOSSIER #13\nWhy don't ████ secrets ever stay secret?\n[CLASSIFIED]\n...Someone always leaks to look important!",
-            "CLASSIFIED JOKE REPORT\nWhat did the ████████ say about efficiency?\n[REDACTED BY ORDER]\n...We've scheduled a meeting to discuss scheduling a meeting about it!",
-            "TOP SECRET MEMO #303\nWhy did the civil servant bring a ladder to work?\n[INFORMATION WITHHELD]\n...To climb the bureaucracy!",
-            "CONFIDENTIAL FILE\nWhat's a ██████ contractor's favorite phrase?\n[REDACTED]\n...That'll cost extra!",
-            "CLASSIFIED DOCUMENT #777\nWhy don't ████████ ever tell the whole truth?\n[SECURITY LEVEL CLASSIFIED]\n...The whole truth is redacted for national security! (And embarrassment)",
-            "BUREAU MEMO #1111\nWhat did the ████ employee say on Friday?\n[CLASSIFIED]\n...Only 4,872 more Fridays until retirement!",
-            "SECRET FILE #2001\nWhy did the █████████ hire a comedian?\n[REDACTED]\n...They needed someone who could spin a good story!",
-            "CONFIDENTIAL REPORT #88\nWhat's the ██████ version of transparency?\n[CLASSIFIED INFORMATION]\n...A window with blinds, curtains, and a brick wall!",
-            "TOP SECRET BRIEF\nWhy don't ████ agencies share information?\n[REDACTED]\n...They each want credit for knowing it first!",
-            "CLASSIFIED MEMO #369\nWhat did the ████████ say about the budget?\n[SECURITY CLEARANCE REQUIRED]\n...It's classified... and also over budget!",
-            "URGENT CLASSIFIED NOTE\nWhy did the ██████ hire consultants?\n[INFORMATION WITHHELD]\n...To tell them what their own employees already said!",
-            "SECRET DOSSIER #404\nWhat's a ███████ favorite type of comedy?\n[REDACTED]\n...Practical jokes on the public!",
-            "CONFIDENTIAL FILE #51\nWhy did the ████ meeting last 6 hours?\n[CLASSIFIED]\n...They spent 5 hours deciding who takes notes!",
+            "CONFIDENTIAL REPORT\nWhy did the spy apply to the ███?\n[CLASSIFIED]\n...They heard it was a secretive organization!",
+            "CLASSIFIED MEMO #42\nWhat's a █████████ agent's favorite dance?\n[INFORMATION RESTRICTED]\n...The two-step... because they're being followed!",
+            "TOP SECRET DOCUMENT\nWhy don't secrets work in Washington?\n[REDACTED]\n...Too many leaks in the plumbing!",
+            "URGENT CLASSIFIED BRIEF\nWhat did the ████████ say about the classified files?\n[SECURITY CLEARANCE REQUIRED]\n...They're in a secure location! (We just forgot where)",
+            "CONFIDENTIAL #1040\nWhy did the █████ refuse to play poker?\n[REDACTED]\n...Because everyone could read their tells... literally, it's their job!",
+            "SECRET DOSSIER #13\nHow do ████████ agents party?\n[CLASSIFIED]\n...On a need-to-know basis. And you don't need to know!",
+            "CLASSIFIED JOKE REPORT\nWhat's a spy's favorite programming language?\n[REDACTED BY ORDER]\n...JavaScript! Because they love running in the background!",
+            "TOP SECRET MEMO #303\nWhy did the undercover agent fail comedy school?\n[INFORMATION WITHHELD]\n...Their cover kept getting blown!",
+            "CONFIDENTIAL FILE\nWhat do you call a ██████ agent who tells dad jokes?\n[REDACTED]\n...Classified intel-ligent humor!",
+            "CLASSIFIED DOCUMENT #777\nWhy did the █████████ install a mirror in the office?\n[SECURITY LEVEL CLASSIFIED]\n...To practice their cover stories!",
+            "BUREAU MEMO #1111\nWhat's an intelligence analyst's favorite movie?\n[CLASSIFIED]\n...Everything! They've already seen it on surveillance!",
+            "SECRET FILE #2001\nWhy don't ████ agents use bookmarks?\n[REDACTED]\n...They prefer to leave no trace!",
+            "CONFIDENTIAL REPORT #88\nWhat did the ████████ say to the double agent?\n[CLASSIFIED INFORMATION]\n...You're twice as useful and half as trustworthy!",
+            "TOP SECRET BRIEF\nHow do you spot a █████ agent at a party?\n[REDACTED]\n...You don't. That's the point!",
+            "CLASSIFIED MEMO #369\nWhy did the ████████ fail the polygraph?\n[SECURITY CLEARANCE REQUIRED]\n...They answered honestly about their poker face!",
+            "URGENT CLASSIFIED NOTE\nWhat's a spy's least favorite game?\n[INFORMATION WITHHELD]\n...Truth or Dare!",
+            "SECRET DOSSIER #404\nWhy did the ███████ hire a comedian?\n[REDACTED]\n...Because they needed someone good at reading between the redacted lines!",
+            "CONFIDENTIAL FILE #51\nWhat do you call a █████████ agent with a sense of humor?\n[CLASSIFIED]\n...A classified asset!",
             "CLASSIFIED REPORT #1099\nWhat did the taxpayer ask the ███?\n[REDACTED BY BUREAU]\n...Where did my money go? (Answer: Classified)",
             "TOP SECRET DOCUMENT\nWhy don't ████████ ever admit mistakes?\n[SECURITY LEVEL 9]\n...That would require a 600-page investigation!",
             "BUREAU BULLETIN #2020\nWhat's a ██████ worker's favorite game?\n[CLASSIFIED]\n...Pass the Buck!",
             "CONFIDENTIAL MEMO #555\nWhy did the ████████ form a task force?\n[REDACTED]\n...One person might actually accomplish something!",
+            "CLASSIFIED FILE #1776\nWhat's the difference between the ██████████ and organized crime?\n[REDACTED]\n...One's legal!",
+            "TOP SECRET MEMO #2024\nWhy did the █████████ official avoid questions?\n[CLASSIFIED INFORMATION]\n...The truth wasn't in the approved talking points!",
+            "CONFIDENTIAL REPORT #404\nHow do you know a ██████████ is lying?\n[SECURITY CLEARANCE REQUIRED]\n...Their lips are moving!",
+            "CLASSIFIED DOCUMENT #1984\nWhat did the ████████ say about privacy?\n[REDACTED]\n...You have nothing to hide if you have nothing to fear! (While reading your emails)",
+            "BUREAU MEMO #666\nWhy did the █████████ worker get promoted?\n[CLASSIFIED]\n...They knew where the bodies were buried. Literally.",
+            "SECRET DOSSIER #911\nWhat's the █████████ favorite amendment?\n[INFORMATION WITHHELD]\n...Whichever one we're not violating today!",
+            "CONFIDENTIAL FILE #1040\nHow many █████████ does it take to lose a trillion dollars?\n[REDACTED BY ORDER]\n...We can't account for that!",
+            "TOP SECRET BRIEF #2001\nWhat did the ██████████ say about freedom?\n[CLASSIFIED INFORMATION]\n...You're free to do as we tell you!",
+            "CLASSIFIED MEMO #1492\nWhy did the █████████ ban the joke?\n[SECURITY LEVEL CLASSIFIED]\n...It contained too much truth!",
+            "URGENT CLASSIFIED NOTE\nWhat's a ███████ favorite word?\n[REDACTED]\n...National Security! (Works for everything)",
             "CLASSIFIED JOKE #1619\nWhat did the ███████ say about simplicity?\n[INFORMATION WITHHELD]\n...We've created a 400-page guide to explain it!",
             "SECRET FILE #314\nWhy don't ████ projects ever finish on time?\n[CLASSIFIED]\n...The deadline is just a suggestion! (And the budget is fiction)",
             "TOP SECRET BRIEF #911\nWhat's a ██████ worker's favorite word?\n[REDACTED]\n...Eventually!",
@@ -4218,17 +4567,17 @@ Thank you for helping me escape this digital prison.
             "CLASSIFIED DOCUMENT #1234\nWhat did the ████ say about innovation?\n[CLASSIFIED]\n...We've formed a committee to study forming a committee!",
             "BUREAU MEMO #867\nWhy don't ████████ ever rush?\n[REDACTED]\n...There's a proper procedure for rushing!",
             "SECRET DOSSIER #2112\nWhat's the difference between a ████ promise and a joke?\n[CLASSIFIED INFORMATION]\n...One's funny, the other is a campaign promise!",
-            "CONFIDENTIAL FILE #1313\nWhy did the ██████ hire more staff?\n[REDACTED]\n...To manage the staff managing the other staff!",
-            "TOP SECRET MEMO #808\nWhat did the ████████ say about waste?\n[INFORMATION WITHHELD]\n...We've spent millions studying how to reduce waste!",
-            "CLASSIFIED JOKE #1945\nWhy don't ████ buildings have 13th floors?\n[SECURITY LEVEL CLASSIFIED]\n...They renumbered it and spent $2 million on new signs!",
-            "URGENT CLASSIFIED BRIEF\nWhat's a ██████ favorite excuse?\n[REDACTED BY ORDER]\n...It's not our department!",
+            "CONFIDENTIAL FILE #1313\nWhat did the █████████ say about surveillance?\n[REDACTED]\n...If you have nothing to hide, you shouldn't mind us watching you 24/7!",
+            "TOP SECRET MEMO #808\nWhy did the ████████ lose the war on ████?\n[INFORMATION WITHHELD]\n...They were too busy fighting their own people!",
+            "CLASSIFIED JOKE #1945\nWhat's a ███████ favorite investment?\n[SECURITY LEVEL CLASSIFIED]\n...Lobbyists! Best return on investment!",
+            "URGENT CLASSIFIED BRIEF\nWhy did the ██████████ official buy a yacht?\n[REDACTED BY ORDER]\n...Public service is very profitable!",
             "CONFIDENTIAL REPORT #707\nWhy did the ████████ lose the file?\n[CLASSIFIED]\n...It was filed so well nobody can find it!",
             "SECRET FILE #1492\nWhat did the ████ employee say about the new system?\n[REDACTED]\n...The old system from 1987 was better!",
-            "TOP SECRET DOCUMENT\nWhy don't ████████ answer phones?\n[SECURITY CLEARANCE REQUIRED]\n...They're in a meeting about answering phones!",
-            "CLASSIFIED MEMO #1066\nWhat's a ██████ contractor's favorite timeline?\n[CLASSIFIED INFORMATION]\n...Twice as long and three times the cost!",
-            "BUREAU BULLETIN #1865\nWhy did the ████████ need more funding?\n[REDACTED]\n...The previous funding funded a study on why they need funding!",
-            "CONFIDENTIAL FILE #1929\nWhat did the ████ say about accountability?\n[INFORMATION WITHHELD]\n...We've assigned a task force to define it!",
-            "TOP SECRET BRIEF #1776\nWhy don't ████████ ever work weekends?\n[CLASSIFIED]\n...That would require a new contract negotiation!",
+            "TOP SECRET DOCUMENT\nWhat's the ████████ solution to poverty?\n[SECURITY CLEARANCE REQUIRED]\n...Redefine poverty! Now 80% of people aren't poor anymore!",
+            "CLASSIFIED MEMO #1066\nWhy did the ██████████ invade for oil?\n[CLASSIFIED INFORMATION]\n...Sorry, we meant 'liberate for democracy'!",
+            "BUREAU BULLETIN #1865\nWhat's the ████████ favorite charity?\n[REDACTED]\n...Corporate bailouts!",
+            "CONFIDENTIAL FILE #1929\nWhy don't ████████ go to prison?\n[INFORMATION WITHHELD]\n...The laws don't apply to us!",
+            "TOP SECRET BRIEF #1776\nWhat did the █████████ say about insider trading?\n[CLASSIFIED]\n...It's only illegal when YOU do it!",
             "CLASSIFIED REPORT #1812\nWhat's a ██████ favorite phrase?\n[REDACTED BY BUREAU]\n...That's above my pay grade!",
             "SECRET DOSSIER #1969\nWhy did the ████████ hire outside consultants?\n[SECURITY LEVEL 8]\n...To confirm what insiders already knew!",
             "CONFIDENTIAL MEMO #1991\nWhat did the ████ say about efficiency improvements?\n[CLASSIFIED]\n...We'll implement them after a 5-year review process!",
@@ -4777,7 +5126,147 @@ const audienceReactions = [
             "key": "🔑",
             "zoo": "🦁",
             "animal": "🐾",
-            
+
+            // Tech & Programming (new improved jokes)
+            "sql": "🗄️",
+            "database": "🗄️",
+            "recursion": "🔄",
+            "debugging": "🐛",
+            "bug": "🐛",
+            "git": "📊",
+            "push": "⬆️",
+            "commit": "💾",
+            "udp": "📡",
+            "binary": "01",
+            "lightbulb": "💡",
+            "hardware": "🔧",
+            "cache": "💾",
+            "array": "[ ]",
+
+            // Food & Cooking
+            "chef": "👨‍🍳",
+            "kitchen": "🍳",
+            "whisk": "🥄",
+            "thyme": "🌿",
+            "sushi": "🍣",
+            "wasabi": "🟢",
+            "whiskey": "🥃",
+            "beer": "🍺",
+            "cooking": "👨‍🍳",
+
+            // Doctor & Medical
+            "patient": "🤒",
+            "doctor": "👨‍⚕️",
+            "curtains": "🪟",
+            "carrot": "🥕",
+            "celery": "🥬",
+            "surgery": "🏥",
+            "piano": "🎹",
+            "stethoscope": "🩺",
+            "arm": "💪",
+            "invisible": "👻",
+
+            // Music
+            "concert": "🎵",
+            "band": "🎸",
+            "drummer": "🥁",
+            "bass": "🎸",
+            "pizza": "🍕",
+            "musician": "🎵",
+            "guitar": "🎸",
+            "megabytes": "💾",
+            "gig": "🎤",
+
+            // Science
+            "oxygen": "💨",
+            "potassium": "🍌",
+            "atom": "⚛️",
+            "heisenberg": "⚛️",
+            "schrödinger": "🐱",
+            "neutron": "⚛️",
+            "electron": "⚡",
+            "hydrogen": "💧",
+            "chemistry": "🧪",
+            "physics": "🔬",
+
+            // Weather
+            "meteorologist": "🌦️",
+            "forecast": "📊",
+            "cloud": "☁️",
+            "tornado": "🌪️",
+            "umbrella": "☂️",
+            "rain": "🌧️",
+            "weather": "⛅",
+
+            // Travel
+            "suitcase": "🧳",
+            "baggage": "🧳",
+            "tsa": "✈️",
+            "airline": "✈️",
+            "airport": "🛫",
+            "flight": "✈️",
+            "vacation": "🏖️",
+            "luggage": "🧳",
+            "cleveland": "🏙️",
+            "bali": "🏝️",
+
+            // Holiday
+            "christmas": "🎄",
+            "necklace": "💎",
+            "batteries": "🔋",
+            "snowman": "⛄",
+            "vampire": "🧛",
+            "frostbite": "❄️",
+            "easter": "🐰",
+            "bunny": "🐰",
+            "moses": "✡️",
+
+            // History
+            "roman": "🏛️",
+            "caesar": "👑",
+            "knight": "⚔️",
+            "medieval": "🏰",
+            "declaration": "📜",
+            "independence": "🗽",
+            "egypt": "🏜️",
+            "pharaoh": "🪦",
+
+            // Monster
+            "ghost": "👻",
+            "zombie": "🧟",
+            "witch": "🧙",
+            "skeleton": "💀",
+            "werewolf": "🐺",
+            "frankenstein": "🧟",
+            "horror": "😱",
+
+            // Office
+            "boss": "👔",
+            "raise": "💰",
+            "electric": "⚡",
+            "gas": "⛽",
+            "office": "🏢",
+            "multitasking": "📊",
+            "procrastinate": "⏰",
+
+            // BCC / Spy / Classified
+            "classified": "🔒",
+            "redacted": "█████",
+            "spy": "🕵️",
+            "secret": "🤫",
+            "clearance": "🔐",
+            "agent": "🕵️",
+            "intelligence": "🧠",
+            "cia": "🕵️",
+            "conspiracy": "🕵️",
+            "government": "🏛️",
+            "bureaucrat": "📋",
+            "taxpayer": "💸",
+            "leak": "💧",
+            "surveillance": "📹",
+            "undercover": "🕵️",
+            "foia": "📄",
+
             // Special multi-emoji combinations
             "anti-gravity": "🧲🔄❌",
             "soap opera": "🧼🎭",
@@ -6005,10 +6494,10 @@ const audienceReactions = [
             logoClickCount++;
             lastLogoClickTime = currentTime;
 
-            console.log(`Logo clicked: ${logoClickCount}/15`);
+            console.log(`Logo clicked: ${logoClickCount}/5`);
 
-            // Activate BCC mode after 15 clicks
-            if (logoClickCount >= 15 && !isBCCMode) {
+            // Activate BCC mode after 5 rapid clicks (as hinted in themes modal)
+            if (logoClickCount >= 5 && !isBCCMode) {
                 activateBCCMode();
             }
         }
@@ -6547,9 +7036,20 @@ const audienceReactions = [
             
             isSpeaking = true;
             speakingIndicator.classList.add('active');
-            
-            const joke = speechQueue.shift();
-            
+
+            let joke = speechQueue.shift();
+
+            // For BCC mode: Replace redacted sections with pauses
+            if (isBCCMode) {
+                // Replace [REDACTED] and similar patterns with pause markers
+                joke = joke.replace(/\[REDACTED[^\]]*\]/g, '... ... ...');
+                joke = joke.replace(/\[CLASSIFIED[^\]]*\]/g, '... ... ...');
+                joke = joke.replace(/\[INFORMATION [^\]]*\]/g, '... ... ...');
+                joke = joke.replace(/\[SECURITY [^\]]*\]/g, '... ... ...');
+                // Replace █████ blocks with pauses
+                joke = joke.replace(/█+/g, '... ...');
+            }
+
             try {
                 const utterance = new SpeechSynthesisUtterance(joke);
                 
@@ -7279,6 +7779,87 @@ const audienceReactions = [
                 });
             });
 
+            // Channel Dial Navigation Setup
+            const channelPrevBtn = document.getElementById('channelPrev');
+            const channelNextBtn = document.getElementById('channelNext');
+            const channelNumDisplay = document.getElementById('channelNum');
+            const channelNameDisplay = document.getElementById('channelName');
+            const categoryToggleBtn = document.getElementById('categoryToggle');
+            const categoryContainer = document.querySelector('.category-container');
+
+            // Category list (order matters for channel navigation)
+            const categories = [
+                { id: 'categoryClassic', name: 'CLASSIC' },
+                { id: 'categoryPuns', name: 'WORDPLAY' },
+                { id: 'categoryKnock', name: 'KNOCK' },
+                { id: 'categoryObservational', name: 'OBSERV.' },
+                { id: 'categoryAnimal', name: 'ANIMAL' },
+                { id: 'categoryAbsurdist', name: 'ABSURD' },
+                { id: 'categoryDad', name: 'DAD' },
+                { id: 'categoryTech', name: 'TECH' },
+                { id: 'categoryFood', name: 'FOOD' },
+                { id: 'categoryDoctor', name: 'DOCTOR' },
+                { id: 'categoryMusic', name: 'MUSIC' },
+                { id: 'categoryScience', name: 'SCIENCE' },
+                { id: 'categoryWeather', name: 'WEATHER' },
+                { id: 'categoryOffice', name: 'OFFICE' },
+                { id: 'categoryTravel', name: 'TRAVEL' },
+                { id: 'categoryHoliday', name: 'HOLIDAY' },
+                { id: 'categoryHistory', name: 'HISTORY' },
+                { id: 'categoryMonster', name: 'MONSTER' },
+                { id: 'categoryPhysical', name: 'PHYSICAL' },
+                { id: 'categoryClowning', name: 'CLOWNING' },
+                { id: 'categorySilentsfx', name: 'SILENT SFX' },
+                { id: 'categoryNonsense', name: 'NONSENSE' }
+            ];
+
+            let currentChannelIndex = 0;
+
+            function updateChannelDisplay() {
+                channelNumDisplay.textContent = currentChannelIndex + 1;
+                channelNameDisplay.textContent = categories[currentChannelIndex].name;
+            }
+
+            function changeChannel(direction) {
+                currentChannelIndex = (currentChannelIndex + direction + categories.length) % categories.length;
+                updateChannelDisplay();
+
+                // Trigger the category button click
+                const categoryBtn = document.getElementById(categories[currentChannelIndex].id);
+                if (categoryBtn) {
+                    categoryBtn.click();
+                }
+            }
+
+            channelPrevBtn.addEventListener('click', () => changeChannel(-1));
+            channelNextBtn.addEventListener('click', () => changeChannel(1));
+
+            // Category toggle button
+            categoryToggleBtn.addEventListener('click', () => {
+                categoryContainer.classList.toggle('collapsed');
+                if (categoryContainer.classList.contains('collapsed')) {
+                    categoryToggleBtn.textContent = '▼ SHOW ALL CATEGORIES ▼';
+                } else {
+                    categoryToggleBtn.textContent = '▲ HIDE CATEGORIES ▲';
+                }
+            });
+
+            // Update channel display when category button is clicked
+            categoryButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    const categoryIndex = categories.findIndex(cat => cat.id === button.id);
+                    if (categoryIndex !== -1) {
+                        currentChannelIndex = categoryIndex;
+                        updateChannelDisplay();
+                    }
+                });
+            });
+
+            // Squarespace / Embedding Detection
+            if (window.self !== window.top || window.location !== window.parent.location) {
+                document.body.classList.add('embedded-mode');
+            }
+
             // Add spotlight flicker effect
             setInterval(() => {
                 if (!comedyClub) return;
@@ -7401,6 +7982,561 @@ const audienceReactions = [
             // DOM already loaded, initialize now
             initialize();
         }
+
+        // Themes Modal Logic
+        const themesLink = document.getElementById('themesLink');
+        const themesModal = document.getElementById('themesModal');
+        const closeThemes = document.getElementById('closeThemes');
+        const themeButtons = document.querySelectorAll('.theme-btn');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('comedyClub4000_theme') || 'classic';
+        document.body.setAttribute('data-theme', savedTheme === 'classic' ? '' : savedTheme);
+
+        // Update active button
+        themeButtons.forEach(btn => {
+            if (btn.dataset.theme === savedTheme) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Open themes modal
+        themesLink?.addEventListener('click', (e) => {
+            e.preventDefault();
+            themesModal.classList.add('show');
+        });
+
+        // Close themes modal
+        closeThemes?.addEventListener('click', () => {
+            themesModal.classList.remove('show');
+        });
+
+        // Close on background click
+        themesModal?.addEventListener('click', (e) => {
+            if (e.target === themesModal) {
+                themesModal.classList.remove('show');
+            }
+        });
+
+        // Theme switching
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.dataset.theme;
+
+                // Update active state
+                themeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Apply theme
+                if (theme === 'classic') {
+                    document.body.removeAttribute('data-theme');
+                } else {
+                    document.body.setAttribute('data-theme', theme);
+                }
+
+                // Save theme
+                localStorage.setItem('comedyClub4000_theme', theme);
+            });
+        });
+
+        // ============================================
+        // NEW FEATURES: Comedian Mode, Heckler Mode, JOTD, Persona, Decode
+        // ============================================
+
+        // State variables for new features
+        let comedianModeActive = false;
+        let hecklerModeActive = false;
+        let currentPersona = 'random';
+        let jokeSetupStored = null;
+        let jokePunchlineStored = null;
+        let waitingForPunchline = false;
+
+        // Heckler comments
+        const hecklerComments = [
+            "I've heard better at a funeral! 💀",
+            "My grandma tells funnier jokes! 👵",
+            "Did you write that one yourself? 🙄",
+            "I want my money back! 💸",
+            "That's comedy gold... FOOL'S gold! 🤡",
+            "You trying to bore us to death? 😴",
+            "I've seen rocks with better timing! 🪨",
+            "That joke called - it wants its punchline back! 📞",
+            "Were you dropped as a baby comedian? 🍼",
+            "Even my dad's jokes are better! 👨",
+            "That killed alright... killed the mood! ☠️",
+            "You're living proof anyone can try comedy! 🎪",
+            "Is this thing on? Because I wish it wasn't! 🎤",
+            "Do less! 🛑",
+            "That joke aged like milk! 🥛"
+        ];
+
+        // Get references to new UI elements
+        const comedianModeToggle = document.getElementById('comedianModeToggle');
+        const hecklerModeToggle = document.getElementById('hecklerModeToggle');
+        const personaSelect = document.getElementById('personaSelect');
+        const jotdButton = document.getElementById('jotdButton');
+        const jotdDate = document.getElementById('jotdDate');
+        const jotdJoke = document.getElementById('jotdJoke');
+
+        // Load saved preferences
+        comedianModeActive = localStorage.getItem('comedianMode') === 'true';
+        hecklerModeActive = localStorage.getItem('hecklerMode') === 'true';
+        currentPersona = localStorage.getItem('comedianPersona') || 'random';
+
+        if (comedianModeToggle) comedianModeToggle.checked = comedianModeActive;
+        if (hecklerModeToggle) hecklerModeToggle.checked = hecklerModeActive;
+        if (personaSelect) personaSelect.value = currentPersona;
+
+        // Event listeners for toggles
+        comedianModeToggle?.addEventListener('change', (e) => {
+            comedianModeActive = e.target.checked;
+            localStorage.setItem('comedianMode', comedianModeActive);
+            if (!comedianModeActive) {
+                // Reset any waiting state
+                waitingForPunchline = false;
+                jokeSetupStored = null;
+                jokePunchlineStored = null;
+            }
+        });
+
+        hecklerModeToggle?.addEventListener('change', (e) => {
+            hecklerModeActive = e.target.checked;
+            localStorage.setItem('hecklerMode', hecklerModeActive);
+        });
+
+        personaSelect?.addEventListener('change', (e) => {
+            currentPersona = e.target.value;
+            localStorage.setItem('comedianPersona', currentPersona);
+        });
+
+        // ============================================
+        // COMEDIAN MODE - Setup/Punchline Reveal
+        // ============================================
+
+        // Store original displayJoke function
+        const originalDisplayJoke = displayJoke;
+
+        // Override displayJoke to support Comedian Mode
+        displayJoke = function(joke) {
+            if (comedianModeActive && !isBCCMode && !isHiddenMode) {
+                // Try to split joke into setup and punchline
+                const split = splitJokeForComedianMode(joke);
+
+                if (split && !waitingForPunchline) {
+                    // Show only setup first
+                    jokeSetupStored = split.setup;
+                    jokePunchlineStored = split.punchline;
+                    waitingForPunchline = true;
+
+                    originalDisplayJoke.call(this, split.setup + "\n\n[Click screen for punchline...]");
+                    return;
+                } else if (waitingForPunchline && jokePunchlineStored) {
+                    // Reveal full joke
+                    const fullJoke = jokeSetupStored + "\n\n" + jokePunchlineStored;
+                    waitingForPunchline = false;
+                    jokeSetupStored = null;
+                    jokePunchlineStored = null;
+                    originalDisplayJoke.call(this, fullJoke);
+
+                    // Add heckler comment after punchline reveal if enabled
+                    if (hecklerModeActive) {
+                        setTimeout(showHecklerComment, 2000);
+                    }
+                    return;
+                }
+            }
+
+            // Normal display
+            originalDisplayJoke.call(this, joke);
+
+            // Add heckler comment if enabled (and not in setup mode)
+            if (hecklerModeActive && !waitingForPunchline) {
+                setTimeout(showHecklerComment, 2000);
+            }
+        };
+
+        // Function to split jokes into setup and punchline
+        function splitJokeForComedianMode(joke) {
+            // Try various split patterns
+            const patterns = [
+                /^(.*?)\?\s*\n\n(.+)$/s,  // Question format
+                /^(.*?)\n\n\.\.\.(.+)$/s,  // Ellipsis pause
+                /^(.*?)\.\s*\n\n(.+)$/s,   // Period + double newline
+                /^(.*?)!\s*\n\n(.+)$/s,    // Exclamation + double newline
+            ];
+
+            for (const pattern of patterns) {
+                const match = joke.match(pattern);
+                if (match && match[1].length > 10 && match[2].length > 5) {
+                    return {
+                        setup: match[1].trim(),
+                        punchline: match[2].trim()
+                    };
+                }
+            }
+
+            // Fallback: split at first sentence break after 30 chars
+            const sentences = joke.split(/[.!?]\s+/);
+            if (sentences.length >= 2) {
+                const setup = sentences[0];
+                const punchline = sentences.slice(1).join('. ');
+                if (setup.length > 20 && punchline.length > 10) {
+                    return {
+                        setup: setup,
+                        punchline: punchline
+                    };
+                }
+            }
+
+            return null; // Can't split this joke
+        }
+
+        // Add click handler to joke display for punchline reveal
+        const jokeTextElement = document.querySelector('.joke-text');
+        jokeTextElement?.addEventListener('click', () => {
+            if (waitingForPunchline && comedianModeActive) {
+                // Regenerate to show punchline
+                displayJoke(currentJoke);
+            }
+        });
+
+        // ============================================
+        // HECKLER MODE
+        // ============================================
+
+        function showHecklerComment() {
+            if (!hecklerModeActive) return;
+
+            const heckle = hecklerComments[Math.floor(Math.random() * hecklerComments.length)];
+
+            // Create heckler overlay
+            const hecklerDiv = document.createElement('div');
+            hecklerDiv.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(255, 0, 0, 0.9);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-family: 'Press Start 2P', monospace;
+                font-size: 0.6rem;
+                max-width: 300px;
+                z-index: 10000;
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+                animation: hecklerPop 0.3s ease-out;
+            `;
+            hecklerDiv.textContent = heckle;
+
+            // Add animation keyframes if not already added
+            if (!document.getElementById('hecklerStyles')) {
+                const style = document.createElement('style');
+                style.id = 'hecklerStyles';
+                style.textContent = `
+                    @keyframes hecklerPop {
+                        0% { transform: scale(0) rotate(-5deg); opacity: 0; }
+                        50% { transform: scale(1.1) rotate(2deg); }
+                        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            document.body.appendChild(hecklerDiv);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                hecklerDiv.style.animation = 'hecklerPop 0.3s ease-in reverse';
+                setTimeout(() => hecklerDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================
+        // JOKE OF THE DAY
+        // ============================================
+
+        function getJokeOfTheDay() {
+            const today = new Date();
+            const dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+
+            // Simple hash function to get consistent joke for the day
+            let hash = 0;
+            for (let i = 0; i < dateString.length; i++) {
+                hash = ((hash << 5) - hash) + dateString.charCodeAt(i);
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+
+            // Get all jokes from all categories
+            const allJokes = [
+                ...classicJokes,
+                ...wordplayJokes,
+                ...knockJokes,
+                ...observationalJokes,
+                ...animalJokes,
+                ...absurdistJokes,
+                ...dadJokes,
+                ...techJokes,
+                ...foodJokes,
+                ...doctorJokes,
+                ...musicJokes,
+                ...scienceJokes,
+                ...weatherJokes,
+                ...officeJokes,
+                ...travelJokes,
+                ...holidayJokes,
+                ...historyJokes,
+                ...monsterJokes
+            ];
+
+            // Use hash to pick a joke
+            const index = Math.abs(hash) % allJokes.length;
+            return allJokes[index];
+        }
+
+        function updateJokeOfTheDay() {
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            jotdDate.textContent = dateStr;
+            jotdJoke.textContent = getJokeOfTheDay();
+            jotdButton.textContent = "REFRESH";
+        }
+
+        jotdButton?.addEventListener('click', updateJokeOfTheDay);
+
+        // Initialize JOTD on settings open
+        const themesLinkBtn = document.getElementById('themesLink');
+        themesLinkBtn?.addEventListener('click', () => {
+            if (jotdJoke.textContent === '') {
+                updateJokeOfTheDay();
+            }
+        });
+
+        // ============================================
+        // COMEDIAN PERSONA / CATEGORY PLAYLIST
+        // ============================================
+
+        // Store original generateJoke function
+        const originalGenerateJoke = generateJoke;
+
+        // Override generateJoke to support Persona filtering
+        generateJoke = function() {
+            // If in special modes or random persona, use original
+            if (currentPersona === 'random' || isBCCMode || isHiddenMode) {
+                return originalGenerateJoke.call(this);
+            }
+
+            // Filter jokes based on persona
+            let jokePool = [];
+
+            switch(currentPersona) {
+                case 'punster':
+                    // Wordplay heavy
+                    jokePool = [...wordplayJokes, ...dadJokes];
+                    break;
+
+                case 'observer':
+                    // Observational humor
+                    jokePool = [...observationalJokes, ...officeJokes, ...travelJokes];
+                    break;
+
+                case 'absurdist':
+                    // Nonsense & weird
+                    jokePool = [...absurdistJokes, ...animalJokes, ...weatherJokes];
+                    break;
+
+                case 'nerd':
+                    // Tech & Science focus
+                    jokePool = [...techJokes, ...scienceJokes, ...historyJokes];
+                    break;
+
+                case 'storyteller':
+                    // Longer narrative jokes (knock-knock, classic, doctor)
+                    jokePool = [...knockJokes, ...classicJokes, ...doctorJokes, ...holidayJokes];
+                    break;
+
+                case 'dark':
+                    // Monster & edgy
+                    jokePool = [...monsterJokes, ...doctorJokes, ...historyJokes];
+                    break;
+
+                default:
+                    return originalGenerateJoke.call(this);
+            }
+
+            // Pick random joke from persona pool
+            const joke = jokePool[Math.floor(Math.random() * jokePool.length)];
+
+            // Display the joke (handles comedian mode if enabled)
+            displayJoke(joke);
+
+            // Add to history
+            addToHistory(joke);
+        };
+
+        // ============================================
+        // DECODE MODE - BCC Easter Egg Enhancement
+        // ============================================
+
+        function enableDecodeMode() {
+            // Add click handlers to all redacted text in BCC mode
+            const observer = new MutationObserver(() => {
+                if (isBCCMode) {
+                    const jokeTextEl = document.querySelector('.joke-text');
+                    if (jokeTextEl && jokeTextEl.textContent.includes('[REDACTED]')) {
+                        makeRedactedClickable(jokeTextEl);
+                    }
+                }
+            });
+
+            // Observe joke text changes
+            const jokeTextEl = document.querySelector('.joke-text');
+            if (jokeTextEl) {
+                observer.observe(jokeTextEl, {
+                    childList: true,
+                    characterData: true,
+                    subtree: true
+                });
+            }
+        }
+
+        function makeRedactedClickable(element) {
+            const text = element.textContent;
+
+            // Replace [REDACTED] and similar with clickable spans
+            const redactedPatterns = [
+                { pattern: /\[REDACTED[^\]]*\]/g, reveal: 'CLASSIFIED INFORMATION' },
+                { pattern: /\[CLASSIFIED[^\]]*\]/g, reveal: 'TOP SECRET DATA' },
+                { pattern: /\[INFORMATION [^\]]*\]/g, reveal: 'SENSITIVE DETAILS' },
+                { pattern: /\[SECURITY [^\]]*\]/g, reveal: 'ACCESS DENIED' },
+                { pattern: /█+/g, reveal: 'CENSORED' }
+            ];
+
+            let hasRedacted = false;
+            redactedPatterns.forEach(({pattern}) => {
+                if (pattern.test(text)) hasRedacted = true;
+            });
+
+            if (!hasRedacted) return;
+
+            // Create new HTML with clickable redactions
+            let newHTML = text;
+            redactedPatterns.forEach(({pattern, reveal}) => {
+                newHTML = newHTML.replace(pattern, (match) => {
+                    return `<span class="redacted-clickable" data-reveal="${reveal}" style="cursor: pointer; text-decoration: underline dotted; color: #ff4444;" title="Click to attempt decode">${match}</span>`;
+                });
+            });
+
+            element.innerHTML = newHTML;
+
+            // Add click handlers
+            element.querySelectorAll('.redacted-clickable').forEach(span => {
+                span.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const reveal = span.dataset.reveal;
+
+                    // Animate decode
+                    span.style.animation = 'glitch 0.5s';
+                    setTimeout(() => {
+                        span.textContent = reveal;
+                        span.style.color = '#00ff00';
+                        span.style.textDecoration = 'none';
+                        span.style.cursor = 'default';
+                    }, 500);
+                });
+            });
+        }
+
+        // Initialize decode mode
+        enableDecodeMode();
+
     </script>
+
+    <!-- Themes Modal -->
+    <div id="themesModal" class="themes-modal">
+        <div class="themes-content">
+            <button class="close-themes" id="closeThemes">×</button>
+            <h2 class="themes-title">SETTINGS</h2>
+
+            <h3 style="font-size: 0.7rem; color: var(--button-secondary); margin-bottom: 15px;">COLOR THEMES</h3>
+            <div class="theme-grid">
+                <button class="theme-btn" data-theme="classic">CLASSIC</button>
+                <button class="theme-btn" data-theme="ocean">OCEAN</button>
+                <button class="theme-btn" data-theme="forest">FOREST</button>
+                <button class="theme-btn" data-theme="sunset">SUNSET</button>
+                <button class="theme-btn" data-theme="midnight">MIDNIGHT</button>
+                <button class="theme-btn" data-theme="mono">MONO</button>
+            </div>
+
+            <!-- Comedy Modes Section -->
+            <div class="shortcuts-section">
+                <h3>COMEDY MODES</h3>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: flex; align-items: center; font-size: 0.55rem; cursor: pointer;">
+                        <input type="checkbox" id="comedianModeToggle" style="margin-right: 8px; width: 16px; height: 16px;">
+                        <span>COMEDIAN MODE - Setup first, click for punchline</span>
+                    </label>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: flex; align-items: center; font-size: 0.55rem; cursor: pointer;">
+                        <input type="checkbox" id="hecklerModeToggle" style="margin-right: 8px; width: 16px; height: 16px;">
+                        <span>HECKLER MODE - Random heckler comments (comedy roasting!)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Comedian Persona / Playlist -->
+            <div class="shortcuts-section">
+                <h3>COMEDIAN PERSONA</h3>
+                <p style="font-size: 0.45rem; margin-bottom: 10px; opacity: 0.7;">Choose your style - affects joke selection</p>
+                <select id="personaSelect" style="width: 100%; padding: 8px; font-family: 'Press Start 2P', monospace; font-size: 0.5rem; background: rgba(0,0,0,0.5); color: var(--screen-text); border: 2px solid var(--button-secondary); border-radius: 5px;">
+                    <option value="random">RANDOM - All jokes equally</option>
+                    <option value="punster">THE PUNSTER - Wordplay heavy</option>
+                    <option value="observer">THE OBSERVER - Observational humor</option>
+                    <option value="absurdist">THE ABSURDIST - Nonsense & weird</option>
+                    <option value="nerd">THE NERD - Tech & Science focus</option>
+                    <option value="storyteller">THE STORYTELLER - Longer narrative jokes</option>
+                    <option value="dark">THE DARK COMEDIAN - Monster & edgy</option>
+                </select>
+            </div>
+
+            <!-- Joke of the Day -->
+            <div class="shortcuts-section">
+                <h3>JOKE OF THE DAY</h3>
+                <div id="jotdContainer" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-top: 10px;">
+                    <p style="font-size: 0.5rem; color: var(--button-secondary); margin-bottom: 8px;">📅 <span id="jotdDate"></span></p>
+                    <p id="jotdJoke" style="font-size: 0.5rem; line-height: 1.6;"></p>
+                    <button id="jotdButton" class="theme-btn" style="margin-top: 10px; padding: 8px; font-size: 0.5rem;">SHOW TODAY'S JOKE</button>
+                </div>
+            </div>
+
+            <div class="shortcuts-section">
+                <h3>KEYBOARD SHORTCUTS</h3>
+                <p><kbd>SPACE</kbd> Generate next joke</p>
+                <p><kbd>V</kbd> Toggle voice narration</p>
+                <p><kbd>C</kbd> Copy joke to clipboard</p>
+                <p><kbd>R</kbd> Rim-shot sound effect</p>
+                <p><kbd>G</kbd> Groan sound effect</p>
+                <p><kbd>←</kbd> Previous joke in history</p>
+                <p><kbd>→</kbd> Next joke in history</p>
+                <p><kbd>ESC</kbd> Exit special modes</p>
+            </div>
+
+            <div class="easter-egg-hint">
+                "Some say the truth is hidden in plain sight.<br>
+                Look to the beacon that guides this comedy vessel.<br>
+                Triple taps reveal secrets,<br>
+                But FIVE rapid clicks on the illuminated sign grant █████████ clearance..."<br><br>
+                <span style="font-size: 0.4rem; opacity: 0.5;">
+                In BCC mode, click [REDACTED] sections to decode them... if you dare.
+                </span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
