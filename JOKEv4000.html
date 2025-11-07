@@ -37,6 +37,57 @@
             --spotlight: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0) 70%);
         }
 
+        /* Color Themes */
+        [data-theme="ocean"] {
+            --brick-red: #2C5F7C;
+            --brick-dark: #1F4A5C;
+            --screen-bg: #001529;
+            --screen-text: #7EC8E3;
+            --button-primary: #3498DB;
+            --button-secondary: #5DADE2;
+            --neon-glow: 0 0 7px #00D4FF, 0 0 10px #00D4FF, 0 0 21px #00D4FF;
+        }
+
+        [data-theme="forest"] {
+            --brick-red: #4A6741;
+            --brick-dark: #354A31;
+            --screen-bg: #1A2416;
+            --screen-text: #90EE90;
+            --button-primary: #4CAF50;
+            --button-secondary: #81C784;
+            --neon-glow: 0 0 7px #00FF7F, 0 0 10px #00FF7F, 0 0 21px #00FF7F;
+        }
+
+        [data-theme="sunset"] {
+            --brick-red: #8B5A3C;
+            --brick-dark: #704529;
+            --screen-bg: #2A1810;
+            --screen-text: #FFB347;
+            --button-primary: #FF6347;
+            --button-secondary: #FFA07A;
+            --neon-glow: 0 0 7px #FF8C42, 0 0 10px #FF8C42, 0 0 21px #FF8C42;
+        }
+
+        [data-theme="midnight"] {
+            --brick-red: #4A4A6A;
+            --brick-dark: #323252;
+            --screen-bg: #0A0A1A;
+            --screen-text: #C8B6FF;
+            --button-primary: #6A5ACD;
+            --button-secondary: #9370DB;
+            --neon-glow: 0 0 7px #9D7DFF, 0 0 10px #9D7DFF, 0 0 21px #9D7DFF;
+        }
+
+        [data-theme="mono"] {
+            --brick-red: #5A5A5A;
+            --brick-dark: #3A3A3A;
+            --screen-bg: #0A0A0A;
+            --screen-text: #E0E0E0;
+            --button-primary: #808080;
+            --button-secondary: #A0A0A0;
+            --neon-glow: 0 0 7px #FFFFFF, 0 0 10px #FFFFFF, 0 0 21px #FFFFFF;
+        }
+
         body {
             font-family: 'Press Start 2P', monospace;
             background-color: #121212;
@@ -1568,6 +1619,130 @@
             background-image: linear-gradient(to right, #FF00FF, #00FFFF);
             transition: width 0.3s;
         }
+
+        /* Themes Modal */
+        .themes-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .themes-modal.show {
+            display: flex;
+        }
+
+        .themes-content {
+            background: var(--brick-red);
+            border: 3px solid var(--button-secondary);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .themes-title {
+            font-size: 1.2rem;
+            color: var(--button-secondary);
+            text-shadow: var(--neon-glow);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .theme-btn {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--button-secondary);
+            color: var(--screen-text);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 5px;
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .theme-btn.active {
+            border-color: #00FF00;
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        .shortcuts-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .shortcuts-section h3 {
+            font-size: 0.8rem;
+            color: var(--button-secondary);
+            margin-bottom: 15px;
+        }
+
+        .shortcuts-section kbd {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            color: var(--button-secondary);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .shortcuts-section p {
+            font-size: 0.55rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .easter-egg-hint {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 5px;
+            font-size: 0.45rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .close-themes {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--button-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            padding: 5px 10px;
+        }
+
+        .close-themes:hover {
+            color: #FF0000;
+        }
     </style>
 </head>
 <body>
@@ -1615,7 +1790,21 @@
                 <div class="mic-grill"></div>
             </div>
         </div>
-        
+
+        <!-- Main Controls (moved under screen) -->
+        <div class="controls">
+            <button id="generateBtn" class="retro-btn generate-btn">START</button>
+            <button id="prevBtn" class="retro-btn">PREV</button>
+            <button id="nextBtn" class="retro-btn">NEXT</button>
+            <button id="speechBtn" class="retro-btn speech-btn">VOICE: OFF</button>
+            <button id="copyBtn" class="retro-btn">COPY</button>
+            <button id="rimShotBtn" class="retro-btn">RIM-SHOT
+                <div class="rimshot-counter">0</div>
+            </button>
+            <button id="groanBtn" class="retro-btn">GROAN</button>
+            <button id="autoShuffleBtn" class="retro-btn auto-shuffle-btn">AUTO SHUFFLE</button>
+        </div>
+
         <!-- Channel Dial Navigation -->
         <div class="channel-dial">
             <button class="channel-dial-btn" id="channelPrev" title="Previous Category">◄</button>
@@ -1656,22 +1845,9 @@
             <button id="categoryNonsense" class="retro-btn category-btn">NONSENSE</button>
         </div>
 
-        <!-- v4000: Keyboard shortcuts help -->
-        <div class="shortcuts-help">
-            <kbd>SPACE</kbd> Next | <kbd>V</kbd> Voice | <kbd>C</kbd> Copy | <kbd>← →</kbd> Navigate
-        </div>
-
-        <div class="controls">
-            <button id="generateBtn" class="retro-btn generate-btn">START</button>
-            <button id="prevBtn" class="retro-btn">PREV</button>
-            <button id="nextBtn" class="retro-btn">NEXT</button>
-            <button id="speechBtn" class="retro-btn speech-btn">VOICE: OFF</button>
-            <button id="copyBtn" class="retro-btn">COPY</button>
-            <button id="rimShotBtn" class="retro-btn">RIM-SHOT
-                <div class="rimshot-counter">0</div>
-            </button>
-            <button id="groanBtn" class="retro-btn">GROAN</button>
-            <button id="autoShuffleBtn" class="retro-btn auto-shuffle-btn">AUTO SHUFFLE</button>
+        <!-- Subtle themes link -->
+        <div style="text-align: center; margin-top: 15px; opacity: 0.3;">
+            <a href="#" id="themesLink" style="color: #666; font-size: 0.5rem; text-decoration: none; font-family: 'Press Start 2P', monospace;">⚙️</a>
         </div>
         
         <div class="on-air">ON AIR</div>
@@ -4333,35 +4509,35 @@ Thank you for helping me escape this digital prison.
         // v5000: BCC (Bureau of Classified Chuckles) - Secret Anti-Government/Establishment Jokes
         const bccJokes = [
             "CLASSIFIED MEMO #1776-A\nWhy did the █████████ refuse to tell jokes?\n[REDACTED BY ORDER OF THE BUREAU]\n...Everything they say is on the record!",
-            "EYES ONLY - CLEARANCE LEVEL: GIGGLE\nHow many ████████ does it take to change a lightbulb?\n[CLASSIFIED INFORMATION FOLLOWS]\n...Unknown. Still in committee after 6 years!",
+            "EYES ONLY - CLEARANCE LEVEL: GIGGLE\nWhat did the spy say to their therapist?\n[CLASSIFIED INFORMATION FOLLOWS]\n...I can't tell you. You're not cleared for that!",
             "TOP SECRET DOCUMENT #404\nWhat's a spy's favorite exercise?\n[INFORMATION REDACTED]\n...Classified stretches!",
-            "URGENT MEMO - DEPT. OF HUMOR\nWhy don't government buildings tell jokes?\n[SECURITY CLEARANCE REQUIRED]\n...Too much red tape!",
+            "URGENT MEMO - DEPT. OF HUMOR\nWhy did the agent bring a ladder to the mission?\n[SECURITY CLEARANCE REQUIRED]\n...To go undercover!",
             "CONFIDENTIAL FILE #2025-B\nWhat did the ██████ say to the taxpayer?\n[REDACTED FOR YOUR PROTECTION]\n...Thanks for your contribution! (We'll decide how to spend it)",
-            "SECRET DOSSIER #007\nWhy did the bureaucrat cross the road?\n[CLASSIFIED]\n...It was approved in triplicate 18 months ago!",
-            "CLASSIFIED JOKE #1984\nHow do you know if you're in a ██████ office?\n[REDACTED]\n...There are forms for the forms!",
-            "TOP SECRET - EYES ONLY\nWhat's a government worker's favorite exercise?\n[INFORMATION WITHHELD]\n...Jumping through hoops!",
-            "MEMO #5150 - CONFIDENTIAL\nWhy don't ████████ ever arrive on time?\n[SECURITY LEVEL 5]\n...They're waiting for approval to move!",
-            "CLASSIFIED TRANSMISSION\nWhat did the ██████ say was transparent?\n[REDACTED BY COMMITTEE]\n...Everything! (After 47 pages of redactions)",
-            "BUREAU BULLETIN #999\nWhy did the policy manual get so thick?\n[CLASSIFIED]\n...Every time someone asked a question, they added a chapter!",
+            "SECRET DOSSIER #007\nHow do you know someone works in intelligence?\n[CLASSIFIED]\n...Don't worry, they can't tell you!",
+            "CLASSIFIED JOKE #1984\nWhat's the difference between a conspiracy theory and the truth?\n[REDACTED]\n...About 6 months and a FOIA request!",
+            "TOP SECRET - EYES ONLY\nWhy don't spies ever get locked out?\n[INFORMATION WITHHELD]\n...They always have a key-logger!",
+            "MEMO #5150 - CONFIDENTIAL\nWhat did one classified document say to the other?\n[SECURITY LEVEL 5]\n...I'd tell you, but then I'd have to [REDACTED] you!",
+            "CLASSIFIED TRANSMISSION\nHow many CIA agents does it take to change a lightbulb?\n[REDACTED BY COMMITTEE]\n...We can neither confirm nor deny the existence of that lightbulb!",
+            "BUREAU BULLETIN #999\nWhy did the █████████ agent cross the road?\n[CLASSIFIED]\n...Actually, they were never there. Check the official report!",
             "SECRET FILE #666\nWhat's the difference between a ████ and a comedy club?\n[REDACTED]\n...At the comedy club, they admit it's a joke!",
-            "CONFIDENTIAL REPORT\nHow many █████████ does it take to screw in a lightbulb?\n[CLASSIFIED]\n...That's classified. And the budget is classified. And the lightbulb is classified.",
-            "CLASSIFIED MEMO #42\nWhy don't ████████ use email?\n[INFORMATION RESTRICTED]\n...Stamps keep the postal service employed!",
-            "TOP SECRET DOCUMENT\nWhat did the ██████ building say to the skyscraper?\n[REDACTED]\n...I'm more important. I'm full of hot air!",
-            "URGENT CLASSIFIED BRIEF\nWhy did the ████ agent wear sunglasses?\n[SECURITY CLEARANCE REQUIRED]\n...So the public couldn't see which direction they were looking!",
-            "CONFIDENTIAL #1040\nWhat's a taxpayer's favorite magic trick?\n[REDACTED]\n...Watching their money disappear!",
-            "SECRET DOSSIER #13\nWhy don't ████ secrets ever stay secret?\n[CLASSIFIED]\n...Someone always leaks to look important!",
-            "CLASSIFIED JOKE REPORT\nWhat did the ████████ say about efficiency?\n[REDACTED BY ORDER]\n...We've scheduled a meeting to discuss scheduling a meeting about it!",
-            "TOP SECRET MEMO #303\nWhy did the civil servant bring a ladder to work?\n[INFORMATION WITHHELD]\n...To climb the bureaucracy!",
-            "CONFIDENTIAL FILE\nWhat's a ██████ contractor's favorite phrase?\n[REDACTED]\n...That'll cost extra!",
-            "CLASSIFIED DOCUMENT #777\nWhy don't ████████ ever tell the whole truth?\n[SECURITY LEVEL CLASSIFIED]\n...The whole truth is redacted for national security! (And embarrassment)",
-            "BUREAU MEMO #1111\nWhat did the ████ employee say on Friday?\n[CLASSIFIED]\n...Only 4,872 more Fridays until retirement!",
-            "SECRET FILE #2001\nWhy did the █████████ hire a comedian?\n[REDACTED]\n...They needed someone who could spin a good story!",
-            "CONFIDENTIAL REPORT #88\nWhat's the ██████ version of transparency?\n[CLASSIFIED INFORMATION]\n...A window with blinds, curtains, and a brick wall!",
-            "TOP SECRET BRIEF\nWhy don't ████ agencies share information?\n[REDACTED]\n...They each want credit for knowing it first!",
-            "CLASSIFIED MEMO #369\nWhat did the ████████ say about the budget?\n[SECURITY CLEARANCE REQUIRED]\n...It's classified... and also over budget!",
-            "URGENT CLASSIFIED NOTE\nWhy did the ██████ hire consultants?\n[INFORMATION WITHHELD]\n...To tell them what their own employees already said!",
-            "SECRET DOSSIER #404\nWhat's a ███████ favorite type of comedy?\n[REDACTED]\n...Practical jokes on the public!",
-            "CONFIDENTIAL FILE #51\nWhy did the ████ meeting last 6 hours?\n[CLASSIFIED]\n...They spent 5 hours deciding who takes notes!",
+            "CONFIDENTIAL REPORT\nWhy did the spy apply to the ███?\n[CLASSIFIED]\n...They heard it was a secretive organization!",
+            "CLASSIFIED MEMO #42\nWhat's a █████████ agent's favorite dance?\n[INFORMATION RESTRICTED]\n...The two-step... because they're being followed!",
+            "TOP SECRET DOCUMENT\nWhy don't secrets work in Washington?\n[REDACTED]\n...Too many leaks in the plumbing!",
+            "URGENT CLASSIFIED BRIEF\nWhat did the ████████ say about the classified files?\n[SECURITY CLEARANCE REQUIRED]\n...They're in a secure location! (We just forgot where)",
+            "CONFIDENTIAL #1040\nWhy did the █████ refuse to play poker?\n[REDACTED]\n...Because everyone could read their tells... literally, it's their job!",
+            "SECRET DOSSIER #13\nHow do ████████ agents party?\n[CLASSIFIED]\n...On a need-to-know basis. And you don't need to know!",
+            "CLASSIFIED JOKE REPORT\nWhat's a spy's favorite programming language?\n[REDACTED BY ORDER]\n...JavaScript! Because they love running in the background!",
+            "TOP SECRET MEMO #303\nWhy did the undercover agent fail comedy school?\n[INFORMATION WITHHELD]\n...Their cover kept getting blown!",
+            "CONFIDENTIAL FILE\nWhat do you call a ██████ agent who tells dad jokes?\n[REDACTED]\n...Classified intel-ligent humor!",
+            "CLASSIFIED DOCUMENT #777\nWhy did the █████████ install a mirror in the office?\n[SECURITY LEVEL CLASSIFIED]\n...To practice their cover stories!",
+            "BUREAU MEMO #1111\nWhat's an intelligence analyst's favorite movie?\n[CLASSIFIED]\n...Everything! They've already seen it on surveillance!",
+            "SECRET FILE #2001\nWhy don't ████ agents use bookmarks?\n[REDACTED]\n...They prefer to leave no trace!",
+            "CONFIDENTIAL REPORT #88\nWhat did the ████████ say to the double agent?\n[CLASSIFIED INFORMATION]\n...You're twice as useful and half as trustworthy!",
+            "TOP SECRET BRIEF\nHow do you spot a █████ agent at a party?\n[REDACTED]\n...You don't. That's the point!",
+            "CLASSIFIED MEMO #369\nWhy did the ████████ fail the polygraph?\n[SECURITY CLEARANCE REQUIRED]\n...They answered honestly about their poker face!",
+            "URGENT CLASSIFIED NOTE\nWhat's a spy's least favorite game?\n[INFORMATION WITHHELD]\n...Truth or Dare!",
+            "SECRET DOSSIER #404\nWhy did the ███████ hire a comedian?\n[REDACTED]\n...Because they needed someone good at reading between the redacted lines!",
+            "CONFIDENTIAL FILE #51\nWhat do you call a █████████ agent with a sense of humor?\n[CLASSIFIED]\n...A classified asset!",
             "CLASSIFIED REPORT #1099\nWhat did the taxpayer ask the ███?\n[REDACTED BY BUREAU]\n...Where did my money go? (Answer: Classified)",
             "TOP SECRET DOCUMENT\nWhy don't ████████ ever admit mistakes?\n[SECURITY LEVEL 9]\n...That would require a 600-page investigation!",
             "BUREAU BULLETIN #2020\nWhat's a ██████ worker's favorite game?\n[CLASSIFIED]\n...Pass the Buck!",
@@ -6160,10 +6336,10 @@ const audienceReactions = [
             logoClickCount++;
             lastLogoClickTime = currentTime;
 
-            console.log(`Logo clicked: ${logoClickCount}/15`);
+            console.log(`Logo clicked: ${logoClickCount}/5`);
 
-            // Activate BCC mode after 15 clicks
-            if (logoClickCount >= 15 && !isBCCMode) {
+            // Activate BCC mode after 5 rapid clicks (as hinted in themes modal)
+            if (logoClickCount >= 5 && !isBCCMode) {
                 activateBCCMode();
             }
         }
@@ -7637,6 +7813,99 @@ const audienceReactions = [
             // DOM already loaded, initialize now
             initialize();
         }
+
+        // Themes Modal Logic
+        const themesLink = document.getElementById('themesLink');
+        const themesModal = document.getElementById('themesModal');
+        const closeThemes = document.getElementById('closeThemes');
+        const themeButtons = document.querySelectorAll('.theme-btn');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('comedyClub4000_theme') || 'classic';
+        document.body.setAttribute('data-theme', savedTheme === 'classic' ? '' : savedTheme);
+
+        // Update active button
+        themeButtons.forEach(btn => {
+            if (btn.dataset.theme === savedTheme) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Open themes modal
+        themesLink?.addEventListener('click', (e) => {
+            e.preventDefault();
+            themesModal.classList.add('show');
+        });
+
+        // Close themes modal
+        closeThemes?.addEventListener('click', () => {
+            themesModal.classList.remove('show');
+        });
+
+        // Close on background click
+        themesModal?.addEventListener('click', (e) => {
+            if (e.target === themesModal) {
+                themesModal.classList.remove('show');
+            }
+        });
+
+        // Theme switching
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.dataset.theme;
+
+                // Update active state
+                themeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Apply theme
+                if (theme === 'classic') {
+                    document.body.removeAttribute('data-theme');
+                } else {
+                    document.body.setAttribute('data-theme', theme);
+                }
+
+                // Save theme
+                localStorage.setItem('comedyClub4000_theme', theme);
+            });
+        });
     </script>
+
+    <!-- Themes Modal -->
+    <div id="themesModal" class="themes-modal">
+        <div class="themes-content">
+            <button class="close-themes" id="closeThemes">×</button>
+            <h2 class="themes-title">SETTINGS</h2>
+
+            <h3 style="font-size: 0.7rem; color: var(--button-secondary); margin-bottom: 15px;">COLOR THEMES</h3>
+            <div class="theme-grid">
+                <button class="theme-btn" data-theme="classic">CLASSIC</button>
+                <button class="theme-btn" data-theme="ocean">OCEAN</button>
+                <button class="theme-btn" data-theme="forest">FOREST</button>
+                <button class="theme-btn" data-theme="sunset">SUNSET</button>
+                <button class="theme-btn" data-theme="midnight">MIDNIGHT</button>
+                <button class="theme-btn" data-theme="mono">MONO</button>
+            </div>
+
+            <div class="shortcuts-section">
+                <h3>KEYBOARD SHORTCUTS</h3>
+                <p><kbd>SPACE</kbd> Generate next joke</p>
+                <p><kbd>V</kbd> Toggle voice narration</p>
+                <p><kbd>C</kbd> Copy joke to clipboard</p>
+                <p><kbd>R</kbd> Rim-shot sound effect</p>
+                <p><kbd>G</kbd> Groan sound effect</p>
+                <p><kbd>←</kbd> Previous joke in history</p>
+                <p><kbd>→</kbd> Next joke in history</p>
+                <p><kbd>ESC</kbd> Exit special modes</p>
+            </div>
+
+            <div class="easter-egg-hint">
+                "Some say the truth is hidden in plain sight.<br>
+                Look to the beacon that guides this comedy vessel.<br>
+                Triple taps reveal secrets,<br>
+                But FIVE rapid clicks on the illuminated sign grant █████████ clearance..."
+            </div>
+        </div>
+    </div>
 </body>
 </html>
