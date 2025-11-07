@@ -1727,6 +1727,14 @@
             line-height: 1.6;
         }
 
+        /* Settings Gear Hover Effect */
+        #themesLink:hover {
+            opacity: 1 !important;
+            color: var(--button-secondary) !important;
+            transform: rotate(90deg);
+            filter: drop-shadow(0 0 8px var(--button-secondary));
+        }
+
         .close-themes {
             position: absolute;
             top: 15px;
@@ -1845,9 +1853,9 @@
             <button id="categoryNonsense" class="retro-btn category-btn">NONSENSE</button>
         </div>
 
-        <!-- Subtle themes link -->
-        <div style="text-align: center; margin-top: 15px; opacity: 0.3;">
-            <a href="#" id="themesLink" style="color: #666; font-size: 0.5rem; text-decoration: none; font-family: 'Press Start 2P', monospace;">⚙️</a>
+        <!-- Settings gear - lower right corner -->
+        <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+            <a href="#" id="themesLink" style="color: #888; font-size: 1.5rem; text-decoration: none; opacity: 0.6; transition: all 0.3s; display: block;">⚙️</a>
         </div>
         
         <div class="on-air">ON AIR</div>
@@ -8302,8 +8310,8 @@ const audienceReactions = [
         jotdButton?.addEventListener('click', updateJokeOfTheDay);
 
         // Initialize JOTD on settings open
-        const settingsBtn = document.getElementById('settingsBtn');
-        settingsBtn?.addEventListener('click', () => {
+        const themesLinkBtn = document.getElementById('themesLink');
+        themesLinkBtn?.addEventListener('click', () => {
             if (jotdJoke.textContent === '') {
                 updateJokeOfTheDay();
             }
@@ -8379,7 +8387,7 @@ const audienceReactions = [
             // Add click handlers to all redacted text in BCC mode
             const observer = new MutationObserver(() => {
                 if (isBCCMode) {
-                    const jokeTextEl = document.getElementById('jokeText');
+                    const jokeTextEl = document.querySelector('.joke-text');
                     if (jokeTextEl && jokeTextEl.textContent.includes('[REDACTED]')) {
                         makeRedactedClickable(jokeTextEl);
                     }
@@ -8387,7 +8395,7 @@ const audienceReactions = [
             });
 
             // Observe joke text changes
-            const jokeTextEl = document.getElementById('jokeText');
+            const jokeTextEl = document.querySelector('.joke-text');
             if (jokeTextEl) {
                 observer.observe(jokeTextEl, {
                     childList: true,
