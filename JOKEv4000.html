@@ -8205,13 +8205,8 @@ const audienceReactions = [
             initialize();
         }
 
-        // Wait for DOM before setting up additional features (themes, modes, etc.)
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeAdditionalFeatures);
-        } else {
-            initializeAdditionalFeatures();
-        }
-
+        // Wait for FULL DOM before setting up additional features (themes, modes, etc.)
+        // These elements are defined AFTER this script tag, so we must wait
         function initializeAdditionalFeatures() {
         // Themes Modal Logic
         const themesLink = document.getElementById('themesLink');
@@ -8770,5 +8765,14 @@ const audienceReactions = [
             </div>
         </div>
     </div>
+
+    <!-- Initialize additional features after ALL DOM elements are loaded -->
+    <script>
+        // Call the initialization function defined in the main script above
+        // This runs after all HTML elements (including themesModal) are parsed
+        if (typeof initializeAdditionalFeatures === 'function') {
+            initializeAdditionalFeatures();
+        }
+    </script>
 </body>
 </html>
